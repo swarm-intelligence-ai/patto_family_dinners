@@ -1,0 +1,44 @@
+export function validateData(book, plans) {
+  const fail = message => { throw new Error(message); };
+  if (!Array.isArray(book.aisles) || !book.aisles.length || !book.ingredients || !Array.isArray(book.recipes) || !book.recipes.length) fail('Recipe data is incomplete.');
+  if (!Array.isArray(plans.weeks) || !plans.weeks.length) fail('Add at least one weekly plan.');
+  const ids = new Set();
+  const validateRecipe = r => {
+    if (!r || typeof r.id !== 'string' || !/^[a-z0-9-]+$/.test(r.id)) fail('Recipe IDs need lowercase letters, numbers and hyphens.');
+    for (const key of ['title','shortTitle','subtitle','cuisine','art','colour','family','kidJob','allergens','variation','prepTip']) if (typeof r[key] !== 'string' || !r[key]) fail(`Missing ${key} in ${r.id}.`);
+    if (!/^#[a-f0-9]{6}$/i.test(r.colour) || !/^[a-z-]+$/.test(r.art)) fail(`Invalid artwork in ${r.id}.`);
+    if (!Number.isFinite(r.serves) || r.serves <= 0 || !Number.isFinite(r.time) || r.time <= 0) fail(`Invalid portions or time in ${r.id}.`);
+    if (!Array.isArray(r.ingredients) || !r.ingredients.length || !Array.isArray(r.steps) || !r.steps.length || r.steps.some(s => !Array.isArray(s) || s.length !== 2 || s.some(v => typeof v !== 'string'))) fail(`Incomplete ingredients or method in ${r.id}.`);
+    if (!r.nutrition || ['kcal','protein','fibre'].some(k => !Number.isFinite(r.nutrition[k]) || r.nutrition[k] < 0) || typeof r.nutrition.note !== 'string') fail(`Missing nutrition in ${r.id}.`);
+    for (const [id, qty] of [...r.ingredients, ...Object.values(r.proteins || {}).flat()]) {
+      if (!book.ingredients[id] || !Number.isFinite(qty) || qty <= 0) fail(`Invalid ingredient ${id} in ${r.id}.`);
+    }
+    if (r.proteins && ['salmon','chicken','mixed'].some(k => !Array.isArray(r.proteins[k]))) fail(`Missing protein choices in ${r.id}.`);
+  };
+  for (const item of Object.values(book.ingredients)) if (typeof item.name !== 'string' || typeof item.unit !== 'string' || !book.aisles.includes(item.aisle)) fail('Invalid grocery aisle or ingredient.');
+  for (const r of book.recipes) { validateRecipe(r); if (ids.has(r.id)) fail(`Duplicate recipe ${r.id}.`); ids.add(r.id); }
+  const weeks = new Set();
+  for (const w of plans.weeks) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(w.id) || Number.isNaN(Date.parse(w.id)) || new Date(`${w.id}T12:00:00Z`).toISOString().slice(0,10) !== w.id || weeks.has(w.id)) fail('Week IDs must be unique valid ISO dates.');
+    weeks.add(w.id);
+    if (typeof w.title !== 'string' || typeof w.note !== 'string' || !Array.isArray(w.meals) || !w.meals.length) fail(`Incomplete week ${w.id}.`);
+    for (const r of Object.values(w.recipeSnapshots || {})) validateRecipe(r);
+    for (const m of w.meals) if (typeof m.day !== 'string' || !getRecipe(book,w,m.recipe)) fail(`Unknown meal in ${w.id}.`);
+  }
+  if (!weeks.has(plans.current)) fail('The current week does not exist.');
+  return true;
+}
+
+export function getRecipe(book, week, id) { return week?.recipeSnapshots?.[id] || book.recipes.find(r => r.id === id); }
+export function recipeIngredients(recipe, servings, protein = 'salmon') {
+  const source = [...recipe.ingredients, ...(recipe.proteins?.[protein] || [])];
+  return source.map(([id, qty]) => [id, Math.round(qty * servings / recipe.serves * 1000) / 1000]);
+}
+export function consolidate(book, week, servings, protein) {
+  const totals = new Map();
+  for (const meal of week.meals) for (const [id, qty] of recipeIngredients(getRecipe(book, week, meal.recipe), servings, protein)) totals.set(id, (totals.get(id) || 0) + qty);
+  return [...totals].map(([id, qty]) => ({id, ...book.ingredients[id], qty: Math.round(qty * 1000) / 1000})).sort((a,b) => book.aisles.indexOf(a.aisle) - book.aisles.indexOf(b.aisle) || a.name.localeCompare(b.name));
+}
+export function quantity(qty, unit) { return `${Number(qty.toFixed(2))}${unit ? ` ${unit}` : ''}`; }
+export function weekLabel(id) { return new Intl.DateTimeFormat('en-AU', {day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${id}T12:00:00Z`)); }
+export function escapeHTML(value) { return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }

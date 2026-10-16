@@ -1,0 +1,18 @@
+{
+  "current": "2026-10-12",
+  "weeks": [
+    {
+      "id": "2026-10-12",
+      "title": "Five nights. Big flavours.",
+      "note": "The family’s locked-in lineup. Fresh, colourful and very much worth gathering around.",
+      "meals": [
+        {"day": "Monday", "recipe": "mediterranean-beef"},
+        {"day": "Tuesday", "recipe": "pork-tonkatsu"},
+        {"day": "Wednesday", "recipe": "burrito-bowls"},
+        {"day": "Thursday", "recipe": "italian-chicken-pasta"},
+        {"day": "Friday", "recipe": "sweet-chilli-bowls"}
+      ]
+    }
+  ],
+  "provenance": "The five dish choices were supplied by Anthony. Recipes were written for this cookbook because the original assistant recipe text could not be retrieved. The starting week is assigned to the week of the source conversation; weekdays are suggested. No earlier complete weekly plans were recoverable."
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fff9ed">
+  <meta name="description" content="The Patto Dinner Club. Five good dinners, family recipes and one easy grocery shop.">
+  <title>The Patto Dinner Club</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a href="#main" class="skip">Skip to dinner</a>
+  <header class="masthead wrap">
+    <a class="brand" href="#week" aria-label="Patto Dinner Club home"><span class="brand-icon" aria-hidden="true">P<span>✳</span></span><span>THE PATTO<br><strong>DINNER CLUB</strong></span></a>
+    <span class="header-note">A little planning.<br>A lot of happy plates.</span>
+    <a href="#groceries" class="bag-link" aria-label="Open shopping list">Shopping list <span aria-hidden="true">↗</span></a>
+  </header>
+  <nav class="nav wrap" aria-label="Main navigation">
+    <a href="#week" data-nav="week">This week</a><a href="#recipes" data-nav="recipes">The cookbook</a><a href="#groceries" data-nav="groceries">The shopping list</a><a href="#archive" data-nav="archive">Our weekly archive</a>
+    <span class="nav-note">MADE FOR OUR TABLE</span>
+  </nav>
+  <main id="main" class="wrap" tabindex="-1"><p class="loading">Setting the table…</p></main>
+  <footer class="wrap"><a class="footer-brand" href="#week">The Patto Dinner Club <span aria-hidden="true">✳</span></a><span>Good food. Our people. Repeat.</span><button class="text-button" id="about-button">About our cookbook</button></footer>
+  <dialog id="recipe-dialog" aria-labelledby="recipe-title"></dialog>
+  <dialog id="about-dialog" aria-labelledby="about-title"><button class="dialog-close" data-close="about-dialog" aria-label="Close about">×</button><div class="about-content"><p class="eyebrow">FROM OUR KITCHEN</p><h2 id="about-title">A cookbook that grows with us.</h2><p>Five family-approved dish choices, complete recipes, and a little less thinking at dinner time.</p><p id="provenance"></p><h3>A few useful things</h3><ul><li>Shopping ticks, edits, portions and favourites save in this browser. They do not sync between phones. Export a list to share it.</li><li>Aisles follow a typical Aldi-style shop; your store may be laid out differently. Amounts are recipe quantities, not rounded pack sizes. Check your pantry and round up whole produce and packs.</li><li>Nutrition is an approximate recipe-level estimate per equal serving at the recipe’s original yield. Brands, swaps, oil absorption and portions change it; it is not a personalised target for children.</li><li>Allergen notes are prompts, not a guarantee. Check every product label and manage cross-contact.</li><li>Recipe methods were written for this site and have not been kitchen-tested by the family yet.</li><li>Family portraits can be added after Anthony and Kym supply and approve photos. All artwork here is food illustration.</li></ul><p><a href="https://www.foodstandards.gov.au/consumer/prevention-of-foodborne-illness/food-safety-basics" target="_blank" rel="noreferrer">Food safety guidance from FSANZ ↗</a></p><p>To add next week, follow the included README. Older plans stay in the archive.</p></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="wrap">Please enable JavaScript to open the cookbook and shopping list.</p></noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

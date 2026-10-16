@@ -1,0 +1,133 @@
+{
+  "aisles": ["Fruit & veg", "Meat & seafood", "Dairy & eggs", "Rice, pasta & tins", "Sauces & seasonings", "Pantry check"],
+  "ingredients": {
+    "beef": {"name": "Lean beef mince", "unit": "g", "aisle": "Meat & seafood"},
+    "pork": {"name": "Pork loin steaks", "unit": "g", "aisle": "Meat & seafood"},
+    "chicken": {"name": "Chicken breast", "unit": "g", "aisle": "Meat & seafood"},
+    "salmon": {"name": "Boneless salmon fillets", "unit": "g", "aisle": "Meat & seafood"},
+    "couscous": {"name": "Couscous (dry)", "unit": "g", "aisle": "Rice, pasta & tins"},
+    "rice": {"name": "Brown or white rice (dry)", "unit": "g", "aisle": "Rice, pasta & tins"},
+    "pasta": {"name": "Penne or spirals (dry)", "unit": "g", "aisle": "Rice, pasta & tins"},
+    "beans": {"name": "Black beans", "unit": "× 400 g tin", "aisle": "Rice, pasta & tins"},
+    "corn": {"name": "Corn kernels", "unit": "× 400 g tin", "aisle": "Rice, pasta & tins"},
+    "panko": {"name": "Panko breadcrumbs", "unit": "g", "aisle": "Rice, pasta & tins"},
+    "cucumber": {"name": "Lebanese cucumber", "unit": "", "aisle": "Fruit & veg"},
+    "tomato": {"name": "Cherry tomatoes", "unit": "g", "aisle": "Fruit & veg"},
+    "lemon": {"name": "Lemon", "unit": "", "aisle": "Fruit & veg"},
+    "lime": {"name": "Lime", "unit": "", "aisle": "Fruit & veg"},
+    "garlic": {"name": "Garlic cloves", "unit": "", "aisle": "Fruit & veg"},
+    "carrot": {"name": "Carrot", "unit": "", "aisle": "Fruit & veg"},
+    "cabbage": {"name": "Cabbage (buy a wedge)", "unit": "g", "aisle": "Fruit & veg"},
+    "sweet-potato": {"name": "Sweet potato", "unit": "g", "aisle": "Fruit & veg"},
+    "lettuce": {"name": "Cos lettuce", "unit": "", "aisle": "Fruit & veg"},
+    "avocado": {"name": "Avocado", "unit": "", "aisle": "Fruit & veg"},
+    "onion": {"name": "Brown onion", "unit": "", "aisle": "Fruit & veg"},
+    "zucchini": {"name": "Zucchini", "unit": "", "aisle": "Fruit & veg"},
+    "spinach": {"name": "Baby spinach", "unit": "g", "aisle": "Fruit & veg"},
+    "basil": {"name": "Fresh basil", "unit": "bunch", "aisle": "Fruit & veg"},
+    "broccoli": {"name": "Broccoli", "unit": "g", "aisle": "Fruit & veg"},
+    "ginger": {"name": "Fresh ginger", "unit": "g", "aisle": "Fruit & veg"},
+    "yoghurt": {"name": "Plain Greek yoghurt", "unit": "g", "aisle": "Dairy & eggs"},
+    "feta": {"name": "Feta", "unit": "g", "aisle": "Dairy & eggs"},
+    "cheddar": {"name": "Grated cheddar", "unit": "g", "aisle": "Dairy & eggs"},
+    "parmesan": {"name": "Parmesan", "unit": "g", "aisle": "Dairy & eggs"},
+    "egg": {"name": "Egg", "unit": "", "aisle": "Dairy & eggs"},
+    "salsa": {"name": "Mild tomato salsa", "unit": "g", "aisle": "Sauces & seasonings"},
+    "soy": {"name": "Reduced-salt soy sauce", "unit": "ml", "aisle": "Sauces & seasonings"},
+    "sweet-chilli": {"name": "Sweet chilli sauce", "unit": "ml", "aisle": "Sauces & seasonings"},
+    "bbq": {"name": "Barbecue sauce", "unit": "ml", "aisle": "Sauces & seasonings"},
+    "worcestershire": {"name": "Worcestershire sauce (check fish label)", "unit": "ml", "aisle": "Sauces & seasonings"},
+    "oil": {"name": "Olive or neutral oil", "unit": "ml", "aisle": "Pantry check"},
+    "flour": {"name": "Plain flour", "unit": "g", "aisle": "Pantry check"},
+    "cumin": {"name": "Ground cumin", "unit": "tsp", "aisle": "Pantry check"},
+    "paprika": {"name": "Smoked paprika", "unit": "tsp", "aisle": "Pantry check"},
+    "oregano": {"name": "Dried oregano", "unit": "tsp", "aisle": "Pantry check"},
+    "vinegar": {"name": "Rice or apple cider vinegar", "unit": "ml", "aisle": "Pantry check"},
+    "salt": {"name": "Salt", "unit": "tsp", "aisle": "Pantry check"},
+    "pepper": {"name": "Black pepper", "unit": "tsp", "aisle": "Pantry check"}
+  },
+  "recipes": [
+    {
+      "id": "mediterranean-beef", "title": "Mediterranean Beef & Couscous Bowls", "shortTitle": "A little Mediterranean magic.", "subtitle": "Lemony couscous, warmly spiced beef and all the fresh things.", "cuisine": "Mediterranean", "time": 30, "serves": 4, "colour": "#e7eacc", "art": "mediterranean", "tags": ["Beef", "30 minutes"],
+      "ingredients": [["beef",600],["couscous",250],["cucumber",2],["tomato",250],["lemon",1],["garlic",2],["yoghurt",200],["feta",80],["oil",15],["cumin",2],["oregano",1],["salt",0.25],["pepper",0.25]],
+      "steps": [
+        ["Fluff things up", "Put the couscous in a heatproof bowl. Add boiling water using the packet’s couscous-to-water ratio, cover and stand for the packet time, then fluff with a fork. Stir through half the lemon juice."],
+        ["Chop the crunch", "Dice the cucumbers and halve the tomatoes. Crush the garlic. Mix the yoghurt with the remaining lemon juice and half the garlic. Keep chilled until serving."],
+        ["Bring on the beef", "Heat the oil in a large frying pan over medium-high heat. Cook the mince for 8–10 minutes, breaking it up. Stir in cumin, oregano, remaining garlic, salt and pepper for the last 2 minutes. Check the mince reaches 75°C in the centre."],
+        ["Build your own bowl", "Divide the couscous, beef and salad between bowls. Crumble over feta and add the lemon yoghurt. Let everyone keep their favourite bits separate if they like."]
+      ],
+      "family": "Serve the salad and yoghurt in little bowls so everyone can build their own. For milder plates, put a little cooked beef aside before adding spices.",
+      "kidJob": "Crumble the feta and fluff the cooled couscous with a fork, with an adult nearby.",
+      "nutrition": {"kcal": 710, "protein": 49, "fibre": 6, "note": "Fresh vegetables add crunch and fibre; lean beef contributes iron. Wholemeal couscous is an easy fibre swap."},
+      "allergens": "Wheat/gluten and milk. Check couscous, yoghurt and spice packaging.",
+      "variation": "Use cooked lentils instead of beef for a meat-free version; amounts and nutrition will change.",
+      "prepTip": "Chop the salad and mix the yoghurt earlier in the day; refrigerate separately."
+    },
+    {
+      "id": "pork-tonkatsu", "title": "Japanese Pork Tonkatsu with Crunchy Slaw & Sweet Potato Wedges", "shortTitle": "Crunch heard around the table.", "subtitle": "Golden panko pork, rainbow slaw and sweet potato wedges.", "cuisine": "Japanese-inspired", "time": 45, "serves": 4, "colour": "#f7d98b", "art": "tonkatsu", "tags": ["Pork", "Extra crunchy"],
+      "ingredients": [["pork",600],["sweet-potato",800],["cabbage",300],["carrot",2],["panko",100],["flour",40],["egg",1],["yoghurt",100],["vinegar",15],["bbq",45],["soy",15],["worcestershire",10],["oil",45],["salt",0.25],["pepper",0.25]],
+      "steps": [
+        ["Wedges first", "Heat the oven to 200°C fan-forced. Cut the sweet potato into even wedges, toss with one-third of the oil and a pinch of the measured salt. Spread over a lined tray and roast for 30–35 minutes, turning halfway, until tender."],
+        ["Make it crunchy", "Finely shred the cabbage and grate the carrots. Toss with yoghurt and vinegar; refrigerate. Stir the barbecue, soy and Worcestershire sauces together in a separate serving bowl."],
+        ["Crumb the pork", "Pat the pork dry and flatten to an even 1 cm thickness. Put flour, beaten egg and panko in three shallow bowls. Season the flour with remaining salt and pepper. Coat pork in flour, then egg, then crumbs. Discard unused coating that touched raw pork."],
+        ["Golden hour", "Heat remaining oil in a large pan over medium heat. Cook the pork for about 4–5 minutes per side, in batches, until golden and cooked through; check the thickest part reaches 75°C. Lower the heat if the crumb browns too fast. Rest 3 minutes, slice and serve with slaw, wedges and sauce on the side."]
+      ],
+      "family": "Keep the sauce separate for little dippers. Serve raw carrot sticks instead of dressed slaw for anyone who prefers it.",
+      "kidJob": "Mix the slaw dressing and set out little sauce bowls. An adult handles raw pork and the hot pan.",
+      "nutrition": {"kcal": 710, "protein": 43, "fibre": 9, "note": "Sweet potato and cabbage bring colour and fibre. A shallow fry keeps the crumb crisp; actual absorbed oil varies."},
+      "allergens": "Wheat/gluten, egg, milk, soy and possibly fish in Worcestershire sauce. Check all sauce labels.",
+      "variation": "Chicken breast works too: flatten evenly and check it reaches 75°C. Use fish-free Worcestershire if needed; check the label.",
+      "prepTip": "Cut the wedges and shred the slaw first. Keep raw meat and salad utensils separate."
+    },
+    {
+      "id": "burrito-bowls", "title": "Loaded Beef Burrito Bowls", "shortTitle": "Big bowl. Bigger yes.", "subtitle": "Smoky beef, rice, black beans and a choose-your-own topping party.", "cuisine": "Mexican-inspired", "time": 35, "serves": 4, "colour": "#efd0b9", "art": "burrito", "tags": ["Beef", "Build your own"],
+      "ingredients": [["beef",500],["rice",240],["beans",1],["corn",1],["lettuce",1],["avocado",1],["tomato",250],["lime",1],["onion",1],["garlic",2],["cheddar",80],["yoghurt",120],["salsa",120],["oil",15],["cumin",2],["paprika",2],["salt",0.25],["pepper",0.25]],
+      "steps": [
+        ["Rice on, music on", "Cook the rice following packet directions. Brown rice may take longer; start it first. Drain and rinse the black beans and corn."],
+        ["Get the toppings ready", "Shred the lettuce, halve the tomatoes, dice the avocado and cut the lime into wedges. Dice the onion and crush the garlic."],
+        ["Make the smoky middle", "Heat the oil in a large pan. Soften the onion for 4 minutes. Add mince, breaking it up for 8–10 minutes, then garlic, cumin, paprika, salt and pepper. Stir for 1 minute. Add beans, corn and a splash of water. Simmer until hot throughout and the mince reaches 75°C."],
+        ["Load ’em up", "Spoon rice and beef into bowls. Add lettuce, tomatoes, avocado, cheddar, yoghurt and salsa. Finish with a squeeze of lime. Keep salsa mild and let grown-ups add their own heat."]
+      ],
+      "family": "A toppings bar is the whole point. Keep a few beans and some corn separate before they go into the beef.",
+      "kidJob": "Wash and tear the lettuce, then arrange the topping bowls.",
+      "nutrition": {"kcal": 850, "protein": 49, "fibre": 14, "note": "Black beans add fibre and plant protein. Adjust rice and toppings to appetite rather than expecting identical portions."},
+      "allergens": "Milk. Check salsa and spice labels for additional allergens.",
+      "variation": "For a lighter appetite, use a smaller rice portion and more lettuce. For meat-free bowls, replace beef with extra beans; quantities will differ.",
+      "prepTip": "Cook the beef-and-bean mixture ahead and refrigerate promptly. Reheat until steaming hot throughout."
+    },
+    {
+      "id": "italian-chicken-pasta", "title": "Fresh Italian Chicken, Zucchini & Tomato Pasta", "shortTitle": "Pasta, with a fresh outlook.", "subtitle": "Juicy tomatoes, golden chicken, basil and lemon. No cream required.", "cuisine": "Italian-inspired", "time": 30, "serves": 4, "colour": "#dce8d2", "art": "pasta", "tags": ["Chicken", "30 minutes"],
+      "ingredients": [["chicken",600],["pasta",320],["zucchini",2],["tomato",400],["spinach",100],["garlic",3],["lemon",1],["basil",1],["parmesan",60],["oil",30],["oregano",1],["salt",0.25],["pepper",0.25]],
+      "steps": [
+        ["Get the pasta going", "Bring a large pot of water to the boil and cook pasta following packet directions. Before draining, save a mug of the cooking water."],
+        ["Prep the fresh bits", "Slice the zucchini into half-moons, halve the tomatoes and crush the garlic. Zest and juice the lemon. Cut chicken into even bite-sized pieces using a separate board."],
+        ["Golden chicken, juicy tomatoes", "Heat half the oil in a large pan. Cook chicken for 7–10 minutes, turning, until its centre reaches 75°C. Transfer to a clean plate. Add remaining oil, zucchini and tomatoes to the pan and cook 5–6 minutes. Stir in garlic and oregano for 1 minute."],
+        ["Toss it all together", "Return chicken to the pan with pasta and spinach. Add lemon zest, half the juice, salt, pepper and a splash of pasta water. Toss until spinach wilts and everything is hot. Add torn basil and parmesan. Taste before adding more lemon juice."]
+      ],
+      "family": "Keep some plain pasta aside before tossing. Finely grate zucchini into the sauce for anyone who prefers smaller veggie pieces.",
+      "kidJob": "Tear the basil leaves and sprinkle the parmesan at the table.",
+      "nutrition": {"kcal": 680, "protein": 51, "fibre": 6, "note": "Chicken provides protein and the tomato-zucchini mix adds vegetables. Wholemeal pasta can increase fibre."},
+      "allergens": "Wheat/gluten and milk; some pasta contains egg. Check the packet.",
+      "variation": "Use gluten-free pasta or skip parmesan if needed, checking every product label. These swaps alter nutrition.",
+      "prepTip": "Slice vegetables ahead. Keep raw chicken covered on the lowest fridge shelf."
+    },
+    {
+      "id": "sweet-chilli-bowls", "title": "Sweet Chilli & Soy Salmon/Chicken Bowls", "shortTitle": "Friday’s sweet little finish.", "subtitle": "Sticky glaze, fluffy rice and bright greens. Salmon, chicken, or a bit of both.", "cuisine": "Asian-inspired", "time": 35, "serves": 4, "colour": "#edcec7", "art": "salmon", "tags": ["Salmon or chicken", "Family choice"],
+      "ingredients": [["rice",240],["broccoli",400],["carrot",2],["cucumber",1],["ginger",15],["garlic",2],["lime",1],["sweet-chilli",60],["soy",30],["oil",15]],
+      "proteins": {"salmon": [["salmon",600]], "chicken": [["chicken",600]], "mixed": [["salmon",300],["chicken",300]]},
+      "steps": [
+        ["Start with the rice", "Cook rice following packet directions. Cut broccoli into small florets, make carrot ribbons with a peeler and slice the cucumber. Finely grate ginger and crush garlic."],
+        ["Stir up the sticky sauce", "Mix sweet chilli sauce, soy, ginger, garlic and half the lime juice. Reserve half in a clean bowl for serving BEFORE anything touches raw meat or fish. Discard any sauce left after contact with raw protein."],
+        ["Choose your Friday", "Salmon: brush with a little oil and the cooking half of the glaze, then bake at 200°C fan-forced for around 12–15 minutes, depending on thickness, until opaque and flaking easily; check for bones. Chicken: cut into even strips and pan-fry in the oil for 7–10 minutes, turning, until the centre reaches 75°C; add the cooking glaze in the final 2 minutes. Mixed: divide oil and cooking glaze between the proteins, cook separately and use separate utensils."],
+        ["Make it a bowl night", "Steam broccoli for 4–5 minutes until just tender. Divide rice, protein, broccoli, carrot and cucumber into bowls. Add the reserved clean sauce and remaining lime to taste. For mixed plates, give each person their chosen protein."]
+      ],
+      "family": "Pick salmon, chicken or half-and-half above. For less heat, keep a portion of protein unglazed and offer sauce at the table.",
+      "kidJob": "Arrange cucumber and carrot ribbons in the bowls. An adult handles the peeler and checks fish for bones.",
+      "nutrition": {"kcal": 670, "protein": 39, "fibre": 6, "note": "Salmon supplies omega-3 fats. Chicken is a leaner alternative. The vegetable mix adds colour, texture and fibre."},
+      "proteinNutrition": {"salmon": {"kcal":670,"protein":39,"fibre":6},"chicken":{"kcal":540,"protein":43,"fibre":6},"mixed":{"kcal":605,"protein":41,"fibre":6}},
+      "allergens": "Soy and usually wheat/gluten in soy sauce; fish when salmon is selected. Check sweet chilli and soy labels. Mixed preparation is not suitable for avoiding fish cross-contact.",
+      "variation": "Use reduced-salt tamari if avoiding wheat, checking it is labelled gluten-free. Sauce quantities are deliberately moderate; add to taste.",
+      "prepTip": "Make the glaze ahead and refrigerate. Keep the serving half separate from raw protein."
+    }
+  ]
+}
