@@ -1,4 +1,4 @@
-import {validateData, getRecipe, recipeIngredients, consolidate, quantity, weekLabel, mealsInOrder, validMealOrder, escapeHTML as e} from './core.js';
+import {validateData, getRecipe, recipeIngredients, consolidate, consolidateMealSettings, quantity, weekLabel, mealsInOrder, validMealOrder, escapeHTML as e} from './core.js';
 
 const photoSources = {
   "mediterranean": "https://img.hellofresh.com/f_auto%2Cfl_lossy%2Ch_640%2Cq_auto%2Cw_1200/hellofresh_s3/image/mediterranean-style-beef-bowl-26170e17.jpg",
@@ -16,12 +16,33 @@ let book, plans, selectedWeek, openedRecipe, storageOK = true;
 const read = (key, fallback) => { try { return JSON.parse(localStorage.getItem(`patto:${key}`)) ?? fallback; } catch { storageOK = false; return fallback; } };
 const write = (key, value) => { try { localStorage.setItem(`patto:${key}`, JSON.stringify(value)); } catch { storageOK = false; toast('Browser storage is unavailable. Keep this tab open or export your list.'); } };
 const prefs = read('preferences', {});
-let servings = Number.isInteger(prefs.servings) && prefs.servings >= 2 && prefs.servings <= 10 ? prefs.servings : 5;
-let protein = ['salmon','chicken','mixed'].includes(prefs.protein) ? prefs.protein : 'mixed';
+// Retain the legacy grocery-list storage key so Kym's existing ticks and removals survive.
+const legacyServings=Number.isInteger(prefs.servings) && prefs.servings>=2 && prefs.servings<=10 ? prefs.servings : 5;
+const legacyProtein=['salmon','chicken','mixed'].includes(prefs.protein) ? prefs.protein : 'mixed';
+let mealSettings={};
+function loadMealSettings() {
+  const saved=read(`meal-settings:${selectedWeek}`,{});
+  mealSettings=saved && typeof saved==='object' && !Array.isArray(saved)?saved:{};
+}
+function mealChoice(id) {
+  const value=mealSettings[id]||{};
+  const servings=Number.isInteger(value.servings)&&value.servings>=1&&value.servings<=20?value.servings:5;
+  const protein=['salmon','chicken','mixed'].includes(value.protein)?value.protein:'mixed';
+  return {servings,protein};
+}
+function updateMealChoice(id,prop,value) {
+  if(!current().meals.some(m=>m.recipe===id)) return;
+  mealSettings[id]={...mealChoice(id),[prop]:value};
+  write(`meal-settings:${selectedWeek}`,mealSettings);
+  const currentScroll=window.scrollY;
+  render();
+  window.scrollTo(0,currentScroll);
+  toast('Dinner portions updated. Aldi list recalculated.');
+}
 let favourites = read('favourites', []); if (!Array.isArray(favourites)) favourites = [];
 let search = '', filter = 'all', list, toastTimer;
 const icon = (name) => ({clock:'◷',arrow:'↗',heart:'♡',check:'✓'}[name]);
-const savePrefs = () => write('preferences', {servings,protein});
+
 const current = () => plans.weeks.find(w => w.id === selectedWeek);
 function orderedMeals(week) {
   const saved=read(`meal-order:${week.id}`, []);
@@ -51,6 +72,7 @@ function applySharedLink() {
   const ids = (params.get('order') || '').split(',');
   if (!validMealOrder(week,ids)) return false;
   selectedWeek=week.id;
+  loadMealSettings();
   write(`meal-order:${week.id}`,ids);
   history.replaceState(null,'',`${location.pathname}${location.search}#week`);
   return true;
@@ -71,7 +93,7 @@ function moveDinner(from, shift) {
 
 const route = () => { const name=location.hash.slice(1).split('?')[0]; return ['week','recipes','groceries','archive'].includes(name) ? name : 'week'; };
 function toast(message) { clearTimeout(toastTimer); const t=document.querySelector('#toast'); t.textContent=message;t.classList.add('show');toastTimer=setTimeout(()=>t.classList.remove('show'),4000); }
-function storageKey() { return `list:${selectedWeek}:${servings}:${protein}`; }
+function storageKey() { return `list:${selectedWeek}:${legacyServings}:${legacyProtein}`; }
 function loadList() {
   const raw=read(storageKey(), {});
   const revision=JSON.stringify(current());
@@ -84,18 +106,19 @@ function loadList() {
 }
 const saveList=()=>write(storageKey(),list);
 function listItems() {
-  return [...consolidate(book,current(),servings,protein).map(i=>({...i,amount:quantity(i.qty,i.unit)})),...list.extras].filter(i=>!list.removed.includes(i.id)).map(i=>({...i,...list.edits[i.id]}));
+  return [...consolidateMealSettings(book,current(),mealSettings).map(i=>({...i,amount:quantity(i.qty,i.unit)})),...list.extras].filter(i=>!list.removed.includes(i.id)).map(i=>({...i,...list.edits[i.id]}));
 }
-function controls() {
-  return `<div class="plan-controls"><label class="portion-control">At the table <select id="servings" aria-label="Number of servings">${Array.from({length:9},(_,i)=>`<option ${servings===i+2?'selected':''}>${i+2}</option>`).join('')}</select> <span>servings</span></label><div class="protein-control"><label for="protein">Friday’s pick</label><select id="protein"><option value="salmon" ${protein==='salmon'?'selected':''}>Salmon</option><option value="chicken" ${protein==='chicken'?'selected':''}>Chicken</option><option value="mixed" ${protein==='mixed'?'selected':''}>Half & half</option></select></div></div>`;
+function dinnerSettings(r) {
+  const choice=mealChoice(r.id);
+  return `<div class="dinner-settings"><label>Cooking for <select data-dinner-servings="${e(r.id)}" aria-label="Number of people eating ${e(r.title)}">${Array.from({length:10},(_,i)=>i+1).map(n=>`<option value="${n}" ${n===choice.servings?'selected':''}>${n} ${n===1?'person':'people'}</option>`).join('')}</select></label>${r.proteins?`<label>Protein <select data-dinner-protein="${e(r.id)}" aria-label="Protein for ${e(r.title)}"><option value="mixed" ${choice.protein==='mixed'?'selected':''}>Salmon + chicken</option><option value="salmon" ${choice.protein==='salmon'?'selected':''}>All salmon</option><option value="chicken" ${choice.protein==='chicken'?'selected':''}>All chicken</option></select></label>`:''}</div>`;
 }
 function card(r, day, position = -1, count = 0) {
   const liked=favourites.includes(r.id);
-  return `<article class="meal-card"><div class="meal-art" style="--meal-colour:${r.colour}"><button class="art-open" data-recipe="${e(r.id)}" aria-label="Open ${e(r.title)}"><img src="${e(imageFor(r))}" data-fallback="${e(fallbackFor(r))}" alt="${e(r.title)} plated for dinner" loading="lazy" decoding="async" width="430" height="410"></button><span class="meal-day">${e(day||r.cuisine)}</span><button class="favourite ${liked?'is-liked':''}" data-favourite="${e(r.id)}" aria-label="${liked?'Remove':'Add'} ${e(r.title)} ${liked?'from':'to'} favourites" aria-pressed="${liked}">${liked?'♥':'♡'}</button></div><div class="meal-copy"><p class="meal-meta">${e(r.cuisine)} <span>${icon('clock')} ${r.time} min</span></p><h3><button data-recipe="${e(r.id)}">${e(r.title)}</button></h3><p>${e(r.subtitle)}</p><button class="recipe-link" data-recipe="${e(r.id)}">Let’s get cooking <span aria-hidden="true">↗</span></button>${position >= 0 ? `<div class="meal-reorder"><span>Change dinner night</span><div><button data-move="-1" data-index="${position}" data-dinner-position="${position}" aria-label="Move ${e(r.title)} earlier" ${position === 0 ? 'disabled' : ''}>↑</button><button data-move="1" data-index="${position}" aria-label="Move ${e(r.title)} later" ${position === count-1 ? 'disabled' : ''}>↓</button></div></div>` : ''}</div></article>`;
+  return `<article class="meal-card"><div class="meal-art" style="--meal-colour:${r.colour}"><button class="art-open" data-recipe="${e(r.id)}" aria-label="Open ${e(r.title)}"><img src="${e(imageFor(r))}" data-fallback="${e(fallbackFor(r))}" alt="${e(r.title)} plated for dinner" loading="lazy" decoding="async" width="430" height="410"></button><span class="meal-day">${e(day||r.cuisine)}</span><button class="favourite ${liked?'is-liked':''}" data-favourite="${e(r.id)}" aria-label="${liked?'Remove':'Add'} ${e(r.title)} ${liked?'from':'to'} favourites" aria-pressed="${liked}">${liked?'♥':'♡'}</button></div><div class="meal-copy"><p class="meal-meta">${e(r.cuisine)} <span>${icon('clock')} ${r.time} min</span></p><h3><button data-recipe="${e(r.id)}">${e(r.title)}</button></h3><p>${e(r.subtitle)}</p><button class="recipe-link" data-recipe="${e(r.id)}">Let’s get cooking <span aria-hidden="true">↗</span></button>${position >= 0 ? dinnerSettings(r) : ''}${position >= 0 ? `<div class="meal-reorder"><span>Change dinner night</span><div><button data-move="-1" data-index="${position}" data-dinner-position="${position}" aria-label="Move ${e(r.title)} earlier" ${position === 0 ? 'disabled' : ''}>↑</button><button data-move="1" data-index="${position}" aria-label="Move ${e(r.title)} later" ${position === count-1 ? 'disabled' : ''}>↓</button></div></div>` : ''}</div></article>`;
 }
 function weekView() {
   const w=current(), isCurrent=w.id===plans.current;
-  return `<section class="hero"><div class="hero-copy"><h1>The Patto<br><em>Dinner Club.</em></h1><p class="hero-description">Less dinner drama. More happy plates.</p><a class="button" href="#groceries">Get the shopping list <span aria-hidden="true">↗</span></a><div class="hero-footnote"><span class="mini-p-logo" aria-hidden="true">P</span> Five dinners. Five Patto opinions. Zero boring plates.</div></div><div class="hero-visual patto-chefs"><div class="hero-circle"></div><img src="./assets/patto-chefs.webp" data-fallback="${photoSources.mediterranean}" alt="Cartoon Kym and Anthony cooking together in the Patto kitchen" width="1536" height="1024" fetchpriority="high"><p class="handwritten">Kym cooks.<br>Anthony taste-tests.</p></div></section><section aria-labelledby="week-title"><div class="section-heading"><div><p class="eyebrow">${isCurrent?'ON THE MENU':'FROM THE ARCHIVE'} · WEEK OF ${e(weekLabel(w.id).toUpperCase())}</p><h2 id="week-title">${e(w.title)}</h2></div><a class="text-link" href="#archive">Browse weeks <span aria-hidden="true">↗</span></a></div><p class="section-description">${e(w.note)}</p><div class="week-share-tools"><p class="reorder-hint">↕ Rearrange the meals below, then share your week. The link changes dinner order only — not anybody’s shopping ticks.</p><button class="outline-button share-week-button" id="share-week" type="button" aria-label="Share this week’s dinner order">↗ Share our week</button></div>${!isCurrent?'<div class="notice">You’re browsing an older plan. <button class="text-button" data-current>Back to the current week ↗</button></div>':''}${controls()}<div class="meal-grid">${orderedMeals(w).map((m,i,items)=>card(getRecipe(book,w,m.recipe),m.day,i,items.length)).join('')}<aside class="shopping-card"><span class="mini-p-logo mini-p-logo--large shopping-flower" aria-hidden="true">P</span><p class="eyebrow">THE OTHER HALF OF THE PLAN</p><h3>One shop.<br>Five happy<br>dinners.</h3><p>Everything you need, added up and sorted for an Aldi-style shop.</p><a class="button button-cream" href="#groceries">Let’s shop <span aria-hidden="true">↗</span></a><small>Tick it. Tweak it. Get dinner sorted.</small></aside></div></section><section class="family-strip"><span class="mini-p-logo" aria-hidden="true">P</span><div><h2>The Patto sous-chef squad.</h2><p>Leila, Phoebe and Tobias: kitchen jobs are officially on the menu. Kym's not running a restaurant, you know.</p></div><a class="text-link" href="#recipes">Find your next kitchen job ↗</a></section>`;
+  return `<section class="hero"><div class="hero-copy"><h1>The Patto<br><em>Dinner Club.</em></h1><p class="hero-description">Less dinner drama. More happy plates.</p><a class="button" href="#groceries">Get the shopping list <span aria-hidden="true">↗</span></a><div class="hero-footnote"><span class="mini-p-logo" aria-hidden="true">P</span> Five dinners. Five Patto opinions. Zero boring plates.</div></div><div class="hero-visual patto-chefs"><div class="hero-circle"></div><img src="./assets/patto-chefs.webp" data-fallback="${photoSources.mediterranean}" alt="Cartoon Kym and Anthony cooking together in the Patto kitchen" width="1536" height="1024" fetchpriority="high"><p class="handwritten">Kym cooks.<br>Anthony taste-tests.</p></div></section><section aria-labelledby="week-title"><div class="section-heading"><div><p class="eyebrow">${isCurrent?'ON THE MENU':'FROM THE ARCHIVE'} · WEEK OF ${e(weekLabel(w.id).toUpperCase())}</p><h2 id="week-title">${e(w.title)}</h2></div><a class="text-link" href="#archive">Browse weeks <span aria-hidden="true">↗</span></a></div><p class="section-description">${e(w.note)}</p><div class="week-share-tools"><p class="reorder-hint">↕ Rearrange the meals below, then share your week. The link changes dinner order only — not anybody’s shopping ticks.</p><button class="outline-button share-week-button" id="share-week" type="button" aria-label="Share this week’s dinner order">↗ Share our week</button></div>${!isCurrent?'<div class="notice">You’re browsing an older plan. <button class="text-button" data-current>Back to the current week ↗</button></div>':''}<div class="meal-grid">${orderedMeals(w).map((m,i,items)=>card(getRecipe(book,w,m.recipe),m.day,i,items.length)).join('')}<aside class="shopping-card"><span class="mini-p-logo mini-p-logo--large shopping-flower" aria-hidden="true">P</span><p class="eyebrow">THE OTHER HALF OF THE PLAN</p><h3>One shop.<br>Five happy<br>dinners.</h3><p>Everything you need, added up and sorted for an Aldi-style shop.</p><a class="button button-cream" href="#groceries">Let’s shop <span aria-hidden="true">↗</span></a><small>Tick it. Tweak it. Get dinner sorted.</small></aside></div></section><section class="family-strip"><span class="mini-p-logo" aria-hidden="true">P</span><div><h2>The Patto sous-chef squad.</h2><p>Leila, Phoebe and Tobias: kitchen jobs are officially on the menu. Kym's not running a restaurant, you know.</p></div><a class="text-link" href="#recipes">Find your next kitchen job ↗</a></section>`;
 }
 function cookbookView() {
   return `<section class="page-intro"><p class="eyebrow">GOOD THINGS, WORTH KEEPING</p><h1>The family<br><em>cookbook.</em></h1><p>Our dinner rotation, all in one delicious place.</p></section><div class="cookbook-tools"><label class="search-label"><span class="sr-only">Search recipes</span><input type="search" id="recipe-search" placeholder="Find a dish, ingredient or flavour…" value="${e(search)}"></label><div class="filters" aria-label="Recipe filters">${[['all','All recipes'],['quick','30 minutes'],['favourites','Favourites']].map(([id,label])=>`<button data-filter="${id}" aria-pressed="${filter===id}" class="${filter===id?'active':''}">${label}</button>`).join('')}</div></div><div id="recipe-results"></div>`;
@@ -114,7 +137,7 @@ function renderResults() {
 }
 function groceryView() {
   loadList();
-  return `<section class="page-intro grocery-intro"><div><p class="eyebrow">ONE SHOP, THEN YOU’RE SORTED</p><h1>The shopping<br><em>list.</em></h1><p>Week of ${e(weekLabel(selectedWeek))} · Five nights at our table.</p></div><div class="shopping-actions"><button class="button" id="download-list">Export list ↓</button><button class="outline-button" id="print-list">Print list</button></div></section>${controls()}<p class="local-note">Edits and ticks save on this device. Export to share with the family. Aisle order varies by store; round recipe amounts up to whole produce and packs.</p><div id="grocery-progress"></div><div class="grocery-toolbar"><label><input type="checkbox" id="hide-checked"> Hide ticked items</label><button class="text-button" id="reset-list">Reset this list</button></div><div id="aisles"></div><form class="add-form" id="add-item"><h2>Anything else?</h2><div class="add-fields"><label>Item<input name="item" required maxlength="80" placeholder="Lunchbox apples, perhaps?"></label><label>Amount<input name="amount" maxlength="40" placeholder="1 bag"></label><label>Aisle<select name="aisle">${book.aisles.map(a=>`<option>${e(a)}</option>`).join('')}</select></label><button class="button" type="submit">Add to list +</button></div></form><p class="local-note">Pantry staples are included so nothing gets missed. Tick the things you already have. Changing servings or Friday’s protein opens a separate saved list.</p>`;
+  return `<section class="page-intro grocery-intro"><div><p class="eyebrow">ONE SHOP, THEN YOU’RE SORTED</p><h1>The shopping<br><em>list.</em></h1><p>Week of ${e(weekLabel(selectedWeek))} · Five nights at our table.</p></div><div class="shopping-actions"><button class="button" id="download-list">Export list ↓</button><button class="outline-button" id="print-list">Print list</button></div></section><p class="local-note">Dinner guest counts and protein choices are set on each meal card under This week. Edits and ticks save on this device. Export to share with the family. Aisle order varies by store; round recipe amounts up to whole produce and packs.</p><div id="grocery-progress"></div><div class="grocery-toolbar"><label><input type="checkbox" id="hide-checked"> Hide ticked items</label><button class="text-button" id="reset-list">Reset this list</button></div><div id="aisles"></div><form class="add-form" id="add-item"><h2>Anything else?</h2><div class="add-fields"><label>Item<input name="item" required maxlength="80" placeholder="Lunchbox apples, perhaps?"></label><label>Amount<input name="amount" maxlength="40" placeholder="1 bag"></label><label>Aisle<select name="aisle">${book.aisles.map(a=>`<option>${e(a)}</option>`).join('')}</select></label><button class="button" type="submit">Add to list +</button></div></form><p class="local-note">Pantry staples are included so nothing gets missed. Tick the things you already have. Ingredient quantities follow each dinner's guest count.</p>`;
 }
 const mealTags = {
   'mediterranean-beef':'Beef bowls',
@@ -127,7 +150,7 @@ function ingredientUses() {
   const uses = new Map();
   for (const meal of orderedMeals(current())) {
     const recipe = getRecipe(book, current(), meal.recipe);
-    for (const [id] of recipeIngredients(recipe, servings, protein)) {
+    for (const [id] of recipeIngredients(recipe, mealChoice(recipe.id).servings, mealChoice(recipe.id).protein)) {
       const entries = uses.get(id) || [];
       if (!entries.some(entry => entry.id === recipe.id)) entries.push({id:recipe.id, title:recipe.title, label:mealTags[recipe.id] || recipe.title, day:meal.day});
       uses.set(id, entries);
@@ -158,14 +181,15 @@ function render() {
 function openRecipe(id) {
   const r=route()==='recipes'?allRecipes().find(r=>r.id===id):getRecipe(book,current(),id); if(!r)return;
   openedRecipe=r;
-  const nutrition=r.proteinNutrition?.[protein]||r.nutrition;
-  recipeDialog.innerHTML=`<button class="dialog-close" data-close="recipe-dialog" aria-label="Close recipe">×</button><div class="recipe-banner" style="--meal-colour:${r.colour}"><img src="${e(imageFor(r))}" data-fallback="${e(fallbackFor(r))}" alt="${e(r.title)} served and ready to eat" width="240" height="230"><div><p class="eyebrow">${e(r.cuisine)} · ${r.time} MINUTES</p><h2 id="recipe-title">${e(r.title)}</h2><p>${e(r.subtitle)}</p></div></div><div class="recipe-body"><div class="recipe-actions"><span>Cooking for <strong>${servings}</strong> · ${r.proteins?e({salmon:'Salmon',chicken:'Chicken',mixed:'Half salmon, half chicken'}[protein]):'Family portions'}</span><button class="outline-button" id="print-recipe">Print recipe</button></div><p class="small-note">Adjust servings${r.proteins?' and Friday’s protein':''} on the weekly plan or shopping list. Ingredient amounts below scale with your choice.</p><div class="recipe-columns"><section><h3>The ingredients</h3><p class="small-note">Tick as you cook. Quantities are rounded to useful kitchen measures.</p><ul class="ingredient-list">${recipeIngredients(r,servings,protein).map(([id,qty])=>`<li><label><input type="checkbox"><span><strong>${e(quantity(qty,book.ingredients[id].unit))}</strong> ${e(book.ingredients[id].name)}</span></label></li>`).join('')}</ul></section><section><h3>Let’s make dinner</h3><ol class="method">${r.steps.map(([title,body])=>`<li><h4>${e(title)}</h4><p>${e(body)}</p></li>`).join('')}</ol></section></div><div class="family-notes"><section><p class="eyebrow">MAKE IT YOURS</p><h3>Everyone gets a happy plate.</h3><p>${e(r.family)}</p><p>${e(r.variation)}</p></section><section><p class="eyebrow">LITTLE HANDS, BIG HELP</p><h3>A job for the kids.</h3><p>${e(r.kidJob)}</p><p><strong>Get ahead:</strong> ${e(r.prepTip)}</p></section></div><section class="nutrition"><h3>A little nourishment.</h3><div class="nutrition-values"><span><strong>~${nutrition.kcal}</strong> kcal</span><span><strong>~${nutrition.protein} g</strong> protein</span><span><strong>~${nutrition.fibre} g</strong> fibre</span></div><p>${e(r.nutrition.note)}</p><p class="small-note">Rough estimates per equal serving, based on original recipe yield (${r.serves}); not lab-verified or personalised for children. Scaling the whole recipe keeps the estimate per serving similar. Swaps and brands change it.${protein==='mixed'&&r.proteins?' Mixed values average both proteins; individual bowls differ.':''}</p><p><strong>Allergen check:</strong> ${e(r.allergens)}</p><p class="small-note">Cook chicken and mince to at least 75°C in the centre. Keep raw and ready-to-eat food separate. Refrigerate leftovers promptly. <a href="https://www.foodstandards.gov.au/consumer/prevention-of-foodborne-illness/food-safety-basics" target="_blank" rel="noreferrer">FSANZ food safety guidance ↗</a></p></section></div>`;
+  const choice=mealChoice(r.id);
+  const nutrition=r.proteinNutrition?.[choice.protein]||r.nutrition;
+  recipeDialog.innerHTML=`<button class="dialog-close" data-close="recipe-dialog" aria-label="Close recipe">×</button><div class="recipe-banner" style="--meal-colour:${r.colour}"><img src="${e(imageFor(r))}" data-fallback="${e(fallbackFor(r))}" alt="${e(r.title)} served and ready to eat" width="240" height="230"><div><p class="eyebrow">${e(r.cuisine)} · ${r.time} MINUTES</p><h2 id="recipe-title">${e(r.title)}</h2><p>${e(r.subtitle)}</p></div></div><div class="recipe-body"><div class="recipe-actions"><span>Cooking for <strong>${choice.servings}</strong> · ${r.proteins?e({salmon:'Salmon',chicken:'Chicken',mixed:'Salmon + chicken'}[choice.protein]):'Family portions'}</span><button class="outline-button" id="print-recipe">Print recipe</button></div><p class="small-note">Adjust guests${r.proteins?' and protein choice':''} on this dinner's card under This week. Ingredient amounts update automatically.</p><div class="recipe-columns"><section><h3>The ingredients</h3><p class="small-note">Tick as you cook. Quantities are rounded to useful kitchen measures.</p><ul class="ingredient-list">${recipeIngredients(r,choice.servings,choice.protein).map(([id,qty])=>`<li><label><input type="checkbox"><span><strong>${e(quantity(qty,book.ingredients[id].unit))}</strong> ${e(book.ingredients[id].name)}</span></label></li>`).join('')}</ul></section><section><h3>Let’s make dinner</h3><ol class="method">${r.steps.map(([title,body])=>`<li><h4>${e(title)}</h4><p>${e(body)}</p></li>`).join('')}</ol></section></div><div class="family-notes"><section><p class="eyebrow">MAKE IT YOURS</p><h3>Everyone gets a happy plate.</h3><p>${e(r.family)}</p><p>${e(r.variation)}</p></section><section><p class="eyebrow">LITTLE HANDS, BIG HELP</p><h3>A job for the kids.</h3><p>${e(r.kidJob)}</p><p><strong>Get ahead:</strong> ${e(r.prepTip)}</p></section></div><section class="nutrition"><h3>A little nourishment.</h3><div class="nutrition-values"><span><strong>~${nutrition.kcal}</strong> kcal</span><span><strong>~${nutrition.protein} g</strong> protein</span><span><strong>~${nutrition.fibre} g</strong> fibre</span></div><p>${e(r.nutrition.note)}</p><p class="small-note">Rough estimates per equal serving, based on original recipe yield (${r.serves}); not lab-verified or personalised for children. Scaling the whole recipe keeps the estimate per serving similar. Swaps and brands change it.${choice.protein==='mixed'&&r.proteins?' Mixed values average both proteins; individual bowls differ.':''}</p><p><strong>Allergen check:</strong> ${e(r.allergens)}</p><p class="small-note">Cook chicken and mince to at least 75°C in the centre. Keep raw and ready-to-eat food separate. Refrigerate leftovers promptly. <a href="https://www.foodstandards.gov.au/consumer/prevention-of-foodborne-illness/food-safety-basics" target="_blank" rel="noreferrer">FSANZ food safety guidance ↗</a></p></section></div>`;
   if(!recipeDialog.open)recipeDialog.showModal();
   recipeDialog.scrollTop=0;
 }
 function download(name, content) { const url=URL.createObjectURL(new Blob([content],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000); }
 function exportList() {
-  const items=listItems(); let text=`THE PATTO DINNER CLUB\nWeek of ${weekLabel(selectedWeek)}\n${servings} servings · Friday: ${protein}\n\n`;
+  const items=listItems(); let text=`THE PATTO DINNER CLUB\nWeek of ${weekLabel(selectedWeek)}\n${current().meals.map(m=>`${m.day}: ${mealChoice(m.recipe).servings} people`).join(' · ')}\n\n`;
   for(const aisle of book.aisles) {const group=items.filter(i=>i.aisle===aisle);if(group.length)text+=`${aisle.toUpperCase()}\n${group.map(i=>`[${list.checks[i.id]?'x':' '}] ${i.name} — ${i.amount}`).join('\n')}\n\n`;}
   download(`patto-shopping-${selectedWeek}.txt`,text);toast('Shopping list exported. Ready to share.');
 }
@@ -185,8 +209,8 @@ document.addEventListener('click',event=>{
   if(target.dataset.favourite){const id=target.dataset.favourite;favourites=favourites.includes(id)?favourites.filter(v=>v!==id):[...favourites,id];write('favourites',favourites);const y=scrollY;render();window.scrollTo(0,y);toast(favourites.includes(id)?'Saved to family favourites.':'Removed from favourites.');}
   if(target.dataset.filter){filter=target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>{b.classList.toggle('active',b.dataset.filter===filter);b.setAttribute('aria-pressed',b.dataset.filter===filter);});renderResults();}
   if(target.hasAttribute('data-clear-search')){search='';filter='all';render();}
-  if(target.dataset.week){selectedWeek=target.dataset.week;if(route()==='week')render();else location.hash='week';window.scrollTo(0,0);}
-  if(target.hasAttribute('data-current')){selectedWeek=plans.current;render();}
+  if(target.dataset.week){selectedWeek=target.dataset.week;loadMealSettings();if(route()==='week')render();else location.hash='week';window.scrollTo(0,0);}
+  if(target.hasAttribute('data-current')){selectedWeek=plans.current;loadMealSettings();render();}
   if(target.dataset.used) {
     const row=target.closest('.grocery-row'), pop=row?.querySelector('.used-popover');
     if(pop) {
@@ -208,7 +232,14 @@ document.addEventListener('click',event=>{
 document.addEventListener('input',event=>{if(event.target.id==='recipe-search'){search=event.target.value;renderResults();}});
 document.addEventListener('change',event=>{
   const t=event.target;
-  if(t.id==='servings'||t.id==='protein'){if(t.id==='servings')servings=Number(t.value);else protein=t.value;savePrefs();const y=scrollY;render();window.scrollTo(0,y);toast('Ingredients and shopping quantities updated.');}
+  if(t.dataset.dinnerServings) {
+    updateMealChoice(t.dataset.dinnerServings,'servings',Number(t.value));
+    return;
+  }
+  if(t.dataset.dinnerProtein) {
+    updateMealChoice(t.dataset.dinnerProtein,'protein',t.value);
+    return;
+  }
   if(t.dataset.check){list.checks[t.dataset.check]=t.checked;saveList();const id=t.dataset.check;renderGroceries();document.querySelector(`[data-check="${CSS.escape(id)}"]`)?.focus({preventScroll:true});}
   if(t.id==='hide-checked')renderGroceries();
 });
@@ -225,7 +256,7 @@ for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener(
 async function start() {
   try {
     [book,plans]=await Promise.all(['recipes','plans'].map(async name=>{const response=await fetch(`./data/${name}.json`,{cache:'no-cache'});if(!response.ok)throw new Error(`Could not load ${name}.json (${response.status}).`);return response.json();}));
-    validateData(book,plans);selectedWeek=plans.current;
+    validateData(book,plans);selectedWeek=plans.current;loadMealSettings();
     const imported=applySharedLink();
     document.querySelector('#provenance').textContent=plans.provenance;
     render();if(imported)toast('Shared dinner order saved on this phone. Shopping list untouched.');if(!storageOK)toast('Browser storage is unavailable. Export your shopping list to keep it.');
