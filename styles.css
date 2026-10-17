@@ -197,3 +197,7 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
  .shopping-card .shopping-flower{top:19px;right:18px;font-size:34px}
  .family-strip>.mini-p-logo{font-size:23px}
 }
+
+/* The Patto Family Social is the umbrella brand; Dinner Club is its first section. */
+.brand strong{letter-spacing:1.05px}
+@media(max-width:520px){.brand strong{font-size:12px;letter-spacing:.75px}.hero h1 em{font-size:.84em}}
