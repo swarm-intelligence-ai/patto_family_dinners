@@ -41,6 +41,21 @@ export function consolidate(book, week, servings, protein) {
   for (const meal of week.meals) for (const [id, qty] of recipeIngredients(getRecipe(book, week, meal.recipe), servings, protein)) totals.set(id, (totals.get(id) || 0) + qty);
   return [...totals].map(([id, qty]) => ({id, ...book.ingredients[id], qty: Math.round(qty * 1000) / 1000})).sort((a,b) => book.aisles.indexOf(a.aisle) - book.aisles.indexOf(b.aisle) || a.name.localeCompare(b.name));
 }
+/** Build a shopping list using each dinner's own guest count and protein choice. */
+export function consolidateMealSettings(book,week,settings={}) {
+  const totals=new Map();
+  for (const meal of week.meals) {
+    const recipe=getRecipe(book,week,meal.recipe);
+    const setting=settings[meal.recipe]||{};
+    const servings=Number.isInteger(setting.servings)&&setting.servings>=1&&setting.servings<=20?setting.servings:5;
+    const protein=recipe.proteins&&['salmon','chicken','mixed'].includes(setting.protein)?setting.protein:'mixed';
+    for(const [id,qty] of recipeIngredients(recipe,servings,protein)){
+      totals.set(id,(totals.get(id)||0)+qty);
+    }
+  }
+  return [...totals].map(([id,qty])=>({id,...book.ingredients[id],qty:Math.round(qty*1000)/1000}))
+    .sort((a,b)=>book.aisles.indexOf(a.aisle)-book.aisles.indexOf(b.aisle)||a.name.localeCompare(b.name));
+}
 export function quantity(qty, unit) {
   // These numbers are instructions for humans shopping and cooking, not a lab balance.
   const n = Math.max(0, Number(qty));
