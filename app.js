@@ -5,7 +5,13 @@ const photoSources = {
   "tonkatsu": "https://img.hellofresh.com/f_auto%2Cfl_lossy%2Ch_640%2Cq_auto%2Cw_1200/hellofresh_s3/image/southern-crumbed-pork-slaw-5c7cea7f-b277dde3.jpg",
   "burrito": "https://freshforklab.com/assets/images/1768562036399-gwh3g09x.webp",
   "pasta": "https://dishanddelights.com/wp-content/uploads/2025/07/pakoblog__Chicken_Zucchini_Pasta_Skillet_front_angle_shot_low_a_66f00475-96ec-41e9-9fab-0eac1f5262a8.webp",
-  "salmon": "https://platefullyjoy.com/cdn-cgi/image/fit%3Dcontain%2Cwidth%3D768%2Cquality%3D80%2Cformat%3Dauto/assets/images/1763241280263-6g5ajo7m.webp"
+  "salmon": "https://platefullyjoy.com/cdn-cgi/image/fit%3Dcontain%2Cwidth%3D768%2Cquality%3D80%2Cformat%3Dauto/assets/images/1763241280263-6g5ajo7m.webp",
+  "mustard-chicken": "https://www.bistromd.com/cdn/shop/files/HoneyMustardChickenwithRosemaryMashedPotatonew.png?v=1760032612",
+  "teriyaki-bowls": "https://dashnosh.com/assets/images/1766220780136-39zs7kh2.webp",
+  "stroganoff": "https://avarecipes.com/wp-content/uploads/2024/07/Simple-Beef-Stroganoff-Recipe.png",
+  "pork-wraps": "https://v.cdn.ww.com/media/system/wine/5996ece2b0a1a625825a7ad7/708dc88e-cb7d-41af-b405-3bee3768d070/wsyb196tofnux6zfil7o.jpg",
+  "fried-rice": "https://www.zoopindia.com/_next/image?q=75&url=https%3A%2F%2Fmedia.zoopindia.com%2Fixigo-outlets-images%2Fi1573.webp&w=580",
+  "cheeseburgers": "https://i.pinimg.com/originals/c9/96/d2/c996d2b5b84306b7a867b232aecb5261.jpg"
 };
 const imageFor = r => photoSources[r.art] || `./assets/${r.art}.svg`;
 const fallbackFor = r => `./assets/${r.art}.svg`;
@@ -102,7 +108,7 @@ function applySharedLink() {
   }
   write(`meal-settings:${week.id}`,mealSettings);
   write(`meal-order:${week.id}`,ids);
-  history.replaceState(null,'',`${location.pathname}${location.search}#week`);
+  history.replaceState(null,'',`${location.pathname}${location.search}#${week.id===plans.current?'week':`archived-${week.id}`}`);
   return true;
 }
 function moveDinner(from, shift) {
@@ -210,7 +216,7 @@ function renderGroceries() {
 }
 function archiveView() {
   const weeks=[...plans.weeks].sort((a,b)=>b.id.localeCompare(a.id)), older=weeks.filter(w=>w.id!==plans.current);
-  return `<section class="page-intro"><p class="eyebrow">KEEP THE GOOD WEEKS CLOSE</p><h1>Our dinner<br><em>scrapbook.</em></h1><p>A home for every weekly plan, and the recipes we’ll come back to.</p></section><div class="archive-grid">${weeks.map(w=>`<article class="archive-card"><p class="eyebrow">${w.id===plans.current?'THE CURRENT LINEUP':'FROM OUR TABLE'} · ${e(weekLabel(w.id))}</p><h2>${e(w.title)}</h2><ul>${orderedMeals(w).map(m=>`<li><span>${e(m.day.slice(0,3))}</span>${e(getRecipe(book,w,m.recipe).title)}</li>`).join('')}</ul><button class="button" data-week="${e(w.id)}">${w.id===plans.current?'Open current week':'View archived menu'} ↗</button></article>`).join('')}${!older.length?'<aside class="archive-empty"><span class="mini-p-logo" aria-hidden="true">P</span><h2>The first page<br>of a good thing.</h2><p>This is our first saved weekly plan. Earlier full plans weren’t available in the conversation, so this scrapbook will grow from here.</p><p>New weeks appear here when the cookbook’s plan file is updated.</p></aside>':''}</div>`;
+  return `<section class="page-intro"><p class="eyebrow">KEEP THE GOOD WEEKS CLOSE</p><h1>Our dinner<br><em>scrapbook.</em></h1><p>A home for every weekly plan, and the recipes we’ll come back to.</p></section><div class="archive-grid">${weeks.map(w=>`<article class="archive-card"><p class="eyebrow">${w.id===plans.current?'THE CURRENT LINEUP':'FROM OUR TABLE'} · ${e(weekLabel(w.id))}</p><h2>${e(w.title)}</h2><ul>${orderedMeals(w).map(m=>`<li><span class="archive-weekday">${e(m.day.slice(0,3))}</span><img class="archive-meal-photo" src="${e(imageFor(getRecipe(book,w,m.recipe)))}" data-fallback="${e(fallbackFor(getRecipe(book,w,m.recipe)))}" alt="" loading="lazy" decoding="async" width="58" height="58"><span class="archive-meal-name">${e(getRecipe(book,w,m.recipe).title)}</span></li>`).join('')}</ul><button class="button" data-week="${e(w.id)}">${w.id===plans.current?'Open current week':'View archived menu'} ↗</button></article>`).join('')}${!older.length?'<aside class="archive-empty"><span class="mini-p-logo" aria-hidden="true">P</span><h2>The first page<br>of a good thing.</h2><p>This is our first saved weekly plan. Earlier full plans weren’t available in the conversation, so this scrapbook will grow from here.</p><p>New weeks appear here when the cookbook’s plan file is updated.</p></aside>':''}</div>`;
 }
 function render() {
   const page=route();
