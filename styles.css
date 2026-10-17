@@ -226,3 +226,17 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
  .dinner-settings select{font-size:11px;min-height:34px;max-width:60%;padding:5px 21px 5px 7px}
  .meal-card{min-height:188px}
 }
+
+/* Recipe modal shares the same per-dinner portion and protein controls. */
+.recipe-edit-controls{flex:1;min-width:0}
+.recipe-edit-controls .dinner-settings{margin:0;padding:0;border:0;gap:10px 18px}
+.recipe-edit-controls .dinner-settings label{font-size:13px;gap:8px}
+.recipe-edit-controls .dinner-settings select{min-height:43px;font-size:13px;max-width:210px}
+@media(max-width:760px){
+ .recipe-actions{align-items:stretch;flex-wrap:wrap;gap:12px}
+ .recipe-edit-controls{flex:1 1 100%}
+ .recipe-edit-controls .dinner-settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .recipe-edit-controls .dinner-settings label{display:flex;flex-direction:column;align-items:stretch;gap:4px;width:auto;font-size:12px}
+ .recipe-edit-controls .dinner-settings label:only-child{grid-column:1/-1;max-width:220px}
+ .recipe-edit-controls .dinner-settings select{width:100%;max-width:none;min-height:44px;font-size:13px}
+}
