@@ -111,3 +111,18 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
  .item-edit,.item-remove{width:34px;min-width:34px}
  .grocery-amount{max-width:65px}
 }
+
+
+/* Compact ingredient provenance: tap the little i to see the dinners, without taller rows */
+.grocery-row{position:relative;overflow:visible}
+.grocery-main{display:flex;align-items:center;gap:5px;min-width:0;flex:1}
+.grocery-main .grocery-check{min-width:0;flex:0 1 auto}
+.used-trigger{flex:0 0 24px;width:24px;height:28px;padding:0;border:0;background:transparent;color:var(--leaf);font:700 13px var(--sans);border-radius:50%;text-decoration:underline;text-underline-offset:2px}
+.used-trigger:focus-visible{outline:2px solid var(--cobalt);outline-offset:1px}
+.used-trigger[aria-expanded=true]{background:#e0e9d8}
+.used-popover{position:absolute;z-index:30;top:calc(100% - 3px);left:38px;max-width:min(300px,calc(100vw - 75px));width:max-content;padding:12px 15px;border:1px solid #c4d1ba;background:#fffef5;border-radius:12px;box-shadow:0 8px 22px #23270f25;font-size:12px;line-height:1.5;color:var(--ink)}
+.used-popover[hidden]{display:none}
+.used-popover strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--leaf);margin-bottom:5px}
+.used-popover div+div{margin-top:5px}
+@media(max-width:760px){.grocery-main{gap:2px}.grocery-main .grocery-check{flex:0 1 auto;min-width:0}.used-trigger{flex-basis:22px;width:22px;height:30px;font-size:12px}.used-popover{left:18px}.grocery-row{overflow:visible}}
+@media print {.used-trigger,.used-popover{display:none!important}}
