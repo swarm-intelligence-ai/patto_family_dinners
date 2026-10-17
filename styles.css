@@ -170,3 +170,10 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
  .used-trigger{width:auto;flex:0 0 auto;height:24px;min-height:24px;font-size:10px;padding:4px 7px;max-width:88px}
 }
 @media(max-width:380px){.used-trigger{max-width:65px;font-size:9px;padding:3px 5px}}
+
+/* A cleaner Patto monogram and a more personal homepage headline */
+.brand-icon{overflow:hidden;flex:0 0 49px;background:#fff9ed;border-width:2px;font-size:38px;line-height:1;letter-spacing:-.07em}
+.brand-icon span{display:none}
+.hero h1 em{font-size:.77em;letter-spacing:-.055em;display:inline-block;max-width:100%}
+@media(max-width:760px){.brand-icon{flex-basis:41px;font-size:32px}}
+@media(max-width:520px){.hero h1{font-size:clamp(48px,11.6vw,70px);line-height:1.02}.hero h1 em{font-size:.83em;letter-spacing:-.058em}}
