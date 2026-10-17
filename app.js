@@ -50,7 +50,9 @@ function orderedMeals(week) {
 }
 function shareUrl() {
   const ids=orderedMeals(current()).map(m=>m.recipe);
-  const params=new URLSearchParams({week:selectedWeek,order:ids.join(',')});
+  const params=new URLSearchParams({week:selectedWeek,order:ids.join(','),guests:ids.map(id=>mealChoice(id).servings).join(',')});
+  const proteinMeal=current().meals.find(m=>getRecipe(book,current(),m.recipe).proteins);
+  if(proteinMeal) params.set('protein',mealChoice(proteinMeal.recipe).protein);
   return `${location.origin}${location.pathname}${location.search}#week?${params.toString()}`;
 }
 async function shareWeek() {
@@ -73,6 +75,19 @@ function applySharedLink() {
   if (!validMealOrder(week,ids)) return false;
   selectedWeek=week.id;
   loadMealSettings();
+  const guests=params.get('guests');
+  if(guests) {
+    const counts=guests.split(',');
+    if(counts.length===ids.length && counts.every(n=>/^([1-9]|10)$/.test(n))) {
+      ids.forEach((id,i)=>{mealSettings[id]={...mealChoice(id),servings:Number(counts[i])};});
+    }
+  }
+  const sharedProtein=params.get('protein');
+  if(['salmon','chicken','mixed'].includes(sharedProtein)) {
+    const dish=week.meals.find(m=>getRecipe(book,week,m.recipe).proteins);
+    if(dish) mealSettings[dish.recipe]={...mealChoice(dish.recipe),protein:sharedProtein};
+  }
+  write(`meal-settings:${week.id}`,mealSettings);
   write(`meal-order:${week.id}`,ids);
   history.replaceState(null,'',`${location.pathname}${location.search}#week`);
   return true;
@@ -118,7 +133,7 @@ function card(r, day, position = -1, count = 0) {
 }
 function weekView() {
   const w=current(), isCurrent=w.id===plans.current;
-  return `<section class="hero"><div class="hero-copy"><h1>The Patto<br><em>Dinner Club.</em></h1><p class="hero-description">Less dinner drama. More happy plates.</p><a class="button" href="#groceries">Get the shopping list <span aria-hidden="true">↗</span></a><div class="hero-footnote"><span class="mini-p-logo" aria-hidden="true">P</span> Five dinners. Five Patto opinions. Zero boring plates.</div></div><div class="hero-visual patto-chefs"><div class="hero-circle"></div><img src="./assets/patto-chefs.webp" data-fallback="${photoSources.mediterranean}" alt="Cartoon Kym and Anthony cooking together in the Patto kitchen" width="1536" height="1024" fetchpriority="high"><p class="handwritten">Kym cooks.<br>Anthony taste-tests.</p></div></section><section aria-labelledby="week-title"><div class="section-heading"><div><p class="eyebrow">${isCurrent?'ON THE MENU':'FROM THE ARCHIVE'} · WEEK OF ${e(weekLabel(w.id).toUpperCase())}</p><h2 id="week-title">${e(w.title)}</h2></div><a class="text-link" href="#archive">Browse weeks <span aria-hidden="true">↗</span></a></div><p class="section-description">${e(w.note)}</p><div class="week-share-tools"><p class="reorder-hint">↕ Rearrange the meals below, then share your week. The link changes dinner order only — not anybody’s shopping ticks.</p><button class="outline-button share-week-button" id="share-week" type="button" aria-label="Share this week’s dinner order">↗ Share our week</button></div>${!isCurrent?'<div class="notice">You’re browsing an older plan. <button class="text-button" data-current>Back to the current week ↗</button></div>':''}<div class="meal-grid">${orderedMeals(w).map((m,i,items)=>card(getRecipe(book,w,m.recipe),m.day,i,items.length)).join('')}<aside class="shopping-card"><span class="mini-p-logo mini-p-logo--large shopping-flower" aria-hidden="true">P</span><p class="eyebrow">THE OTHER HALF OF THE PLAN</p><h3>One shop.<br>Five happy<br>dinners.</h3><p>Everything you need, added up and sorted for an Aldi-style shop.</p><a class="button button-cream" href="#groceries">Let’s shop <span aria-hidden="true">↗</span></a><small>Tick it. Tweak it. Get dinner sorted.</small></aside></div></section><section class="family-strip"><span class="mini-p-logo" aria-hidden="true">P</span><div><h2>The Patto sous-chef squad.</h2><p>Leila, Phoebe and Tobias: kitchen jobs are officially on the menu. Kym's not running a restaurant, you know.</p></div><a class="text-link" href="#recipes">Find your next kitchen job ↗</a></section>`;
+  return `<section class="hero"><div class="hero-copy"><h1>The Patto<br><em>Dinner Club.</em></h1><p class="hero-description">Less dinner drama. More happy plates.</p><a class="button" href="#groceries">Get the shopping list <span aria-hidden="true">↗</span></a><div class="hero-footnote"><span class="mini-p-logo" aria-hidden="true">P</span> Five dinners. Five Patto opinions. Zero boring plates.</div></div><div class="hero-visual patto-chefs"><div class="hero-circle"></div><img src="./assets/patto-chefs.webp" data-fallback="${photoSources.mediterranean}" alt="Cartoon Kym and Anthony cooking together in the Patto kitchen" width="1536" height="1024" fetchpriority="high"><p class="handwritten">Kym cooks.<br>Anthony taste-tests.</p></div></section><section aria-labelledby="week-title"><div class="section-heading"><div><p class="eyebrow">${isCurrent?'ON THE MENU':'FROM THE ARCHIVE'} · WEEK OF ${e(weekLabel(w.id).toUpperCase())}</p><h2 id="week-title">${e(w.title)}</h2></div><a class="text-link" href="#archive">Browse weeks <span aria-hidden="true">↗</span></a></div><p class="section-description">${e(w.note)}</p><div class="week-share-tools"><p class="reorder-hint">↕ Rearrange the meals below, then share your week. The link shares dinner order and guest numbers — not anybody’s shopping ticks.</p><button class="outline-button share-week-button" id="share-week" type="button" aria-label="Share this week’s dinner order">↗ Share our week</button></div>${!isCurrent?'<div class="notice">You’re browsing an older plan. <button class="text-button" data-current>Back to the current week ↗</button></div>':''}<div class="meal-grid">${orderedMeals(w).map((m,i,items)=>card(getRecipe(book,w,m.recipe),m.day,i,items.length)).join('')}<aside class="shopping-card"><span class="mini-p-logo mini-p-logo--large shopping-flower" aria-hidden="true">P</span><p class="eyebrow">THE OTHER HALF OF THE PLAN</p><h3>One shop.<br>Five happy<br>dinners.</h3><p>Everything you need, added up and sorted for an Aldi-style shop.</p><a class="button button-cream" href="#groceries">Let’s shop <span aria-hidden="true">↗</span></a><small>Tick it. Tweak it. Get dinner sorted.</small></aside></div></section><section class="family-strip"><span class="mini-p-logo" aria-hidden="true">P</span><div><h2>The Patto sous-chef squad.</h2><p>Leila, Phoebe and Tobias: kitchen jobs are officially on the menu. Kym's not running a restaurant, you know.</p></div><a class="text-link" href="#recipes">Find your next kitchen job ↗</a></section>`;
 }
 function cookbookView() {
   return `<section class="page-intro"><p class="eyebrow">GOOD THINGS, WORTH KEEPING</p><h1>The family<br><em>cookbook.</em></h1><p>Our dinner rotation, all in one delicious place.</p></section><div class="cookbook-tools"><label class="search-label"><span class="sr-only">Search recipes</span><input type="search" id="recipe-search" placeholder="Find a dish, ingredient or flavour…" value="${e(search)}"></label><div class="filters" aria-label="Recipe filters">${[['all','All recipes'],['quick','30 minutes'],['favourites','Favourites']].map(([id,label])=>`<button data-filter="${id}" aria-pressed="${filter===id}" class="${filter===id?'active':''}">${label}</button>`).join('')}</div></div><div id="recipe-results"></div>`;
@@ -249,7 +264,7 @@ document.addEventListener('submit',event=>{
   else{const name=String(data.get('name')).trim(),amount=String(data.get('amount')).trim();if(!name||!amount)return;list.edits[form.dataset.editForm]={name,amount};toast('Shopping item updated.');}
   saveList();renderGroceries();
 });
-window.addEventListener('hashchange',()=>{if(book&&plans){if(recipeDialog.open)recipeDialog.close();const imported=applySharedLink();render();window.scrollTo(0,0);main.focus({preventScroll:true});if(imported)toast('Shared dinner order saved on this phone. Shopping list untouched.');}});
+window.addEventListener('hashchange',()=>{if(book&&plans){if(recipeDialog.open)recipeDialog.close();const imported=applySharedLink();render();window.scrollTo(0,0);main.focus({preventScroll:true});if(imported)toast('Shared dinner plan saved on this phone. Shopping ticks untouched.');}});
 window.addEventListener('afterprint',()=>delete document.body.dataset.print);
 for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
 
