@@ -80,3 +80,41 @@ export function mealsInOrder(week, ids) {
   if (!validMealOrder(week,ids)) return week.meals;
   return ids.map((id,index)=>({...week.meals.find(m=>m.recipe===id),day:week.meals[index].day}));
 }
+
+/** Prepare a new week without touching the live site. Frozen recipes are captured now. */
+export function createWeekDraft(book, plans, id) {
+  validateData(book,plans);
+  const source=plans.weeks.find(w=>w.id===plans.current);
+  const date=new Date(`${id}T12:00:00Z`);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(id) || Number.isNaN(date.valueOf()) ||
+     date.toISOString().slice(0,10)!==id || date.getUTCDay()!==1 ||
+     id<=plans.current || plans.weeks.some(w=>w.id===id)) throw new Error('Choose a new Monday after the published week.');
+  return {
+    sourceWeek:structuredClone(source),
+    outgoingRecipeSnapshots:Object.fromEntries(source.meals.map(m=>[m.recipe,structuredClone(getRecipe(book,source,m.recipe))])),
+    nextWeek:{id,title:'Five new dinners. Coming right up.',note:'Choose and approve five meals before publishing.',meals:structuredClone(source.meals)}
+  };
+}
+
+/** Publish an approved draft atomically in memory. Old recipe versions are preserved. */
+export function publishWeekDraft(book, plans, draft) {
+  validateData(book,plans);
+  const source=plans.weeks.find(w=>w.id===plans.current);
+  if(!draft || JSON.stringify(draft.sourceWeek)!==JSON.stringify(source)) throw new Error('Published week changed after the draft was created. Recreate the draft.');
+  const next=draft.nextWeek;
+  if(!next || typeof next.id!=='string' || next.id<=plans.current ||
+     plans.weeks.some(w=>w.id===next.id) ||
+     !/^\d{4}-\d{2}-\d{2}$/.test(next.id) ||
+     Number.isNaN(Date.parse(next.id)) ||
+     new Date(`${next.id}T12:00:00Z`).getUTCDay()!==1 ||
+     !Array.isArray(next.meals) || next.meals.length!==5) throw new Error('Draft must contain five dinners for a new Monday.');
+  if(!draft.outgoingRecipeSnapshots ||
+     source.meals.some(m=>!draft.outgoingRecipeSnapshots[m.recipe])) throw new Error('Missing archived recipe snapshots.');
+  const result=structuredClone(plans);
+  const old=result.weeks.find(w=>w.id===result.current);
+  old.recipeSnapshots=structuredClone(draft.outgoingRecipeSnapshots);
+  result.weeks.push(structuredClone(next));
+  result.current=next.id;
+  validateData(book,result);
+  return result;
+}
