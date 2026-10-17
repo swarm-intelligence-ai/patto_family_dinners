@@ -79,3 +79,35 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
 .patto-chefs>img{aspect-ratio:3/2;height:auto;max-height:420px;object-fit:cover;object-position:center;border:5px solid #fff9ed;border-radius:24px;box-shadow:12px 15px 0 #e9e7ce}
 .patto-chefs .hero-stamp{z-index:2;top:-25px;right:-5px}
 @media(max-width:520px){.patto-chefs{height:auto;min-height:0;margin:18px auto 20px}.patto-chefs>img{width:100%;max-width:100%;height:auto;aspect-ratio:3/2;max-height:none;border-width:3px;border-radius:20px}.patto-chefs .hero-stamp{top:-17px;right:-8px}}
+
+
+/* Shopping list: compact single-line iPhone rows. Keep controls on one line. */
+@media(max-width:760px){
+ .grocery-row{
+   display:grid;
+   grid-template-columns:minmax(0,1fr) auto 38px 38px;
+   align-items:center;
+   gap:6px;
+   padding:5px 6px;
+   min-height:48px;
+   flex-wrap:nowrap;
+ }
+ .grocery-check{display:flex;min-width:0;min-height:40px;gap:10px;flex-basis:auto;font-size:14px}
+ .grocery-check span{overflow-wrap:anywhere;line-height:1.25}
+ .grocery-check input{width:22px;height:22px;flex:0 0 22px;margin:0}
+ .grocery-amount{min-width:0;max-width:82px;white-space:normal;text-align:right;font-size:12px;line-height:1.15}
+ .item-edit,.item-remove{margin:0;padding:0;width:38px;min-width:38px;height:40px;min-height:40px;display:grid;place-items:center}
+ .item-edit{font-size:0}
+ .item-edit:after{content:'✎';font-size:19px;line-height:1;color:var(--muted)}
+ .item-remove{font-size:25px;line-height:1}
+ .aisle-heading{padding:9px 11px;gap:10px}
+ .aisle-heading h2{font-size:23px;line-height:1.2}
+ .aisle-number{font-size:18px}
+ .aisle{margin-bottom:18px}
+ .grocery-toolbar{margin-bottom:12px}
+}
+@media(max-width:380px){
+ .grocery-row{grid-template-columns:minmax(0,1fr) auto 34px 34px;gap:3px}
+ .item-edit,.item-remove{width:34px;min-width:34px}
+ .grocery-amount{max-width:65px}
+}
