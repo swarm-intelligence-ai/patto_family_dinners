@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {validateData,getRecipe,recipeIngredients,consolidate,quantity,escapeHTML,validMealOrder,mealsInOrder,createWeekDraft,publishWeekDraft} from '../core.js';
+import {validateData,getRecipe,recipeIngredients,consolidate,consolidateMealSettings,quantity,escapeHTML,validMealOrder,mealsInOrder,createWeekDraft,publishWeekDraft} from '../core.js';
 
 const book=JSON.parse(await readFile(new URL('../data/recipes.json',import.meta.url),'utf8'));
 const plans=JSON.parse(await readFile(new URL('../data/plans.json',import.meta.url),'utf8'));
@@ -81,4 +81,27 @@ test('broken references and unsafe HTML fail safely',()=>{
  altered.weeks[0].meals[0].recipe='missing';
  assert.throws(()=>validateData(book,altered),/Unknown meal/);
  assert.equal(escapeHTML('<img onerror="bad">'),'&lt;img onerror=&quot;bad&quot;&gt;');
+});
+
+test('guest count is independent for each dinner and scales the consolidated shop',()=>{
+  const count={};
+  for(const meal of week.meals)count[meal.recipe]={servings:5,protein:'mixed'};
+  const baseline=consolidateMealSettings(book,week,count);
+  const pasta=week.meals.find(m=>m.recipe==='italian-chicken-pasta');
+  assert.ok(pasta);
+  count[pasta.recipe]={servings:6};
+  const updated=consolidateMealSettings(book,week,count);
+  const pastaRecipe=getRecipe(book,week,pasta.recipe);
+  const chickenBase=pastaRecipe.ingredients.find(([id])=>id==='chicken')[1];
+  const before=baseline.find(i=>i.id==='chicken').qty;
+  const after=updated.find(i=>i.id==='chicken').qty;
+  assert.equal(Math.round((after-before)*1000)/1000,chickenBase/pastaRecipe.serves);
+  assert.equal(updated.find(i=>i.id==='beef').qty,baseline.find(i=>i.id==='beef').qty);
+});
+test('protein can vary on the salmon dinner independently of other dinners',()=>{
+  const chicken=consolidateMealSettings(book,week,{'sweet-chilli-bowls':{servings:3,protein:'chicken'}});
+  const salmon=consolidateMealSettings(book,week,{'sweet-chilli-bowls':{servings:3,protein:'salmon'}});
+  assert.ok(!chicken.some(item=>item.id==='salmon'));
+  assert.ok(salmon.some(item=>item.id==='salmon'));
+  assert.ok(salmon.find(i=>i.id==='chicken').qty<chicken.find(i=>i.id==='chicken').qty);
 });
