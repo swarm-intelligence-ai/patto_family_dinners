@@ -30,7 +30,7 @@ function loadList() {
   const raw=read(storageKey(), {});
   const revision=JSON.stringify(current());
   const fingerprint=JSON.stringify(current().meals.map(m=>getRecipe(book,current(),m.recipe)));
-  list={checks:{},edits:{},removed:[],extras:[],...((raw && raw.revision===revision && raw.fingerprint===fingerprint) ? raw : {}), revision,fingerprint};
+  list={checks:{},edits:{},removed:[],extras:[],...(raw && typeof raw === 'object' ? raw : {}), revision,fingerprint};
   if (!list.checks || typeof list.checks!=='object') list.checks={};
   if (!list.edits || typeof list.edits!=='object') list.edits={};
   if (!Array.isArray(list.removed)) list.removed=[];
