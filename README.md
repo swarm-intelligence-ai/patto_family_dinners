@@ -1,4 +1,4 @@
-# The Patto Dinner Club
+# The Patto Family Social — Dinner Club
 
 A colourful family cookbook for Anthony, Kym and the kids. Five dinners, complete recipes, one consolidated shop and a weekly scrapbook.
 
@@ -16,7 +16,7 @@ https://swarm-intelligence-ai.github.io/patto_family_dinners/
 - Search by dish or ingredient, quick-recipe filter and saved favourites.
 - Weekly archive with recipe snapshots when you roll to a new week.
 - Responsive layout, keyboard navigation, accessible recipe dialogs and reduced-motion support.
-- Original local SVG food illustrations. No tracking, third-party fonts, image services, login, backend or runtime packages.
+- Local fallback SVG illustrations and linked meal photography; no login or backend. External images may be served by third parties.
 
 Shopping changes, favourites and portions are saved **in each browser only**. They do not sync between Kym’s and Anthony’s phones. Use **Export list** to share a text checklist. Recipe ingredient ticks are temporary cooking aids and reset when the recipe is reopened. Clearing browser data clears saved preferences and lists.
 
@@ -48,29 +48,50 @@ The repository was initially private. Anthony subsequently authorised making it 
 
 GitHub Free supports Pages with public repositories; private-repository Pages requires an eligible paid plan. See [GitHub’s setup guidance](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) and [publishing-source instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
-## Add the next week (recommended)
+## Weekly publishing — draft, review, then go live
+
+The website's current dinner plan is set by `data/plans.json` → `current`. **Do not change that pointer while planning.**
+
+1. Agree the five dinners with the family (Anthony can do this with Max in ChatGPT).
+2. Run `npm run new-week -- YYYY-MM-DD`, using the next Monday's date, **after** the previous menu and recipes have been finalised. This captures frozen copies of the outgoing recipes in a private-to-source draft, without changing the live plan.
+3. Edit `drafts/next-week.json`: update `nextWeek.title`, `nextWeek.note` and its five `meals` (each has a weekday and recipe ID). Create or edit recipes in `data/recipes.json`. If a recipe needs a new historical version in the searchable cookbook, give it a new recipe ID.
+4. Review meal titles, ingredients, real-life five-person quantities, allergies, cooking steps and dinner images. Nothing is live yet.
+5. Run `npm run publish-week`. The helper checks for five valid recipes, freezes the outgoing week into `recipeSnapshots`, appends the new week and moves the `current` pointer. It rejects stale drafts and doesn't delete historical weeks.
+6. Run `npm test && npm run build`. **Only push to `main` after both succeed.** GitHub Actions tests and publishes the static site again on push.
+
+Example:
 
 ```sh
 npm run new-week -- 2026-10-19
+# edit drafts/next-week.json and data/recipes.json
+npm run publish-week
+npm test && npm run build
+git add data/plans.json data/recipes.json
+git commit -m "Publish five dinners for 19 October"
+git push
 ```
 
-Use the next Monday’s actual date. This command:
+`drafts/next-week.json` is removed when published. It is never copied into the GitHub Pages build, so unfinished menus do not appear on the live site. If a draft exists already, finish or intentionally discard it before starting another. Never modify archived `recipeSnapshots` in ordinary weekly updates.
 
-1. Freezes the outgoing week’s recipes into `recipeSnapshots` inside `data/plans.json`.
-2. Adds a new week copied from the old lineup, ready for you to change.
-3. Sets `current` to the new week. Older weeks remain browsable.
+**Chat workflow:** Once Anthony approves a week's meals, Max can edit the data, add recipes and pictures, commit the new week and verify the GitHub Actions deployment. We should never publish placeholder dinners from the draft.
 
-Then edit the new week’s title, note and meals in `data/plans.json`. Each meal has a day label and a recipe ID:
+## Share our week (no account or server)
 
-```json
-{"day": "Monday", "recipe": "mediterranean-beef"}
+On **This week**, reorder dinners with the ↑/↓ buttons, then tap **Share our week**. On an iPhone this opens the native share sheet for Messenger or Messages. In other browsers, it copies the URL where supported.
+
+The link contains the week ID and the ordered **recipe IDs only**, for example:
+
+```text
+https://swarm-intelligence-ai.github.io/patto_family_dinners/#week?week=2026-10-12&order=mediterranean-beef,pork-tonkatsu,burrito-bowls,italian-chicken-pasta,sweet-chilli-bowls
 ```
 
-Edit or add recipes in `data/recipes.json`, run the tests and build, then commit/push the changed data files. Pages updates automatically. Roll over the week **before** changing recipes if you want the outgoing version frozen. Existing historical ingredient IDs must remain in the shared ingredient dictionary; add new IDs rather than deleting old ones. To preserve two different recipe versions in cookbook search as well, give the revised recipe a new ID.
+On opening a valid link, the site selects that archived/current week and saves the supplied order **on the recipient's device**. Weekday labels follow the slots. The link does **not** import shopping-list edits, checks, removed items, extra items, serving counts or favourites. Invalid or outdated orders are ignored. There is no live two-way sync: if Kym later changes her order, she can send an updated link back.
 
-### Browser-only GitHub editing
+Shopping list state is keyed by week, serving count and the salmon/chicken choice. Adding a new week starts its own list while keeping previous saved lists in that browser. Browsers are independent; clearing site storage removes local edits.
 
-You can edit JSON with GitHub’s pencil button without running the helper: copy the current week object, assign a new unique ISO date, edit its meals, append it to `weeks` and change `current`. Keep older weeks. If changing an existing recipe, copy its original object into the outgoing week’s `recipeSnapshots` keyed by recipe ID, or create a new recipe ID for the new version. Run the helper locally for an easier snapshot workflow. JSON needs double quotes and no trailing commas; deployment checks reject broken references and incomplete recipes.
+### Browser-only editing
+
+To make a small fix, edit a recipe in `data/recipes.json` and let GitHub Actions validate the push. For a **new week**, use the draft/publish commands in a local checkout or ask Max to operate on the repo through GitHub. Editing `data/plans.json` directly to publish is possible, but is not the recommended way: forgetting snapshots can corrupt historical recipes, and archived plans without snapshots now fail validation.
 
 ### Add a recipe
 
@@ -80,12 +101,12 @@ Copy an existing recipe object to retain the required fields. Use a unique lower
 
 - Dish choices come from Anthony’s locked-in list. The accessible source chat contained user messages but no recoverable assistant recipe text or complete historical plans. The recipes were authored for this cookbook and have not been kitchen-tested. Historical weeks have not been invented.
 - The initial plan is dated to the source conversation’s week, **12 October 2026**. Weekday assignments are suggested; change them in `data/plans.json` if needed. “This week” means the plan explicitly selected by `current`, not an automatically advancing calendar.
-- Default yield is four equal servings, an editable starting assumption. Quantities are recipe amounts, not rounded supermarket packs. Fractional produce, tins and eggs should be rounded up when buying; use the measured recipe amount when cooking. Aldi aisle order is indicative and varies by store.
+- Default household target is five portions; each recipe records its own yield. Quantities are recipe amounts, not rounded supermarket packs. Displayed quantities use practical kitchen rounding for whole produce, tins and eggs. Aldi aisle order is indicative and varies by store.
 - Recipe cooking times are estimates; larger batches may need extra pans or time. Scaling ingredients does not replace checking doneness.
 - Nutrition is a rough recipe-level estimate per original equal serving, not a clinical calculation or a target for children. Brands, oil absorption, appetite and substitutions matter. The mixed-protein estimate is an average across the recipe, not every individual bowl.
 - Allergen notes do not replace checking product labels. Worcestershire can contain fish. Mixed salmon/chicken preparation does not avoid fish cross-contact.
 - Chicken and mince should reach at least 75°C in the centre. Use separate raw/ready-to-eat utensils, check salmon for bones and refrigerate leftovers promptly. See [FSANZ food safety basics](https://www.foodstandards.gov.au/consumer/prevention-of-foodborne-illness/food-safety-basics).
-- No real faces are included. Ask Anthony and Kym for approved photos before adding them, particularly to a public site.
+- The approved homepage chef artwork depicts Anthony and Kym. This public site should only contain family imagery they have approved.
 
 ## Files
 
@@ -96,7 +117,7 @@ Copy an existing recipe object to retain the required fields. Use a unique lower
 | `app.js`, `core.js` | Browser screens, local saving and grocery calculations |
 | `styles.css` | Responsive, reduced-motion and print layouts |
 | `assets/` | Original food illustrations and favicon |
-| `scripts/new-week.mjs` | Archive recipes and start a new week |
+| `scripts/new-week.mjs` | Prepare an unpublished week and freeze the outgoing recipes |\n| `scripts/publish-week.mjs` | Validate and publish the approved draft safely |\n| `drafts/next-week.json` | Temporary working draft, outside the public site build |
 | `.github/workflows/pages.yml` | Check, build and deploy to GitHub Pages |
 
 To regenerate the food illustrations: `node scripts/art.mjs`.
