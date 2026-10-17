@@ -6,7 +6,7 @@ import {validateData,getRecipe,recipeIngredients,consolidate,quantity,escapeHTML
 const book=JSON.parse(await readFile(new URL('../data/recipes.json',import.meta.url),'utf8'));
 const plans=JSON.parse(await readFile(new URL('../data/plans.json',import.meta.url),'utf8'));
 const week=plans.weeks.find(w=>w.id===plans.current);
-const nextMonday='2026-10-19';
+const nextMonday=new Date(Date.parse(`${plans.current}T12:00:00Z`)+7*86400000).toISOString().slice(0,10);
 
 test('published plan, recipes and archived snapshots are valid',()=>{
  assert.equal(validateData(book,plans),true);
