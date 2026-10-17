@@ -39,6 +39,28 @@ export function consolidate(book, week, servings, protein) {
   for (const meal of week.meals) for (const [id, qty] of recipeIngredients(getRecipe(book, week, meal.recipe), servings, protein)) totals.set(id, (totals.get(id) || 0) + qty);
   return [...totals].map(([id, qty]) => ({id, ...book.ingredients[id], qty: Math.round(qty * 1000) / 1000})).sort((a,b) => book.aisles.indexOf(a.aisle) - book.aisles.indexOf(b.aisle) || a.name.localeCompare(b.name));
 }
-export function quantity(qty, unit) { return `${Number(qty.toFixed(2))}${unit ? ` ${unit}` : ''}`; }
+export function quantity(qty, unit) {
+  // These numbers are instructions for humans shopping and cooking, not a lab balance.
+  const n = Math.max(0, Number(qty));
+  if (!Number.isFinite(n)) return '';
+  const whole = !unit || unit.includes('tin') || unit === 'bunch';
+  if (whole) return `${Math.ceil(n - 1e-8)}${unit ? ` ${unit}` : ''}`;
+  if (unit === 'tsp') {
+    const rounded = Math.max(0.25, Math.round(n * 4) / 4);
+    const integer = Math.floor(rounded);
+    const fractions = {0:'',0.25:'¼',0.5:'½',0.75:'¾'};
+    const fractional = fractions[Number((rounded - integer).toFixed(2))] || '';
+    return `${integer || ''}${fractional} tsp`;
+  }
+  if (unit === 'ml') {
+    const rounded = n < 10 ? Math.round(n) : Math.round(n / 5) * 5;
+    return `${rounded} ml`;
+  }
+  if (unit === 'g') {
+    const step = n < 25 ? 1 : n < 100 ? 5 : n < 250 ? 10 : 25;
+    return `${Math.round(n / step) * step} g`;
+  }
+  return `${Number(n.toFixed(1))} ${unit}`;
+}
 export function weekLabel(id) { return new Intl.DateTimeFormat('en-AU', {day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${id}T12:00:00Z`)); }
 export function escapeHTML(value) { return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
