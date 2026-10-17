@@ -215,3 +215,14 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
  .week-share-tools .reorder-hint{flex:1 1 100%;font-size:11px;line-height:1.55}
  .share-week-button{width:100%;font-size:13px;min-height:45px}
 }
+
+/* Guest counts belong to the individual dinner, not the entire family week. */
+.dinner-settings{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;border-top:1px solid var(--line);margin-top:9px;padding-top:10px}
+.dinner-settings label{font-family:var(--sans);font-size:11px;font-weight:650;display:flex;align-items:center;gap:7px;min-width:0;color:var(--ink)}
+.dinner-settings select{min-height:36px;max-width:190px;padding:6px 24px 6px 9px;border-radius:9px;background:#fffbeb;font-size:12px;color:var(--ink)}
+@media(max-width:520px){
+ .dinner-settings{gap:6px 8px;align-items:flex-start;margin-top:5px;padding-top:8px}
+ .dinner-settings label{width:100%;justify-content:space-between;font-size:11px}
+ .dinner-settings select{font-size:11px;min-height:34px;max-width:60%;padding:5px 21px 5px 7px}
+ .meal-card{min-height:188px}
+}
