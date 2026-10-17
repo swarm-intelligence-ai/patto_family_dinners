@@ -70,13 +70,25 @@ function groceryView() {
   loadList();
   return `<section class="page-intro grocery-intro"><div><p class="eyebrow">ONE SHOP, THEN YOU’RE SORTED</p><h1>The shopping<br><em>list.</em></h1><p>Week of ${e(weekLabel(selectedWeek))} · Five nights at our table.</p></div><div class="shopping-actions"><button class="button" id="download-list">Export list ↓</button><button class="outline-button" id="print-list">Print list</button></div></section>${controls()}<p class="local-note">Edits and ticks save on this device. Export to share with the family. Aisle order varies by store; round recipe amounts up to whole produce and packs.</p><div id="grocery-progress"></div><div class="grocery-toolbar"><label><input type="checkbox" id="hide-checked"> Hide ticked items</label><button class="text-button" id="reset-list">Reset this list</button></div><div id="aisles"></div><form class="add-form" id="add-item"><h2>Anything else?</h2><div class="add-fields"><label>Item<input name="item" required maxlength="80" placeholder="Lunchbox apples, perhaps?"></label><label>Amount<input name="amount" maxlength="40" placeholder="1 bag"></label><label>Aisle<select name="aisle">${book.aisles.map(a=>`<option>${e(a)}</option>`).join('')}</select></label><button class="button" type="submit">Add to list +</button></div></form><p class="local-note">Pantry staples are included so nothing gets missed. Tick the things you already have. Changing servings or Friday’s protein opens a separate saved list.</p>`;
 }
+function ingredientUses() {
+  const uses = new Map();
+  for (const meal of current().meals) {
+    const recipe = getRecipe(book, current(), meal.recipe);
+    for (const [id] of recipeIngredients(recipe, servings, protein)) {
+      const entries = uses.get(id) || [];
+      if (!entries.some(entry => entry.id === recipe.id)) entries.push({id:recipe.id, title:recipe.shortTitle || recipe.title, day:meal.day});
+      uses.set(id, entries);
+    }
+  }
+  return uses;
+}
 function renderGroceries() {
-  const items=listItems(), checked=items.filter(i=>list.checks[i.id]).length, hide=document.querySelector('#hide-checked').checked;
+  const items=listItems(), checked=items.filter(i=>list.checks[i.id]).length, hide=document.querySelector('#hide-checked').checked, uses=ingredientUses();
   document.querySelector('#grocery-progress').innerHTML=`<div class="progress-label"><strong>${checked===items.length&&items.length?'Shop sorted. Nice one!':`${checked} of ${items.length} items sorted`}</strong><span>${items.length?Math.round(checked/items.length*100):0}%</span></div><progress value="${checked}" max="${items.length||1}" aria-label="Shopping items sorted"></progress>`;
   document.querySelector('#aisles').innerHTML=book.aisles.map((aisle,n)=>{
     const group=items.filter(i=>i.aisle===aisle), visible=group.filter(i=>!hide||!list.checks[i.id]);
     if(!group.length) return '';
-    return `<section class="aisle"><div class="aisle-heading"><span class="aisle-number">0${n+1}</span><h2>${e(aisle)}</h2><span>${group.filter(i=>list.checks[i.id]).length}/${group.length}</span></div>${visible.length?visible.map(i=>`<div class="grocery-row ${list.checks[i.id]?'checked':''}" data-item="${e(i.id)}"><label class="grocery-check"><input type="checkbox" data-check="${e(i.id)}" ${list.checks[i.id]?'checked':''}><span>${e(i.name)}</span></label><span class="grocery-amount">${e(i.amount)}</span><button class="item-edit" data-edit="${e(i.id)}" aria-label="Edit ${e(i.name)}">Edit</button><button class="item-remove" data-remove="${e(i.id)}" aria-label="Remove ${e(i.name)}">×</button></div>`).join(''):'<p class="aisle-done">All sorted in this aisle ✓</p>'}</section>`;
+    return `<section class="aisle"><div class="aisle-heading"><span class="aisle-number">0${n+1}</span><h2>${e(aisle)}</h2><span>${group.filter(i=>list.checks[i.id]).length}/${group.length}</span></div>${visible.length?visible.map(i=>`<div class="grocery-row ${list.checks[i.id]?'checked':''}" data-item="${e(i.id)}"><div class="grocery-main"><label class="grocery-check"><input type="checkbox" data-check="${e(i.id)}" ${list.checks[i.id]?'checked':''}><span>${e(i.name)}</span></label>${uses.has(i.id)?`<button type="button" class="used-trigger" data-used="${e(i.id)}" aria-label="What is ${e(i.name)} for?" aria-expanded="false" title="Used in which dinner?">i</button>`:''}</div><span class="grocery-amount">${e(i.amount)}</span><button class="item-edit" data-edit="${e(i.id)}" aria-label="Edit ${e(i.name)}">Edit</button><button class="item-remove" data-remove="${e(i.id)}" aria-label="Remove ${e(i.name)}">×</button>${uses.has(i.id)?`<div class="used-popover" hidden><strong>Used for</strong>${uses.get(i.id).map(u=>`<div>${e(u.title)}</div>`).join('')}</div>`:''}</div>`).join(''):'<p class="aisle-done">All sorted in this aisle ✓</p>'}</section>`;
   }).join('');
 }
 function archiveView() {
@@ -120,6 +132,15 @@ document.addEventListener('click',event=>{
   if(target.hasAttribute('data-clear-search')){search='';filter='all';render();}
   if(target.dataset.week){selectedWeek=target.dataset.week;if(route()==='week')render();else location.hash='week';window.scrollTo(0,0);}
   if(target.hasAttribute('data-current')){selectedWeek=plans.current;render();}
+  if(target.dataset.used) {
+    const row=target.closest('.grocery-row'), pop=row?.querySelector('.used-popover');
+    if(pop) {
+      const willOpen=pop.hidden;
+      document.querySelectorAll('.used-popover:not([hidden])').forEach(p=>{p.hidden=true;p.closest('.grocery-row')?.querySelector('.used-trigger')?.setAttribute('aria-expanded','false');});
+      pop.hidden=!willOpen;
+      target.setAttribute('aria-expanded',String(willOpen));
+    }
+  }
   if(target.dataset.edit)editItem(target.dataset.edit);
   if(target.hasAttribute('data-cancel-edit'))renderGroceries();
   if(target.dataset.remove){const id=target.dataset.remove;list.removed.push(id);saveList();renderGroceries();toast('Removed. Reset this list to restore all items.');}
