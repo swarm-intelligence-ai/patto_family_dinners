@@ -126,3 +126,27 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
 .used-popover div+div{margin-top:5px}
 @media(max-width:760px){.grocery-main{gap:2px}.grocery-main .grocery-check{flex:0 1 auto;min-width:0}.used-trigger{flex-basis:22px;width:22px;height:30px;font-size:12px}.used-popover{left:18px}.grocery-row{overflow:visible}}
 @media print {.used-trigger,.used-popover{display:none!important}}
+
+/* Compact, legible family stamp: no more overflowing text on iPhones */
+.patto-chefs .hero-stamp{
+ box-sizing:border-box;width:108px;height:108px;padding:12px;
+ right:6px;top:-18px;transform:rotate(8deg);
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ text-align:center;gap:2px;overflow:hidden;line-height:1.1;font-size:11px;letter-spacing:.06em;
+}
+.patto-chefs .hero-stamp strong{font-family:var(--sans);font-size:12px;letter-spacing:.01em;line-height:1.1;white-space:nowrap}
+.patto-chefs .hero-stamp span{font-family:var(--sans);font-size:14px;line-height:1;margin:2px 0 0;letter-spacing:0}
+.reorder-hint{font-size:12px;color:var(--leaf);margin:-8px 0 20px}
+.meal-reorder{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px;border-top:1px dashed var(--line);padding-top:9px}
+.meal-reorder span{color:var(--muted);font-size:10px;line-height:1.2}
+.meal-reorder>div{display:flex;gap:5px}
+.meal-reorder button{border:1px solid var(--line);border-radius:8px;background:#fff6de;min-width:35px;min-height:35px;padding:0;font-size:20px;line-height:1}
+.meal-reorder button:disabled{opacity:.25;background:transparent;cursor:default}
+@media(max-width:520px){
+ .patto-chefs .hero-stamp{width:78px;height:78px;padding:8px;right:0;top:-10px;gap:1px;line-height:1.05;font-size:8px}
+ .patto-chefs .hero-stamp strong{font-size:9px;letter-spacing:-.02em}
+ .patto-chefs .hero-stamp span{font-size:12px;margin:0}
+ .meal-reorder{margin-top:4px;padding-top:6px}
+ .meal-reorder span{font-size:10px}
+ .meal-reorder button{min-width:35px;min-height:35px}
+}
