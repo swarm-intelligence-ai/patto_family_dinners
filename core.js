@@ -24,6 +24,8 @@ export function validateData(book, plans) {
     if (typeof w.title !== 'string' || typeof w.note !== 'string' || !Array.isArray(w.meals) || !w.meals.length) fail(`Incomplete week ${w.id}.`);
     for (const r of Object.values(w.recipeSnapshots || {})) validateRecipe(r);
     for (const m of w.meals) if (typeof m.day !== 'string' || !getRecipe(book,w,m.recipe)) fail(`Unknown meal in ${w.id}.`);
+    if (w.meals.length !== new Set(w.meals.map(m=>m.recipe)).size) fail(`Duplicate meal in ${w.id}.`);
+    if (w.id !== plans.current && (!w.recipeSnapshots || w.meals.some(m=>!w.recipeSnapshots[m.recipe]))) fail(`Archived week ${w.id} must contain frozen recipe snapshots.`);
   }
   if (!weeks.has(plans.current)) fail('The current week does not exist.');
   return true;
@@ -64,3 +66,17 @@ export function quantity(qty, unit) {
 }
 export function weekLabel(id) { return new Intl.DateTimeFormat('en-AU', {day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${id}T12:00:00Z`)); }
 export function escapeHTML(value) { return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/** Check a shared meal order against a published week; never trust URL content blindly. */
+export function validMealOrder(week, ids) {
+  if (!week || !Array.isArray(week.meals) || !Array.isArray(ids)) return false;
+  const expected=week.meals.map(m=>m.recipe);
+  return ids.length===expected.length && new Set(ids).size===ids.length &&
+    expected.length===new Set(expected).size && ids.every(id=>expected.includes(id));
+}
+
+/** Keep weekday labels attached to slots, not to recipes. */
+export function mealsInOrder(week, ids) {
+  if (!validMealOrder(week,ids)) return week.meals;
+  return ids.map((id,index)=>({...week.meals.find(m=>m.recipe===id),day:week.meals[index].day}));
+}
