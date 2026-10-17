@@ -2,17 +2,700 @@
   "current": "2026-10-12",
   "weeks": [
     {
+      "id": "2026-10-05",
+      "title": "Six family favourites",
+      "note": "The previous family menu: six meals including burgers. The weekday sequence is a reconstruction, rather than a recorded schedule.",
+      "meals": [
+        {
+          "day": "Monday",
+          "recipe": "honey-mustard-chicken-mash"
+        },
+        {
+          "day": "Tuesday",
+          "recipe": "teriyaki-salmon-chicken-bowls"
+        },
+        {
+          "day": "Wednesday",
+          "recipe": "beef-mushroom-stroganoff"
+        },
+        {
+          "day": "Thursday",
+          "recipe": "bbq-pork-pineapple-wraps"
+        },
+        {
+          "day": "Friday",
+          "recipe": "chicken-egg-fried-rice"
+        },
+        {
+          "day": "Saturday",
+          "recipe": "family-beef-cheeseburgers"
+        }
+      ],
+      "recipeSnapshots": {
+        "honey-mustard-chicken-mash": {
+          "id": "honey-mustard-chicken-mash",
+          "title": "Creamy Honey-Mustard Chicken with Mash & Greens",
+          "art": "mustard-chicken",
+          "colour": "#f4e5b8",
+          "cuisine": "Family favourites",
+          "time": 30,
+          "serves": 5,
+          "shortTitle": "Creamy Honey-Mustard Chicken with Mash & Greens",
+          "subtitle": "Golden chicken breast in a mild mustard sauce with buttery mash and greens.",
+          "tags": [
+            "Family favourites"
+          ],
+          "ingredients": [
+            [
+              "chicken",
+              1100
+            ],
+            [
+              "potato",
+              1200
+            ],
+            [
+              "broccoli",
+              400
+            ],
+            [
+              "green-beans",
+              350
+            ],
+            [
+              "butter",
+              35
+            ],
+            [
+              "milk",
+              100
+            ],
+            [
+              "dijon",
+              45
+            ],
+            [
+              "wholegrain-mustard",
+              20
+            ],
+            [
+              "honey",
+              45
+            ],
+            [
+              "stock-chicken",
+              180
+            ],
+            [
+              "garlic",
+              3
+            ],
+            [
+              "oil",
+              15
+            ],
+            [
+              "salt",
+              0.75
+            ],
+            [
+              "pepper",
+              0.25
+            ]
+          ],
+          "steps": [
+            [
+              "Prepare mash",
+              "Peel and chop potatoes. Boil in salted water for 15–18 minutes until tender. Drain and mash with butter and warmed milk."
+            ],
+            [
+              "Cook the chicken",
+              "Cut chicken breasts into even thin fillets; season lightly. Brown in oil over medium-high heat for 3–4 minutes per side, then cook to 75°C in the centre. Set aside."
+            ],
+            [
+              "Make the sauce",
+              "In the same pan, soften crushed garlic for 30 seconds. Add stock, Dijon, wholegrain mustard and honey. Simmer 2–3 minutes and return chicken to coat. Thin with water if needed."
+            ],
+            [
+              "Serve the greens",
+              "Steam broccoli and beans for 4–5 minutes until bright and tender. Serve with mash and chicken, spooning over the sauce."
+            ]
+          ],
+          "family": "Offer sauce on the side for anyone who prefers their chicken plain.",
+          "kidJob": "Help wash and portion the vegetables with adult supervision.",
+          "allergens": "Milk and mustard; check stock ingredients.",
+          "variation": "Adjust carbohydrates and vegetables to each person's appetite.",
+          "prepTip": "Chop potatoes and wash beans ahead; keep everything refrigerated.",
+          "nutrition": {
+            "kcal": 610,
+            "protein": 52,
+            "fibre": 7,
+            "note": "High-protein chicken breast with comforting mash and greens."
+          }
+        },
+        "teriyaki-salmon-chicken-bowls": {
+          "id": "teriyaki-salmon-chicken-bowls",
+          "title": "Teriyaki Salmon & Chicken Rice Bowls",
+          "art": "teriyaki-bowls",
+          "colour": "#e0ebd2",
+          "cuisine": "Asian-inspired",
+          "time": 30,
+          "serves": 5,
+          "shortTitle": "Teriyaki Salmon & Chicken Rice Bowls",
+          "subtitle": "Sweet soy-glazed salmon for some and chicken breast for the kids, with rice and crunchy vegetables.",
+          "tags": [
+            "Asian-inspired"
+          ],
+          "ingredients": [
+            [
+              "rice",
+              350
+            ],
+            [
+              "cucumber",
+              2
+            ],
+            [
+              "carrot",
+              3
+            ],
+            [
+              "avocado",
+              2
+            ],
+            [
+              "broccoli",
+              400
+            ],
+            [
+              "soy",
+              65
+            ],
+            [
+              "honey",
+              50
+            ],
+            [
+              "vinegar",
+              25
+            ],
+            [
+              "ginger",
+              20
+            ],
+            [
+              "garlic",
+              3
+            ],
+            [
+              "sesame-oil",
+              10
+            ],
+            [
+              "cornflour",
+              10
+            ],
+            [
+              "oil",
+              15
+            ]
+          ],
+          "steps": [
+            [
+              "Rice and vegetables",
+              "Cook rice using packet instructions. Thinly slice cucumber and carrot, cut avocado and steam broccoli."
+            ],
+            [
+              "Mix teriyaki",
+              "Mix soy, honey, vinegar, grated ginger, crushed garlic, sesame oil and 3 tablespoons of water. Set the sauce aside in a clean bowl."
+            ],
+            [
+              "Cook separately",
+              "Pan-cook salmon until opaque and cooked to preference. Fry sliced chicken separately to 75°C, keeping utensils separate to avoid fish cross-contact."
+            ],
+            [
+              "Glaze and assemble",
+              "Simmer the sauce in a clean pan; thicken with cornflour mixed with a splash of cold water. Coat salmon and chicken separately. Serve over rice with fresh vegetables and broccoli."
+            ]
+          ],
+          "family": "Cook chicken breast instead of salmon for Phoebe and Tobias; give everyone the same teriyaki glaze.",
+          "kidJob": "Wash cucumber, portion rice and arrange vegetables.",
+          "allergens": "Soy, fish, and possible wheat in soy sauce. Use separate utensils for fish and chicken.",
+          "variation": "Adjust carbohydrates and vegetables to each person's appetite.",
+          "prepTip": "Mix sauce and cut vegetables ahead.",
+          "nutrition": {
+            "kcal": 680,
+            "protein": 45,
+            "fibre": 6,
+            "note": "Protein and calories depend on the chosen salmon/chicken mix."
+          },
+          "proteins": {
+            "salmon": [
+              [
+                "salmon",
+                1000
+              ]
+            ],
+            "chicken": [
+              [
+                "chicken",
+                1000
+              ]
+            ],
+            "mixed": [
+              [
+                "salmon",
+                600
+              ],
+              [
+                "chicken",
+                400
+              ]
+            ]
+          },
+          "proteinNutrition": {
+            "salmon": {
+              "kcal": 735,
+              "protein": 45,
+              "fibre": 6
+            },
+            "chicken": {
+              "kcal": 625,
+              "protein": 47,
+              "fibre": 6
+            },
+            "mixed": {
+              "kcal": 680,
+              "protein": 45,
+              "fibre": 6
+            }
+          }
+        },
+        "beef-mushroom-stroganoff": {
+          "id": "beef-mushroom-stroganoff",
+          "title": "Creamy Beef & Mushroom Stroganoff with Egg Noodles",
+          "art": "stroganoff",
+          "colour": "#e4d3c3",
+          "cuisine": "Comfort food",
+          "time": 30,
+          "serves": 5,
+          "shortTitle": "Creamy Beef & Mushroom Stroganoff with Egg Noodles",
+          "subtitle": "Tender beef strips and mushrooms in a quick creamy sauce with egg noodles.",
+          "tags": [
+            "Comfort food"
+          ],
+          "ingredients": [
+            [
+              "beef-strips",
+              1000
+            ],
+            [
+              "mushroom",
+              400
+            ],
+            [
+              "onion",
+              1
+            ],
+            [
+              "garlic",
+              3
+            ],
+            [
+              "egg-noodles",
+              500
+            ],
+            [
+              "sour-cream",
+              300
+            ],
+            [
+              "stock-beef",
+              300
+            ],
+            [
+              "dijon",
+              20
+            ],
+            [
+              "worcestershire",
+              20
+            ],
+            [
+              "paprika",
+              1
+            ],
+            [
+              "oil",
+              20
+            ],
+            [
+              "butter",
+              20
+            ],
+            [
+              "salt",
+              0.5
+            ],
+            [
+              "pepper",
+              0.25
+            ]
+          ],
+          "steps": [
+            [
+              "Cook the noodles",
+              "Cook egg noodles in boiling water according to packet instructions; reserve some cooking water."
+            ],
+            [
+              "Sear the beef",
+              "Pat strips dry. Sear in batches in a hot oiled pan 1–2 minutes per side, then remove to keep tender."
+            ],
+            [
+              "Make mushroom sauce",
+              "Cook sliced mushrooms and onion in butter for 5–6 minutes. Add crushed garlic, paprika and mustard for 30 seconds. Add stock and Worcestershire; simmer 3–4 minutes."
+            ],
+            [
+              "Finish gently",
+              "Reduce heat, stir in sour cream and return beef to warm through. Do not boil the cream sauce. Adjust with reserved noodle water and toss with noodles."
+            ]
+          ],
+          "family": "Serve mushrooms separately for fussy eaters.",
+          "kidJob": "Help wash and portion the vegetables with adult supervision.",
+          "allergens": "Milk, egg, wheat/gluten, mustard, possible fish in Worcestershire.",
+          "variation": "Adjust carbohydrates and vegetables to each person's appetite.",
+          "prepTip": "Slice beef and mushrooms before school pick-up.",
+          "nutrition": {
+            "kcal": 750,
+            "protein": 52,
+            "fibre": 4,
+            "note": "Lean beef provides iron and protein; serve with extra greens if desired."
+          }
+        },
+        "bbq-pork-pineapple-wraps": {
+          "id": "bbq-pork-pineapple-wraps",
+          "title": "BBQ Pork & Pineapple Wraps with Crunchy Slaw",
+          "art": "pork-wraps",
+          "colour": "#f1dfc6",
+          "cuisine": "BBQ & fresh",
+          "time": 25,
+          "serves": 5,
+          "shortTitle": "BBQ Pork & Pineapple Wraps with Crunchy Slaw",
+          "subtitle": "Fast BBQ pork, juicy pineapple and fresh crunchy slaw in soft wraps.",
+          "tags": [
+            "BBQ & fresh"
+          ],
+          "ingredients": [
+            [
+              "pork-steaks",
+              1000
+            ],
+            [
+              "wraps",
+              10
+            ],
+            [
+              "pineapple",
+              350
+            ],
+            [
+              "slaw-mix",
+              500
+            ],
+            [
+              "cucumber",
+              1
+            ],
+            [
+              "yoghurt",
+              250
+            ],
+            [
+              "bbq",
+              90
+            ],
+            [
+              "honey",
+              20
+            ],
+            [
+              "vinegar",
+              20
+            ],
+            [
+              "paprika",
+              1
+            ],
+            [
+              "garlic",
+              2
+            ],
+            [
+              "oil",
+              20
+            ],
+            [
+              "salt",
+              0.5
+            ],
+            [
+              "pepper",
+              0.25
+            ]
+          ],
+          "steps": [
+            [
+              "Prepare the crunch",
+              "Toss slaw mix with sliced cucumber. Stir yoghurt with vinegar and a little honey; dress at the last minute."
+            ],
+            [
+              "Sear the pork",
+              "Slice pork into thin strips, season with paprika and crushed garlic. Stir-fry in hot oil for 4–6 minutes until browned and thoroughly cooked."
+            ],
+            [
+              "Make it sticky",
+              "Add drained pineapple pieces to the pan for a minute. Stir in barbecue sauce and remaining honey, coating the pork."
+            ],
+            [
+              "Fill the wraps",
+              "Warm soft wraps. Divide pork and pineapple between wraps, add crunchy slaw and serve any extra sauce on the side."
+            ]
+          ],
+          "family": "Put pineapple, pork and slaw in separate bowls for everyone to choose.",
+          "kidJob": "Help wash and portion the vegetables with adult supervision.",
+          "allergens": "Wheat/gluten and milk. Check barbecue sauce and wrap labels.",
+          "variation": "Adjust carbohydrates and vegetables to each person's appetite.",
+          "prepTip": "Make the yoghurt dressing and slice pork ahead.",
+          "nutrition": {
+            "kcal": 680,
+            "protein": 43,
+            "fibre": 5,
+            "note": "Amounts assume two soft wraps per serving."
+          }
+        },
+        "chicken-egg-fried-rice": {
+          "id": "chicken-egg-fried-rice",
+          "title": "Chicken & Egg Fried Rice",
+          "art": "fried-rice",
+          "colour": "#f0ebc1",
+          "cuisine": "Asian-inspired",
+          "time": 25,
+          "serves": 5,
+          "shortTitle": "Chicken & Egg Fried Rice",
+          "subtitle": "Golden chicken, soft egg, peas and carrots in tasty soy-oyster fried rice.",
+          "tags": [
+            "Asian-inspired"
+          ],
+          "ingredients": [
+            [
+              "chicken",
+              650
+            ],
+            [
+              "rice",
+              450
+            ],
+            [
+              "egg",
+              4
+            ],
+            [
+              "peas",
+              250
+            ],
+            [
+              "carrot",
+              3
+            ],
+            [
+              "spring-onion",
+              4
+            ],
+            [
+              "garlic",
+              3
+            ],
+            [
+              "ginger",
+              15
+            ],
+            [
+              "soy",
+              55
+            ],
+            [
+              "oyster",
+              30
+            ],
+            [
+              "sesame-oil",
+              10
+            ],
+            [
+              "vinegar",
+              15
+            ],
+            [
+              "oil",
+              25
+            ],
+            [
+              "pepper",
+              0.25
+            ]
+          ],
+          "steps": [
+            [
+              "Get the rice ready",
+              "Cook rice ahead and chill promptly in a shallow container; keep refrigerated until cooking. Do not leave cooked rice at room temperature."
+            ],
+            [
+              "Cook chicken and eggs",
+              "Dice chicken and stir-fry until golden and 75°C internally. Remove. Scramble beaten eggs in the pan and set aside."
+            ],
+            [
+              "Fry vegetables and rice",
+              "Cook diced carrots for 3 minutes in oil, then add peas, garlic and grated ginger. Add cold cooked rice and stir-fry until thoroughly hot."
+            ],
+            [
+              "Finish and serve",
+              "Stir through soy, oyster sauce, vinegar and sesame oil. Return chicken and egg, toss until steaming hot and top with spring onion."
+            ]
+          ],
+          "family": "Serve toppings and sauce separately so the kids can build their own plates.",
+          "kidJob": "Whisk eggs and wash spring onions.",
+          "allergens": "Egg, soy, wheat/gluten in sauces and molluscs in oyster sauce.",
+          "variation": "Adjust carbohydrates and vegetables to each person's appetite.",
+          "prepTip": "Cool rice quickly and refrigerate; reheat until steaming hot.",
+          "nutrition": {
+            "kcal": 660,
+            "protein": 40,
+            "fibre": 5,
+            "note": "Rice quantity is dry weight before cooking."
+          }
+        },
+        "family-beef-cheeseburgers": {
+          "id": "family-beef-cheeseburgers",
+          "title": "Family Beef Cheeseburgers with Salad",
+          "art": "cheeseburgers",
+          "colour": "#ebd5b8",
+          "cuisine": "Family favourites",
+          "time": 25,
+          "serves": 5,
+          "shortTitle": "Family Beef Cheeseburgers with Salad",
+          "subtitle": "Juicy beef patties with melted cheese, lettuce, tomato and pickles.",
+          "tags": [
+            "Family favourites"
+          ],
+          "ingredients": [
+            [
+              "beef",
+              1000
+            ],
+            [
+              "burger-buns",
+              5
+            ],
+            [
+              "cheese-slices",
+              5
+            ],
+            [
+              "lettuce",
+              1
+            ],
+            [
+              "tomato-large",
+              3
+            ],
+            [
+              "onion",
+              1
+            ],
+            [
+              "pickles",
+              150
+            ],
+            [
+              "ketchup",
+              90
+            ],
+            [
+              "dijon",
+              15
+            ],
+            [
+              "oil",
+              10
+            ],
+            [
+              "salt",
+              0.75
+            ],
+            [
+              "pepper",
+              0.25
+            ]
+          ],
+          "steps": [
+            [
+              "Shape the patties",
+              "Divide beef mince into five patties slightly larger than burger buns. Season the outside just before cooking."
+            ],
+            [
+              "Cook burgers",
+              "Sear in a pan or barbecue over medium-high heat for about 4–5 minutes a side, until cooked through to 75°C internally. Add cheese for the last minute."
+            ],
+            [
+              "Prepare toppings",
+              "Wash and slice lettuce, tomatoes, onion and pickles. Toast buns briefly and stir tomato sauce with a little Dijon."
+            ],
+            [
+              "Let everyone build",
+              "Put buns, patties, cheese, salad and sauce on the table so everyone builds their own burger. Serve with fresh salad or optional chips."
+            ]
+          ],
+          "family": "Serve toppings and sauce separately so the kids can build their own plates.",
+          "kidJob": "Set out the burger toppings.",
+          "allergens": "Wheat/gluten, milk, mustard; check bun and sauce labels.",
+          "variation": "Adjust carbohydrates and vegetables to each person's appetite.",
+          "prepTip": "Shape patties ahead and refrigerate covered.",
+          "nutrition": {
+            "kcal": 690,
+            "protein": 47,
+            "fibre": 4,
+            "note": "Estimates exclude optional chips and extra toppings."
+          }
+        }
+      }
+    },
+    {
       "id": "2026-10-12",
       "title": "Five nights. Big flavours.",
       "note": "The family’s locked-in lineup. Fresh, colourful and very much worth gathering around.",
       "meals": [
-        {"day": "Monday", "recipe": "mediterranean-beef"},
-        {"day": "Tuesday", "recipe": "pork-tonkatsu"},
-        {"day": "Wednesday", "recipe": "burrito-bowls"},
-        {"day": "Thursday", "recipe": "italian-chicken-pasta"},
-        {"day": "Friday", "recipe": "sweet-chilli-bowls"}
+        {
+          "day": "Monday",
+          "recipe": "mediterranean-beef"
+        },
+        {
+          "day": "Tuesday",
+          "recipe": "pork-tonkatsu"
+        },
+        {
+          "day": "Wednesday",
+          "recipe": "burrito-bowls"
+        },
+        {
+          "day": "Thursday",
+          "recipe": "italian-chicken-pasta"
+        },
+        {
+          "day": "Friday",
+          "recipe": "sweet-chilli-bowls"
+        }
       ]
     }
   ],
-  "provenance": "The five dish choices were supplied by Anthony. Recipes were written for this cookbook because the original assistant recipe text could not be retrieved. The starting week is assigned to the week of the source conversation; weekdays are suggested. No earlier complete weekly plans were recoverable."
+  "provenance": "Current menu and earlier family-approved menus; the six-meal week of 5 October was reconstructed from the previously locked dishes. Exact weekday assignments and full original recipe wording were not preserved."
 }
