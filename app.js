@@ -119,7 +119,20 @@ function moveDinner(from, shift) {
   toast('Dinner order saved on this device.');
 }
 
-const route = () => { const name=location.hash.slice(1).split('?')[0]; return ['week','recipes','groceries','archive'].includes(name) ? name : 'week'; };
+const route = () => {
+  const name=location.hash.slice(1).split('?')[0];
+  if (/^archived-\d{4}-\d{2}-\d{2}$/.test(name)) return 'archived';
+  return ['week','recipes','groceries','archive'].includes(name) ? name : 'week';
+};
+function syncWeekWithRoute() {
+  const archived=location.hash.match(/^#archived-(\d{4}-\d{2}-\d{2})/);
+  if(archived) {
+    const match=plans.weeks.find(w=>w.id===archived[1] && w.id!==plans.current);
+    if(match && selectedWeek!==match.id){selectedWeek=match.id;loadMealSettings();}
+  } else if (route()==='week' && !location.hash.includes('?') && selectedWeek!==plans.current) {
+    selectedWeek=plans.current;loadMealSettings();
+  }
+}
 function toast(message) { clearTimeout(toastTimer); const t=document.querySelector('#toast'); t.textContent=message;t.classList.add('show');toastTimer=setTimeout(()=>t.classList.remove('show'),4000); }
 function storageKey() { return `list:${selectedWeek}:${legacyServings}:${legacyProtein}`; }
 function loadList() {
@@ -146,7 +159,7 @@ function card(r, day, position = -1, count = 0) {
 }
 function weekView() {
   const w=current(), isCurrent=w.id===plans.current;
-  return `<section class="hero"><div class="hero-copy"><h1>The Patto<br><em>Dinner Club.</em></h1><p class="hero-description">Less dinner drama. More happy plates.</p><a class="button" href="#groceries">Get the shopping list <span aria-hidden="true">↗</span></a><div class="hero-footnote"><span class="mini-p-logo" aria-hidden="true">P</span> Five dinners. Five Patto opinions. Zero boring plates.</div></div><div class="hero-visual patto-chefs"><div class="hero-circle"></div><img src="./assets/patto-chefs.webp" data-fallback="${photoSources.mediterranean}" alt="Cartoon Kym and Anthony cooking together in the Patto kitchen" width="1536" height="1024" fetchpriority="high"><p class="handwritten">Kym cooks.<br>Anthony taste-tests.</p></div></section><section aria-labelledby="week-title"><div class="section-heading"><div><p class="eyebrow">${isCurrent?'ON THE MENU':'FROM THE ARCHIVE'} · WEEK OF ${e(weekLabel(w.id).toUpperCase())}</p><h2 id="week-title">${e(w.title)}</h2></div><a class="text-link" href="#archive">Browse weeks <span aria-hidden="true">↗</span></a></div><p class="section-description">${e(w.note)}</p><div class="week-share-tools"><p class="reorder-hint">↕ Rearrange the meals below, then share your week. The link shares dinner order and guest numbers — not anybody’s shopping ticks.</p><button class="outline-button share-week-button" id="share-week" type="button" aria-label="Share this week’s dinner order">↗ Share our week</button></div>${!isCurrent?'<div class="notice">You’re browsing an older plan. <button class="text-button" data-current>Back to the current week ↗</button></div>':''}<div class="meal-grid">${orderedMeals(w).map((m,i,items)=>card(getRecipe(book,w,m.recipe),m.day,i,items.length)).join('')}<aside class="shopping-card"><span class="mini-p-logo mini-p-logo--large shopping-flower" aria-hidden="true">P</span><p class="eyebrow">THE OTHER HALF OF THE PLAN</p><h3>One shop.<br>Five happy<br>dinners.</h3><p>Everything you need, added up and sorted for an Aldi-style shop.</p><a class="button button-cream" href="#groceries">Let’s shop <span aria-hidden="true">↗</span></a><small>Tick it. Tweak it. Get dinner sorted.</small></aside></div></section><section class="family-strip"><span class="mini-p-logo" aria-hidden="true">P</span><div><h2>The Patto sous-chef squad.</h2><p>Leila, Phoebe and Tobias: kitchen jobs are officially on the menu. Kym's not running a restaurant, you know.</p></div><a class="text-link" href="#recipes">Find your next kitchen job ↗</a></section>`;
+  return `<section class="hero"><div class="hero-copy"><h1>The Patto<br><em>Dinner Club.</em></h1><p class="hero-description">Less dinner drama. More happy plates.</p><a class="button" href="#groceries">Get the shopping list <span aria-hidden="true">↗</span></a><div class="hero-footnote"><span class="mini-p-logo" aria-hidden="true">P</span> Five dinners. Five Patto opinions. Zero boring plates.</div></div><div class="hero-visual patto-chefs"><div class="hero-circle"></div><img src="./assets/patto-chefs.webp" data-fallback="${photoSources.mediterranean}" alt="Cartoon Kym and Anthony cooking together in the Patto kitchen" width="1536" height="1024" fetchpriority="high"><p class="handwritten">Kym cooks.<br>Anthony taste-tests.</p></div></section><section aria-labelledby="week-title"><div class="section-heading"><div><p class="eyebrow">${isCurrent?'ON THE MENU':'ARCHIVED MENU · NOT THIS WEEK'} · WEEK OF ${e(weekLabel(w.id).toUpperCase())}</p><h2 id="week-title">${e(w.title)}</h2></div><a class="text-link" href="#archive">Browse weeks <span aria-hidden="true">↗</span></a></div><p class="section-description">${e(w.note)}</p><div class="week-share-tools"><p class="reorder-hint">↕ Rearrange the meals below, then share your week. The link shares dinner order and guest numbers — not anybody’s shopping ticks.</p><button class="outline-button share-week-button" id="share-week" type="button" aria-label="Share this week’s dinner order">↗ Share our week</button></div>${!isCurrent?'<div class="notice"><strong>This is a previous week.</strong> <button class="text-button" data-current>↖ Return to this week’s dinners</button></div>':''}<div class="meal-grid">${orderedMeals(w).map((m,i,items)=>card(getRecipe(book,w,m.recipe),m.day,i,items.length)).join('')}<aside class="shopping-card"><span class="mini-p-logo mini-p-logo--large shopping-flower" aria-hidden="true">P</span><p class="eyebrow">THE OTHER HALF OF THE PLAN</p><h3>One shop.<br>Five happy<br>dinners.</h3><p>Everything you need, added up and sorted for an Aldi-style shop.</p><a class="button button-cream" href="#groceries">Let’s shop <span aria-hidden="true">↗</span></a><small>Tick it. Tweak it. Get dinner sorted.</small></aside></div></section><section class="family-strip"><span class="mini-p-logo" aria-hidden="true">P</span><div><h2>The Patto sous-chef squad.</h2><p>Leila, Phoebe and Tobias: kitchen jobs are officially on the menu. Kym's not running a restaurant, you know.</p></div><a class="text-link" href="#recipes">Find your next kitchen job ↗</a></section>`;
 }
 function cookbookView() {
   return `<section class="page-intro"><p class="eyebrow">GOOD THINGS, WORTH KEEPING</p><h1>The family<br><em>cookbook.</em></h1><p>Our dinner rotation, all in one delicious place.</p></section><div class="cookbook-tools"><label class="search-label"><span class="sr-only">Search recipes</span><input type="search" id="recipe-search" placeholder="Find a dish, ingredient or flavour…" value="${e(search)}"></label><div class="filters" aria-label="Recipe filters">${[['all','All recipes'],['quick','30 minutes'],['favourites','Favourites']].map(([id,label])=>`<button data-filter="${id}" aria-pressed="${filter===id}" class="${filter===id?'active':''}">${label}</button>`).join('')}</div></div><div id="recipe-results"></div>`;
@@ -197,14 +210,14 @@ function renderGroceries() {
 }
 function archiveView() {
   const weeks=[...plans.weeks].sort((a,b)=>b.id.localeCompare(a.id)), older=weeks.filter(w=>w.id!==plans.current);
-  return `<section class="page-intro"><p class="eyebrow">KEEP THE GOOD WEEKS CLOSE</p><h1>Our dinner<br><em>scrapbook.</em></h1><p>A home for every weekly plan, and the recipes we’ll come back to.</p></section><div class="archive-grid">${weeks.map(w=>`<article class="archive-card"><p class="eyebrow">${w.id===plans.current?'THE CURRENT LINEUP':'FROM OUR TABLE'} · ${e(weekLabel(w.id))}</p><h2>${e(w.title)}</h2><ul>${orderedMeals(w).map(m=>`<li><span>${e(m.day.slice(0,3))}</span>${e(getRecipe(book,w,m.recipe).title)}</li>`).join('')}</ul><button class="button" data-week="${e(w.id)}">Open this week ↗</button></article>`).join('')}${!older.length?'<aside class="archive-empty"><span class="mini-p-logo" aria-hidden="true">P</span><h2>The first page<br>of a good thing.</h2><p>This is our first saved weekly plan. Earlier full plans weren’t available in the conversation, so this scrapbook will grow from here.</p><p>New weeks appear here when the cookbook’s plan file is updated.</p></aside>':''}</div>`;
+  return `<section class="page-intro"><p class="eyebrow">KEEP THE GOOD WEEKS CLOSE</p><h1>Our dinner<br><em>scrapbook.</em></h1><p>A home for every weekly plan, and the recipes we’ll come back to.</p></section><div class="archive-grid">${weeks.map(w=>`<article class="archive-card"><p class="eyebrow">${w.id===plans.current?'THE CURRENT LINEUP':'FROM OUR TABLE'} · ${e(weekLabel(w.id))}</p><h2>${e(w.title)}</h2><ul>${orderedMeals(w).map(m=>`<li><span>${e(m.day.slice(0,3))}</span>${e(getRecipe(book,w,m.recipe).title)}</li>`).join('')}</ul><button class="button" data-week="${e(w.id)}">${w.id===plans.current?'Open current week':'View archived menu'} ↗</button></article>`).join('')}${!older.length?'<aside class="archive-empty"><span class="mini-p-logo" aria-hidden="true">P</span><h2>The first page<br>of a good thing.</h2><p>This is our first saved weekly plan. Earlier full plans weren’t available in the conversation, so this scrapbook will grow from here.</p><p>New weeks appear here when the cookbook’s plan file is updated.</p></aside>':''}</div>`;
 }
 function render() {
   const page=route();
-  document.querySelectorAll('[data-nav]').forEach(a=>{if(a.dataset.nav===page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
-  main.innerHTML=({week:weekView,recipes:cookbookView,groceries:groceryView,archive:archiveView}[page])();
+  document.querySelectorAll('[data-nav]').forEach(a=>{if(a.dataset.nav===(page==='archived'?'archive':page))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  main.innerHTML=({week:weekView,archived:weekView,recipes:cookbookView,groceries:groceryView,archive:archiveView}[page])();
   if(page==='recipes')renderResults(); if(page==='groceries')renderGroceries();
-  document.title=`${{week:'This week',recipes:'The cookbook',groceries:'Shopping list',archive:'Weekly archive'}[page]} · The Patto Family Social`;
+  document.title=`${{week:'This week',archived:'Archived dinner week',recipes:'The cookbook',groceries:'Shopping list',archive:'Weekly archive'}[page]} · The Patto Family Social`;
 }
 function openRecipe(id) {
   const r=route()==='recipes'?allRecipes().find(r=>r.id===id):getRecipe(book,current(),id); if(!r)return;
@@ -230,6 +243,11 @@ function editItem(id) {
 document.addEventListener('error',event=>{const img=event.target;if(img instanceof HTMLImageElement && img.dataset.fallback && img.src!==new URL(img.dataset.fallback,location.href).href){img.src=img.dataset.fallback;img.removeAttribute('data-fallback');}},true);
 document.addEventListener('click',event=>{
   const target=event.target.closest('button, a'); if(!target)return;
+  // This week always means the published current week, even after browsing history.
+  if(target.matches('[data-nav="week"]') || target.matches('.brand')) {
+    selectedWeek=plans.current;loadMealSettings();
+    if(route()==='week' && location.hash==='#week') render();
+  }
   if(target.dataset.recipe)openRecipe(target.dataset.recipe);
   if(target.id==='share-week')shareWeek();
   if(target.dataset.move !== undefined) moveDinner(Number(target.dataset.index),Number(target.dataset.move));
@@ -237,8 +255,8 @@ document.addEventListener('click',event=>{
   if(target.dataset.favourite){const id=target.dataset.favourite;favourites=favourites.includes(id)?favourites.filter(v=>v!==id):[...favourites,id];write('favourites',favourites);const y=scrollY;render();window.scrollTo(0,y);toast(favourites.includes(id)?'Saved to family favourites.':'Removed from favourites.');}
   if(target.dataset.filter){filter=target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>{b.classList.toggle('active',b.dataset.filter===filter);b.setAttribute('aria-pressed',b.dataset.filter===filter);});renderResults();}
   if(target.hasAttribute('data-clear-search')){search='';filter='all';render();}
-  if(target.dataset.week){selectedWeek=target.dataset.week;loadMealSettings();if(route()==='week')render();else location.hash='week';window.scrollTo(0,0);}
-  if(target.hasAttribute('data-current')){selectedWeek=plans.current;loadMealSettings();render();}
+  if(target.dataset.week){const id=target.dataset.week;selectedWeek=id;loadMealSettings();const destination=id===plans.current?'week':`archived-${id}`;if(location.hash.slice(1)===destination)render();else location.hash=destination;window.scrollTo(0,0);}
+  if(target.hasAttribute('data-current')){selectedWeek=plans.current;loadMealSettings();if(location.hash==='#week')render();else location.hash='week';}
   if(target.dataset.used) {
     const row=target.closest('.grocery-row'), pop=row?.querySelector('.used-popover');
     if(pop) {
@@ -285,7 +303,7 @@ document.addEventListener('submit',event=>{
   else{const name=String(data.get('name')).trim(),amount=String(data.get('amount')).trim();if(!name||!amount)return;list.edits[form.dataset.editForm]={name,amount};toast('Shopping item updated.');}
   saveList();renderGroceries();
 });
-window.addEventListener('hashchange',()=>{if(book&&plans){if(recipeDialog.open)recipeDialog.close();const imported=applySharedLink();render();window.scrollTo(0,0);main.focus({preventScroll:true});if(imported)toast('Shared dinner plan saved on this phone. Shopping ticks untouched.');}});
+window.addEventListener('hashchange',()=>{if(book&&plans){if(recipeDialog.open)recipeDialog.close();const imported=applySharedLink();syncWeekWithRoute();render();window.scrollTo(0,0);main.focus({preventScroll:true});if(imported)toast('Shared dinner plan saved on this phone. Shopping ticks untouched.');}});
 window.addEventListener('afterprint',()=>delete document.body.dataset.print);
 for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
 
@@ -293,7 +311,7 @@ async function start() {
   try {
     [book,plans]=await Promise.all(['recipes','plans'].map(async name=>{const response=await fetch(`./data/${name}.json`,{cache:'no-cache'});if(!response.ok)throw new Error(`Could not load ${name}.json (${response.status}).`);return response.json();}));
     validateData(book,plans);selectedWeek=plans.current;loadMealSettings();
-    const imported=applySharedLink();
+    const imported=applySharedLink();syncWeekWithRoute();
     document.querySelector('#provenance').textContent=plans.provenance;
     render();if(imported)toast('Shared dinner order saved on this phone. Shopping list untouched.');if(!storageOK)toast('Browser storage is unavailable. Export your shopping list to keep it.');
   } catch(error) {
