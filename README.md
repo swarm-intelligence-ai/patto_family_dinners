@@ -11,7 +11,7 @@ https://swarm-intelligence-ai.github.io/patto_family_dinners/
 ## What’s included
 
 - All five locked-in dishes, full methods, family variations and supervised kitchen jobs for the kids.
-- Portions for 2–10 people; Friday’s salmon, chicken or half-and-half choice updates both recipe ingredients and grocery totals.
+- Independent guest counts for every dinner (1–10 people); salmon/chicken choice appears only on that particular meal. Both settings update its recipe and the weekly Aldi totals.
 - Aldi-style grocery aisle groups, pantry staples, checkboxes, editable names/amounts, added items, removal, export and print.
 - Search by dish or ingredient, quick-recipe filter and saved favourites.
 - Weekly archive with recipe snapshots when you roll to a new week.
@@ -79,15 +79,15 @@ git push
 
 On **This week**, reorder dinners with the ↑/↓ buttons, then tap **Share our week**. On an iPhone this opens the native share sheet for Messenger or Messages. In other browsers, it copies the URL where supported.
 
-The link contains the week ID and the ordered **recipe IDs only**, for example:
+The link contains the week ID, ordered recipe IDs, per-dinner guest counts and the optional salmon/chicken selection, for example:
 
 ```text
 https://swarm-intelligence-ai.github.io/patto_family_dinners/#week?week=2026-10-12&order=mediterranean-beef,pork-tonkatsu,burrito-bowls,italian-chicken-pasta,sweet-chilli-bowls
 ```
 
-On opening a valid link, the site selects that archived/current week and saves the supplied order **on the recipient's device**. Weekday labels follow the slots. The link does **not** import shopping-list edits, checks, removed items, extra items, serving counts or favourites. Invalid or outdated orders are ignored. There is no live two-way sync: if Kym later changes her order, she can send an updated link back.
+On opening a valid link, the site selects that archived/current week and saves the supplied order and meal choices **on the recipient's device**. Weekday labels follow the slots. The link does **not** import shopping-list edits, checks, removed items, extra items or favourites. It **does** import guest counts and the selected protein for the salmon/chicken meal. Invalid or outdated orders are ignored. There is no live two-way sync: if Kym later changes her order, she can send an updated link back.
 
-Shopping list state is keyed by week, serving count and the salmon/chicken choice. Adding a new week starts its own list while keeping previous saved lists in that browser. Browsers are independent; clearing site storage removes local edits.
+Shopping-list state retains its original legacy browser key for backward compatibility, so moving to per-dinner servings does not wipe Kym's existing checks or removals. Each week's guest counts are saved separately as `meal-settings:<week>` and affect ingredient totals without resetting a list. Adding a new week starts its own list while keeping old lists in that browser. Browsers are independent; clearing site storage removes local edits.
 
 ### Browser-only editing
 
