@@ -67,8 +67,8 @@ test('invalid drafts and unapproved changes cannot be published',()=>{
  const draft=createWeekDraft(book,plans,nextMonday);
  assert.throws(()=>createWeekDraft(book,plans,plans.current));
  const corrupted=structuredClone(draft);
- corrupted.nextWeek.meals.pop();
- assert.throws(()=>publishWeekDraft(book,plans,corrupted),/five dinners/i);
+ corrupted.nextWeek.meals.splice(0,2);
+ assert.throws(()=>publishWeekDraft(book,plans,corrupted),/five or six dinners/i);
  const diverged=structuredClone(plans);
  diverged.weeks.find(w=>w.id===plans.current).title='Changed after draft';
  assert.throws(()=>publishWeekDraft(book,diverged,draft),/changed after/i);
@@ -83,25 +83,33 @@ test('broken references and unsafe HTML fail safely',()=>{
  assert.equal(escapeHTML('<img onerror="bad">'),'&lt;img onerror=&quot;bad&quot;&gt;');
 });
 
-test('guest count is independent for each dinner and scales the consolidated shop',()=>{
-  const count={};
-  for(const meal of week.meals)count[meal.recipe]={servings:5,protein:'mixed'};
-  const baseline=consolidateMealSettings(book,week,count);
-  const pasta=week.meals.find(m=>m.recipe==='italian-chicken-pasta');
-  assert.ok(pasta);
-  count[pasta.recipe]={servings:6};
-  const updated=consolidateMealSettings(book,week,count);
-  const pastaRecipe=getRecipe(book,week,pasta.recipe);
-  const chickenBase=pastaRecipe.ingredients.find(([id])=>id==='chicken')[1];
-  const before=baseline.find(i=>i.id==='chicken').qty;
-  const after=updated.find(i=>i.id==='chicken').qty;
-  assert.equal(Math.round((after-before)*1000)/1000,chickenBase/pastaRecipe.serves);
-  assert.equal(updated.find(i=>i.id==='beef').qty,baseline.find(i=>i.id==='beef').qty);
+test('guest count is independent for each dinner and scales its recipe only',()=>{
+  const settings=Object.fromEntries(week.meals.map(m=>[m.recipe,{servings:5,protein:'mixed'}]));
+  const before=consolidateMealSettings(book,week,settings);
+  const recipe=getRecipe(book,week,'thai-basil-beef-veg');
+  assert.ok(recipe);
+  settings[recipe.id]={servings:6,protein:'mixed'};
+  const after=consolidateMealSettings(book,week,settings);
+  const baseBeef=recipe.ingredients.find(([id])=>id==='beef')[1];
+  assert.equal(Math.round((after.find(i=>i.id==='beef').qty-before.find(i=>i.id==='beef').qty)*1000)/1000,baseBeef/recipe.serves);
+  assert.equal(after.find(i=>i.id==='salmon').qty,before.find(i=>i.id==='salmon').qty);
 });
-test('protein can vary on the salmon dinner independently of other dinners',()=>{
-  const chicken=consolidateMealSettings(book,week,{'sweet-chilli-bowls':{servings:3,protein:'chicken'}});
-  const salmon=consolidateMealSettings(book,week,{'sweet-chilli-bowls':{servings:3,protein:'salmon'}});
+test('salmon and chicken selections update only the fish dinner',()=>{
+  const id='crispy-skin-salmon-ginger';
+  const chicken=consolidateMealSettings(book,week,{[id]:{servings:3,protein:'chicken'}});
+  const salmon=consolidateMealSettings(book,week,{[id]:{servings:3,protein:'salmon'}});
   assert.ok(!chicken.some(item=>item.id==='salmon'));
   assert.ok(salmon.some(item=>item.id==='salmon'));
   assert.ok(salmon.find(i=>i.id==='chicken').qty<chicken.find(i=>i.id==='chicken').qty);
+});
+test('previous current week and its five recipes are frozen in the archive',()=>{
+  const old=plans.weeks.find(w=>w.id==='2026-10-12');
+  assert.ok(old);
+  assert.equal(old.meals.length,5);
+  for(const meal of old.meals){
+    assert.ok(old.recipeSnapshots[meal.recipe]);
+    assert.deepEqual(old.recipeSnapshots[meal.recipe],book.recipes.find(r=>r.id===meal.recipe));
+  }
+  assert.equal(week.id,'2026-10-26');
+  assert.equal(week.meals.length,6);
 });
