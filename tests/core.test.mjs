@@ -12,6 +12,21 @@ test('published plan, recipes and archived snapshots are valid',()=>{
  assert.equal(validateData(book,plans),true);
  assert.ok(week.meals.length>0);
 });
+test('recipe-specific prep notes match real ingredients in current and archived weeks',()=>{
+ for(const r of book.recipes){
+   assert.ok(r.prep && typeof r.prep==='object',r.id+' needs preparation hints');
+   const ids=new Set([...r.ingredients,...Object.values(r.proteins||{}).flat()].map(([id])=>id));
+   for(const [id,tag] of Object.entries(r.prep)){
+     assert.ok(ids.has(id),r.id+' contains an unrelated prep hint for '+id);
+     assert.ok(typeof tag==='string' && tag.trim().length>0 && tag.length<=35, r.id+' has an invalid prep tag');
+   }
+ }
+ for(const w of plans.weeks.filter(x=>x.id!==plans.current)){
+   for(const r of Object.values(w.recipeSnapshots||{}))assert.ok(r.prep && Object.keys(r.prep).length>0,r.id+' archive missing prep hints');
+ }
+ assert.equal(getRecipe(book,week,'proper-aussie-bbq').prep.onion,'sliced');
+ assert.equal(getRecipe(book,week,'orange-chicken-veg-noodles').prep.carrot,'thin strips');
+});
 test('family-size grocery quantities consolidate without duplicate lines',()=>{
  const list=consolidate(book,week,5,'mixed');
  assert.equal(list.length,new Set(list.map(item=>item.id)).size);
