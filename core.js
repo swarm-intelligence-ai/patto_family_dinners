@@ -107,7 +107,7 @@ export function createWeekDraft(book, plans, id) {
   return {
     sourceWeek:structuredClone(source),
     outgoingRecipeSnapshots:Object.fromEntries(source.meals.map(m=>[m.recipe,structuredClone(getRecipe(book,source,m.recipe))])),
-    nextWeek:{id,title:'Five new dinners. Coming right up.',note:'Choose and approve five meals before publishing.',meals:structuredClone(source.meals)}
+    nextWeek:{id,title:'New dinners. Coming right up.',note:'Choose and approve the meals before publishing.',meals:structuredClone(source.meals)}
   };
 }
 
@@ -122,7 +122,7 @@ export function publishWeekDraft(book, plans, draft) {
      !/^\d{4}-\d{2}-\d{2}$/.test(next.id) ||
      Number.isNaN(Date.parse(next.id)) ||
      new Date(`${next.id}T12:00:00Z`).getUTCDay()!==1 ||
-     !Array.isArray(next.meals) || next.meals.length!==5) throw new Error('Draft must contain five dinners for a new Monday.');
+     !Array.isArray(next.meals) || ![5,6].includes(next.meals.length)) throw new Error('Draft must contain five or six dinners for a new Monday.');
   if(!draft.outgoingRecipeSnapshots ||
      source.meals.some(m=>!draft.outgoingRecipeSnapshots[m.recipe])) throw new Error('Missing archived recipe snapshots.');
   const result=structuredClone(plans);
