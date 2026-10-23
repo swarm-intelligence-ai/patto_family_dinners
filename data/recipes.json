@@ -362,6 +362,86 @@
       "name": "Tomato sauce",
       "unit": "ml",
       "aisle": "Sauces & seasonings"
+    },
+    "capsicum": {
+      "name": "Red capsicum",
+      "unit": "",
+      "aisle": "Fruit & veg"
+    },
+    "snow-peas": {
+      "name": "Snow peas",
+      "unit": "g",
+      "aisle": "Fruit & veg"
+    },
+    "orange": {
+      "name": "Oranges",
+      "unit": "",
+      "aisle": "Fruit & veg"
+    },
+    "fresh-basil": {
+      "name": "Fresh Thai basil (or regular basil)",
+      "unit": "bunch",
+      "aisle": "Fruit & veg"
+    },
+    "mango-chicken": {
+      "name": "Aldi spicy mango marinated chicken (check label)",
+      "unit": "g",
+      "aisle": "Meat & seafood"
+    },
+    "crispy-chicken": {
+      "name": "Ready-made crispy chicken breast fillets (check brand)",
+      "unit": "",
+      "aisle": "Meat & seafood"
+    },
+    "beef-steak": {
+      "name": "BBQ rump or porterhouse steaks",
+      "unit": "g",
+      "aisle": "Meat & seafood"
+    },
+    "beef-sausage": {
+      "name": "Beef sausages",
+      "unit": "g",
+      "aisle": "Meat & seafood"
+    },
+    "beetroot": {
+      "name": "Beetroot slices",
+      "unit": "g",
+      "aisle": "Rice, pasta & tins"
+    },
+    "burger-sauce": {
+      "name": "Burger sauce or mayonnaise",
+      "unit": "ml",
+      "aisle": "Sauces & seasonings"
+    },
+    "noodles": {
+      "name": "Hokkien stir-fry noodles",
+      "unit": "g",
+      "aisle": "Rice, pasta & tins"
+    },
+    "cabbage-red": {
+      "name": "Red cabbage (or bagged slaw)",
+      "unit": "g",
+      "aisle": "Fruit & veg"
+    },
+    "apple": {
+      "name": "Apple",
+      "unit": "",
+      "aisle": "Fruit & veg"
+    },
+    "cob-corn": {
+      "name": "Corn cobs",
+      "unit": "",
+      "aisle": "Fruit & veg"
+    },
+    "orange-juice": {
+      "name": "Orange juice (100%)",
+      "unit": "ml",
+      "aisle": "Sauces & seasonings"
+    },
+    "sweet-chilli-sauce": {
+      "name": "Sweet chilli sauce",
+      "unit": "ml",
+      "aisle": "Sauces & seasonings"
     }
   },
   "recipes": [
@@ -1545,6 +1625,599 @@
         "protein": 47,
         "fibre": 4,
         "note": "Estimates exclude optional chips and extra toppings."
+      }
+    },
+    {
+      "id": "thai-basil-beef-veg",
+      "title": "Thai Basil Beef & Vegetable Stir-Fry",
+      "shortTitle": "Thai Basil Beef & Vegetable Stir-Fry",
+      "subtitle": "Savoury beef, colourful vegetables and a crispy egg, with just a little rice.",
+      "cuisine": "Thai-inspired",
+      "art": "thai-basil-beef",
+      "colour": "#dce8c6",
+      "serves": 5,
+      "time": 25,
+      "tags": [
+        "Thai-inspired",
+        "Family dinners"
+      ],
+      "ingredients": [
+        [
+          "beef",
+          950
+        ],
+        [
+          "rice",
+          250
+        ],
+        [
+          "egg",
+          5
+        ],
+        [
+          "green-beans",
+          300
+        ],
+        [
+          "capsicum",
+          2
+        ],
+        [
+          "carrot",
+          3
+        ],
+        [
+          "fresh-basil",
+          1
+        ],
+        [
+          "soy",
+          55
+        ],
+        [
+          "oyster",
+          40
+        ],
+        [
+          "ginger",
+          15
+        ],
+        [
+          "garlic",
+          2
+        ],
+        [
+          "honey",
+          15
+        ],
+        [
+          "oil",
+          25
+        ]
+      ],
+      "steps": [
+        [
+          "Rice first",
+          "Get the rice cooking following the pack. Slice capsicum and carrots into thin strips; trim the beans. Mix soy, oyster sauce and honey in a mug."
+        ],
+        [
+          "Cook the beef",
+          "Heat half the oil in a big frying pan or wok. Brown mince over medium-high heat for 7–8 minutes, breaking it into small pieces; cook thoroughly to 75°C."
+        ],
+        [
+          "Add plenty of veg",
+          "Add capsicum, beans, carrots, ginger and a little garlic. Stir-fry for 4–5 minutes so the veg still has some bite. Toss with the sauce and basil; keep chilli on the table for adults."
+        ],
+        [
+          "Top with an egg",
+          "Fry five eggs in a separate pan until the whites are set. Spoon a modest amount of rice onto plates, heap over beef and vegetables, and add an egg."
+        ]
+      ],
+      "family": "Keep the stir-fry mild and add sliced chilli or hot sauce at the table. Kids can have egg cooked through.",
+      "kidJob": "Trim beans and wash basil.",
+      "allergens": "Soy, oyster/molluscs, wheat if conventional soy sauce is used, egg.",
+      "variation": "Adjust vegetables and starch to appetite. Cook extra lean meat for a higher-protein adult portion.",
+      "prepTip": "Use pre-cut stir-fry vegetables to keep prep under 10 minutes.",
+      "nutrition": {
+        "kcal": 680,
+        "protein": 49,
+        "fibre": 8,
+        "note": "Lean beef and egg are substantial protein sources; vegetables add fibre. Rice portion is moderate."
+      }
+    },
+    {
+      "id": "crispy-skin-salmon-ginger",
+      "title": "Crispy-Skin Salmon with Ginger & Sweet Chilli Slaw",
+      "shortTitle": "Crispy-Skin Salmon with Ginger & Sweet Chilli Slaw",
+      "subtitle": "Crackly skin, punchy ginger sauce and lots of crunchy slaw. Chicken alternative included.",
+      "cuisine": "Asian-inspired",
+      "art": "crispy-skin-salmon",
+      "colour": "#e4edda",
+      "serves": 5,
+      "time": 25,
+      "tags": [
+        "Asian-inspired",
+        "Family dinners"
+      ],
+      "ingredients": [
+        [
+          "cabbage-red",
+          400
+        ],
+        [
+          "cucumber",
+          2
+        ],
+        [
+          "carrot",
+          3
+        ],
+        [
+          "slaw-mix",
+          250
+        ],
+        [
+          "sweet-chilli",
+          65
+        ],
+        [
+          "soy",
+          30
+        ],
+        [
+          "vinegar",
+          35
+        ],
+        [
+          "ginger",
+          25
+        ],
+        [
+          "sesame-oil",
+          10
+        ],
+        [
+          "oil",
+          15
+        ],
+        [
+          "avocado",
+          2
+        ]
+      ],
+      "steps": [
+        [
+          "Make the crunchy salad",
+          "Use bagged slaw plus finely sliced red cabbage, cucumber and carrots. Toss with 1 tablespoon rice vinegar and a drizzle of sesame oil. Keep chilled."
+        ],
+        [
+          "Whisk the sauce",
+          "In a small saucepan gently warm sweet chilli, soy, grated ginger, remaining vinegar and two tablespoons water for 2 minutes. This is a sauce to drizzle alongside, not over the skin."
+        ],
+        [
+          "Make the skin properly crispy",
+          "Pat skin-on salmon thoroughly dry and lightly season it. Heat a non-stick frying pan with oil on medium-high. Cook skin-side down for 5–7 minutes, pressing gently for the first 20 seconds, until deep golden and crisp; turn and cook another 1–3 minutes until done to preference. Don't crowd the pan."
+        ],
+        [
+          "Cook chicken if chosen",
+          "For chicken eaters, slice chicken breast into thin even portions. Pan-cook in a separate clean skillet until 75°C inside. Serve with the same sauce, avoiding fish cross-contact."
+        ],
+        [
+          "Plate without soggy skin",
+          "Put slaw and avocado on plates, add fish skin-side up (or chicken), and spoon the ginger sauce around the side."
+        ]
+      ],
+      "family": "Chicken breast for Phoebe and Tobias; leave the salmon skin untouched by sauce so it stays crunchy.",
+      "kidJob": "Mix slaw and arrange avocado.",
+      "allergens": "Fish (salmon), soy, sesame, wheat if present in soy sauce. Check sweet chilli sauce.",
+      "variation": "Add a small microwaved potato if someone needs extra carbohydrates; no rice required.",
+      "prepTip": "Buy pre-shredded slaw to skip most of the cutting; keep salmon skin dry until frying.",
+      "nutrition": {
+        "kcal": 590,
+        "protein": 42,
+        "fibre": 7,
+        "note": "Salmon contributes omega-3 fats; protein depends on individual fish/chicken servings."
+      },
+      "proteins": {
+        "salmon": [
+          [
+            "salmon",
+            1000
+          ]
+        ],
+        "chicken": [
+          [
+            "chicken",
+            1050
+          ]
+        ],
+        "mixed": [
+          [
+            "salmon",
+            600
+          ],
+          [
+            "chicken",
+            420
+          ]
+        ]
+      },
+      "proteinNutrition": {
+        "salmon": {
+          "kcal": 650,
+          "protein": 44,
+          "fibre": 7
+        },
+        "chicken": {
+          "kcal": 540,
+          "protein": 50,
+          "fibre": 7
+        },
+        "mixed": {
+          "kcal": 600,
+          "protein": 46,
+          "fibre": 7
+        }
+      }
+    },
+    {
+      "id": "aldi-spicy-mango-chicken-wraps",
+      "title": "Aldi Spicy Mango Chicken Wraps",
+      "shortTitle": "Aldi Spicy Mango Chicken Wraps",
+      "subtitle": "Ready-marinated chicken, warm wraps and crisp fresh salad. The easiest night of the week.",
+      "cuisine": "Fresh & easy",
+      "art": "mango-chicken-wraps",
+      "colour": "#f0ddb6",
+      "serves": 5,
+      "time": 20,
+      "tags": [
+        "Fresh & easy",
+        "Family dinners"
+      ],
+      "ingredients": [
+        [
+          "mango-chicken",
+          1150
+        ],
+        [
+          "wraps",
+          10
+        ],
+        [
+          "lettuce",
+          1
+        ],
+        [
+          "cucumber",
+          2
+        ],
+        [
+          "tomato-large",
+          3
+        ],
+        [
+          "avocado",
+          2
+        ],
+        [
+          "yoghurt",
+          250
+        ]
+      ],
+      "steps": [
+        [
+          "Check the chicken pack",
+          "Buy Aldi spicy mango marinated chicken in the meat section if stocked. Check the label for allergens, cook-by date and recommended method; substitute chicken breast with a suitable bottled mango marinade if unavailable."
+        ],
+        [
+          "Cook it through",
+          "BBQ, air-fry or pan-cook the marinated chicken following the pack's directions; ensure poultry reaches at least 75°C in the centre. Allow a brief rest, then slice."
+        ],
+        [
+          "Prep simple fillings",
+          "While the chicken cooks, wash and shred lettuce, slice cucumber and tomato, and cut avocado. Spoon yoghurt into a small bowl as a cooling option."
+        ],
+        [
+          "Wrap it up",
+          "Warm wraps briefly and set the chicken and salad in bowls. Let everyone make their own wrap; use yoghurt if the marinade is spicy."
+        ]
+      ],
+      "family": "The marinade may be too spicy for the kids: reserve plain chicken breast or offer extra yoghurt if needed.",
+      "kidJob": "Lay out wraps and add the salad.",
+      "allergens": "Check Aldi product and wraps: likely wheat/gluten; may contain milk, soy or other allergens. Yoghurt contains milk.",
+      "variation": "Use lettuce cups instead of a wrap if preferred.",
+      "prepTip": "Ready-marinated chicken, bagged lettuce and sliced veg keep prep at 5–10 minutes.",
+      "nutrition": {
+        "kcal": 665,
+        "protein": 48,
+        "fibre": 6,
+        "note": "Estimated assuming roughly 230 g raw marinated chicken and two wraps each; check Aldi packaging for accurate nutrition."
+      }
+    },
+    {
+      "id": "crispy-chicken-rainbow-burgers",
+      "title": "Crispy Chicken Burgers with Rainbow Slaw",
+      "shortTitle": "Crispy Chicken Burgers with Rainbow Slaw",
+      "subtitle": "Crispy breast fillets, a pile of crunchy slaw and a fresh burger bun.",
+      "cuisine": "Family favourites",
+      "art": "crispy-chicken-burgers",
+      "colour": "#f0dbc6",
+      "serves": 5,
+      "time": 25,
+      "tags": [
+        "Family favourites",
+        "Family dinners"
+      ],
+      "ingredients": [
+        [
+          "crispy-chicken",
+          5
+        ],
+        [
+          "burger-buns",
+          5
+        ],
+        [
+          "cabbage-red",
+          250
+        ],
+        [
+          "slaw-mix",
+          450
+        ],
+        [
+          "carrot",
+          2
+        ],
+        [
+          "apple",
+          1
+        ],
+        [
+          "yoghurt",
+          200
+        ],
+        [
+          "burger-sauce",
+          70
+        ],
+        [
+          "lettuce",
+          1
+        ],
+        [
+          "cheese-slices",
+          5
+        ]
+      ],
+      "steps": [
+        [
+          "Get the chicken cooking",
+          "Preheat the air fryer or oven. Cook the ready-made crispy chicken breast fillets exactly as directed on the pack, until hot through and poultry reaches at least 75°C; time varies by brand."
+        ],
+        [
+          "Make quick rainbow slaw",
+          "Mix pre-shredded slaw, thin red cabbage, grated carrot and grated apple with yoghurt. Add burger sauce to taste, or serve separately."
+        ],
+        [
+          "Warm buns",
+          "Split and toast the burger buns lightly. Wash lettuce leaves and set out cheese slices."
+        ],
+        [
+          "Build burgers",
+          "Load buns with crispy chicken, cheese, lettuce and rainbow slaw. Offer extra slaw and carrot sticks on the side."
+        ]
+      ],
+      "family": "Leave slaw and sauce separate if Tobias prefers a simple chicken-and-cheese burger.",
+      "kidJob": "Grate the apple with help and assemble buns.",
+      "allergens": "Wheat/gluten, milk, egg and possible soy depending on bought chicken and sauce. Check packs.",
+      "variation": "Add a second small chicken fillet for a higher-protein adult meal if needed.",
+      "prepTip": "Use pre-cut coleslaw vegetables to make this a 10-minute prep dinner.",
+      "nutrition": {
+        "kcal": 690,
+        "protein": 36,
+        "fibre": 7,
+        "note": "Protein varies substantially by store-bought fillet size/brand. For a training-sized serving, aim for a chicken fillet with roughly 150–200 g chicken or add extra lean chicken."
+      }
+    },
+    {
+      "id": "proper-aussie-bbq",
+      "title": "Proper Aussie Family BBQ",
+      "shortTitle": "Proper Aussie Family BBQ",
+      "subtitle": "Steak, beef snags, BBQ onions, grilled corn and a proper big garden salad.",
+      "cuisine": "Australian BBQ",
+      "art": "aussie-bbq",
+      "colour": "#ecd8b8",
+      "serves": 5,
+      "time": 30,
+      "tags": [
+        "Australian BBQ",
+        "Family dinners"
+      ],
+      "ingredients": [
+        [
+          "beef-steak",
+          1000
+        ],
+        [
+          "beef-sausage",
+          450
+        ],
+        [
+          "onion",
+          2
+        ],
+        [
+          "cob-corn",
+          5
+        ],
+        [
+          "lettuce",
+          1
+        ],
+        [
+          "cucumber",
+          2
+        ],
+        [
+          "tomato-large",
+          4
+        ],
+        [
+          "beetroot",
+          200
+        ],
+        [
+          "avocado",
+          2
+        ],
+        [
+          "oil",
+          15
+        ],
+        [
+          "vinegar",
+          25
+        ],
+        [
+          "pepper",
+          0.5
+        ]
+      ],
+      "steps": [
+        [
+          "Heat the barbie",
+          "Preheat the barbecue. Slice onions, halve the corn if preferred and prepare a big bowl of washed lettuce, cucumber, tomatoes, avocado and beetroot."
+        ],
+        [
+          "Grill onions and corn",
+          "Start onions on the hotplate with a little oil and cook until sweet and golden. Grill corn, turning regularly, for about 10–12 minutes."
+        ],
+        [
+          "Cook the meats",
+          "Barbecue sausages until cooked through, following pack guidance and checking that minced sausage meat reaches 75°C. Cook steaks to preferred doneness, rest briefly and slice across the grain."
+        ],
+        [
+          "Put it on the table",
+          "Dress salad with a splash of vinegar and olive oil. Serve steak, a sausage if wanted, onions, corn and lots of garden salad for everyone to help themselves."
+        ]
+      ],
+      "family": "The meat and salads are on shared platters; kids can choose steak, sausage or both.",
+      "kidJob": "Set out salad toppings and help prepare corn.",
+      "allergens": "Check sausage ingredients for wheat/gluten, soy, sulphites and other allergens.",
+      "variation": "Add microwaved baby potatoes if needed, but the BBQ stands on its own.",
+      "prepTip": "Use pre-washed salad leaves, ready-cut corn and a bag of sliced beetroot.",
+      "nutrition": {
+        "kcal": 750,
+        "protein": 51,
+        "fibre": 8,
+        "note": "Varies with steak cut and sausage size. A steak-forward adult plate gives more protein with less processed meat."
+      }
+    },
+    {
+      "id": "orange-chicken-veg-noodles",
+      "title": "Orange Chicken & Crunchy Vegetable Stir-Fry",
+      "shortTitle": "Orange Chicken & Crunchy Vegetable Stir-Fry",
+      "subtitle": "Tangy orange chicken breast, broccoli, snow peas and capsicum, with a little noodle.",
+      "cuisine": "Asian-inspired",
+      "art": "orange-chicken",
+      "colour": "#efdfc6",
+      "serves": 5,
+      "time": 25,
+      "tags": [
+        "Asian-inspired",
+        "Family dinners"
+      ],
+      "ingredients": [
+        [
+          "chicken",
+          1100
+        ],
+        [
+          "noodles",
+          500
+        ],
+        [
+          "broccoli",
+          450
+        ],
+        [
+          "snow-peas",
+          350
+        ],
+        [
+          "capsicum",
+          2
+        ],
+        [
+          "carrot",
+          2
+        ],
+        [
+          "orange-juice",
+          160
+        ],
+        [
+          "orange",
+          1
+        ],
+        [
+          "soy",
+          60
+        ],
+        [
+          "honey",
+          35
+        ],
+        [
+          "vinegar",
+          25
+        ],
+        [
+          "ginger",
+          20
+        ],
+        [
+          "cornflour",
+          20
+        ],
+        [
+          "oil",
+          25
+        ],
+        [
+          "spring-onion",
+          3
+        ]
+      ],
+      "steps": [
+        [
+          "Mix the orange sauce",
+          "Whisk orange juice, zest of one orange, soy, honey, rice vinegar, ginger and half the cornflour. Set aside. Slice chicken breast into bite-sized pieces."
+        ],
+        [
+          "Brown the chicken",
+          "Toss chicken with remaining cornflour. Stir-fry in oil over medium-high heat in two batches for 6–8 minutes total or until fully cooked to 75°C. Remove and keep warm."
+        ],
+        [
+          "Crunch the veg",
+          "Add sliced capsicum, carrots, broccoli and snow peas to the pan with a splash of water. Stir-fry for 4–5 minutes, keeping the vegetables colourful and slightly crisp."
+        ],
+        [
+          "Glossy finish",
+          "Add the sauce and stir until bubbling and lightly thickened. Return chicken. Warm Hokkien noodles as directed on their pack, then toss with the chicken and vegetables; finish with spring onions."
+        ]
+      ],
+      "family": "Sauce is zesty, not spicy. Keep a little plain chicken and noodles aside before saucing for fussy eaters.",
+      "kidJob": "Top plates with sliced spring onions.",
+      "allergens": "Soy and possibly wheat/gluten in noodles and soy sauce; check labels.",
+      "variation": "Adjust vegetables and starch to appetite. Cook extra lean meat for a higher-protein adult portion.",
+      "prepTip": "Use a pre-cut stir-fry vegetable pack and ready-to-wok noodles for a faster night.",
+      "nutrition": {
+        "kcal": 650,
+        "protein": 53,
+        "fibre": 7,
+        "note": "Chicken breast delivers substantial protein; keep noodles moderate and vegetables generous."
       }
     }
   ]
