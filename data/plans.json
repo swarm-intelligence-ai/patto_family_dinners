@@ -131,6 +131,14 @@
             "protein": 52,
             "fibre": 7,
             "note": "High-protein chicken breast with comforting mash and greens."
+          },
+          "prep": {
+            "chicken": "thin fillets",
+            "potato": "peeled & chopped",
+            "broccoli": "florets",
+            "green-beans": "trimmed",
+            "garlic": "crushed",
+            "milk": "warmed"
           }
         },
         "teriyaki-salmon-chicken-bowls": {
@@ -269,6 +277,16 @@
               "protein": 45,
               "fibre": 6
             }
+          },
+          "prep": {
+            "cucumber": "thinly sliced",
+            "carrot": "thinly sliced",
+            "avocado": "sliced",
+            "broccoli": "florets",
+            "ginger": "grated",
+            "garlic": "crushed",
+            "cornflour": "mix with cold water",
+            "chicken": "sliced"
           }
         },
         "beef-mushroom-stroganoff": {
@@ -370,6 +388,12 @@
             "protein": 52,
             "fibre": 4,
             "note": "Lean beef provides iron and protein; serve with extra greens if desired."
+          },
+          "prep": {
+            "beef-strips": "thin strips",
+            "mushroom": "sliced",
+            "onion": "sliced",
+            "garlic": "crushed"
           }
         },
         "bbq-pork-pineapple-wraps": {
@@ -471,6 +495,13 @@
             "protein": 43,
             "fibre": 5,
             "note": "Amounts assume two soft wraps per serving."
+          },
+          "prep": {
+            "pork-steaks": "thin strips",
+            "pineapple": "drained",
+            "slaw-mix": "ready shredded",
+            "cucumber": "thinly sliced",
+            "garlic": "crushed"
           }
         },
         "chicken-egg-fried-rice": {
@@ -572,6 +603,15 @@
             "protein": 40,
             "fibre": 5,
             "note": "Rice quantity is dry weight before cooking."
+          },
+          "prep": {
+            "chicken": "diced",
+            "rice": "cooked & chilled",
+            "egg": "beaten",
+            "carrot": "diced",
+            "spring-onion": "thinly sliced",
+            "garlic": "crushed",
+            "ginger": "grated"
           }
         },
         "family-beef-cheeseburgers": {
@@ -665,6 +705,14 @@
             "protein": 47,
             "fibre": 4,
             "note": "Estimates exclude optional chips and extra toppings."
+          },
+          "prep": {
+            "beef": "form 5 patties",
+            "burger-buns": "split & toasted",
+            "lettuce": "leaves separated",
+            "tomato-large": "sliced",
+            "onion": "sliced",
+            "pickles": "sliced"
           }
         }
       }
@@ -792,7 +840,14 @@
           },
           "allergens": "Wheat/gluten and milk. Check couscous, yoghurt and spice packaging.",
           "variation": "Use cooked lentils instead of beef for a meat-free version; amounts and nutrition will change.",
-          "prepTip": "Chop the salad and mix the yoghurt earlier in the day; refrigerate separately."
+          "prepTip": "Chop the salad and mix the yoghurt earlier in the day; refrigerate separately.",
+          "prep": {
+            "cucumber": "diced",
+            "tomato": "halved",
+            "lemon": "juiced",
+            "garlic": "crushed",
+            "feta": "crumbled"
+          }
         },
         "pork-tonkatsu": {
           "id": "pork-tonkatsu",
@@ -898,7 +953,14 @@
           },
           "allergens": "Wheat/gluten, egg, milk, soy and possibly fish in Worcestershire sauce. Check all sauce labels.",
           "variation": "Chicken breast works too: flatten evenly and check it reaches 75°C. Use fish-free Worcestershire if needed; check the label.",
-          "prepTip": "Cut the wedges and shred the slaw first. Keep raw meat and salad utensils separate."
+          "prepTip": "Cut the wedges and shred the slaw first. Keep raw meat and salad utensils separate.",
+          "prep": {
+            "pork": "flatten to 1 cm",
+            "sweet-potato": "cut into wedges",
+            "cabbage": "finely shredded",
+            "carrot": "grated",
+            "egg": "beaten"
+          }
         },
         "burrito-bowls": {
           "id": "burrito-bowls",
@@ -1016,7 +1078,17 @@
           },
           "allergens": "Milk. Check salsa and spice labels for additional allergens.",
           "variation": "For a lighter appetite, use a smaller rice portion and more lettuce. For meat-free bowls, replace beef with extra beans; quantities will differ.",
-          "prepTip": "Cook the beef-and-bean mixture ahead and refrigerate promptly. Reheat until steaming hot throughout."
+          "prepTip": "Cook the beef-and-bean mixture ahead and refrigerate promptly. Reheat until steaming hot throughout.",
+          "prep": {
+            "beans": "drained & rinsed",
+            "corn": "drained",
+            "lettuce": "shredded",
+            "avocado": "diced",
+            "tomato": "halved",
+            "lime": "cut into wedges",
+            "onion": "diced",
+            "garlic": "crushed"
+          }
         },
         "italian-chicken-pasta": {
           "id": "italian-chicken-pasta",
@@ -1114,7 +1186,16 @@
           },
           "allergens": "Wheat/gluten and milk; some pasta contains egg. Check the packet.",
           "variation": "Use gluten-free pasta or skip parmesan if needed, checking every product label. These swaps alter nutrition.",
-          "prepTip": "Slice vegetables ahead. Keep raw chicken covered on the lowest fridge shelf."
+          "prepTip": "Slice vegetables ahead. Keep raw chicken covered on the lowest fridge shelf.",
+          "prep": {
+            "chicken": "bite-sized pieces",
+            "zucchini": "half-moon slices",
+            "tomato": "halved",
+            "garlic": "crushed",
+            "lemon": "zested & juiced",
+            "basil": "leaves torn",
+            "parmesan": "grated"
+          }
         },
         "sweet-chilli-bowls": {
           "id": "sweet-chilli-bowls",
@@ -1241,7 +1322,17 @@
           },
           "allergens": "Soy and usually wheat/gluten in soy sauce; fish when salmon is selected. Check sweet chilli and soy labels. Mixed preparation is not suitable for avoiding fish cross-contact.",
           "variation": "Use reduced-salt tamari if avoiding wheat, checking it is labelled gluten-free. Sauce quantities are deliberately moderate; add to taste.",
-          "prepTip": "Make the glaze ahead and refrigerate. Keep the serving half separate from raw protein."
+          "prepTip": "Make the glaze ahead and refrigerate. Keep the serving half separate from raw protein.",
+          "prep": {
+            "broccoli": "small florets",
+            "carrot": "peeled into ribbons",
+            "cucumber": "sliced",
+            "ginger": "finely grated",
+            "garlic": "crushed",
+            "lime": "juiced",
+            "salmon": "check for bones",
+            "chicken": "even strips"
+          }
         }
       }
     },
