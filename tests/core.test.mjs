@@ -37,6 +37,24 @@ test('serving amounts use real-life cooking measures',()=>{
  assert.equal(quantity(1.5,'tsp'),'1½ tsp');
  assert.equal(recipeIngredients(book.recipes.find(r=>r.id==='pork-tonkatsu'),5).find(([id])=>id==='egg')[1],2);
 });
+test('kitchen liquids show Australian spoon measures in recipes and shopping',()=>{
+ assert.equal(quantity(5,'ml','sesame-oil'),'1 tsp');
+ assert.equal(quantity(10,'ml','sesame-oil'),'½ tbsp');
+ assert.equal(quantity(20,'ml','soy'),'1 tbsp');
+ assert.equal(quantity(30,'ml','honey'),'1½ tbsp');
+ assert.equal(quantity(40,'ml','vinegar'),'2 tbsp');
+ assert.equal(quantity(25,'ml','sweet-chilli'),'1 tbsp + 1 tsp');
+ assert.equal(quantity(7.5,'ml','sesame-oil'),'1½ tsp');
+ assert.equal(quantity(10,'ml','stock-chicken'),'10 ml');
+ assert.equal(quantity(100,'ml','milk'),'100 ml');
+ const dinner=getRecipe(book,week,'crispy-skin-salmon-ginger');
+ const sesame=dinner.ingredients.find(([id])=>id==='sesame-oil');
+ assert.equal(quantity(sesame[1],book.ingredients['sesame-oil'].unit,'sesame-oil'),'½ tbsp');
+ const shopping=consolidateMealSettings(book,week,{});
+ const shoppingOil=shopping.find(i=>i.id==='sesame-oil');
+ assert.ok(shoppingOil);
+ assert.ok(/tsp|tbsp/.test(quantity(shoppingOil.qty,shoppingOil.unit,shoppingOil.id)));
+});
 test('shared order must match exactly the meals in its week',()=>{
  const ids=week.meals.map(m=>m.recipe);
  const reversed=[...ids].reverse();
