@@ -56,7 +56,34 @@ export function consolidateMealSettings(book,week,settings={}) {
   return [...totals].map(([id,qty])=>({id,...book.ingredients[id],qty:Math.round(qty*1000)/1000}))
     .sort((a,b)=>book.aisles.indexOf(a.aisle)-book.aisles.indexOf(b.aisle)||a.name.localeCompare(b.name));
 }
-export function quantity(qty, unit) {
+// Australian tablespoons are 20 mL; teaspoons are 5 mL.
+// Keep stored quantities in mL so shopping totals and serving scaling remain exact.
+const spoonMeasuredIngredients = new Set([
+  'soy','sweet-chilli','sweet-chilli-sauce','bbq','worcestershire',
+  'oil','vinegar','dijon','wholegrain-mustard','honey','oyster',
+  'sesame-oil','ketchup','burger-sauce'
+]);
+function spoonMeasure(ml) {
+  // Round only the display to a realistic measuring spoon, not the stored recipe.
+  const teaspoons = Math.max(0.25, Math.round(ml / 1.25) * 0.25);
+  // For 10 mL and up, use AU tablespoons plus any remaining teaspoons.
+  if (teaspoons >= 2) {
+    const halfTablespoons = Math.floor((teaspoons + 1e-8) / 2);
+    const remainder = Math.round((teaspoons - halfTablespoons * 2) * 4) / 4;
+    const wholeTablespoons = Math.floor(halfTablespoons / 2);
+    const half = halfTablespoons % 2;
+    const tbsp = wholeTablespoons ? `${wholeTablespoons}${half ? '½' : ''} tbsp` : half ? '½ tbsp' : '';
+    if (remainder === 0) return tbsp;
+    // A teaspoon is often easier to find than a quarter tablespoon.
+    const tsp = `${remainder === 0.25 ? '¼' : remainder === 0.5 ? '½' : remainder === 0.75 ? '¾' : remainder} tsp`;
+    return tbsp ? `${tbsp} + ${tsp}` : tsp;
+  }
+  const whole = Math.floor(teaspoons);
+  const part = Math.round((teaspoons-whole)*4)/4;
+  const frac = {0:'',0.25:'¼',0.5:'½',0.75:'¾'}[part];
+  return `${whole||''}${frac} tsp`;
+}
+export function quantity(qty, unit, ingredientId = '') {
   // These numbers are instructions for humans shopping and cooking, not a lab balance.
   const n = Math.max(0, Number(qty));
   if (!Number.isFinite(n)) return '';
@@ -70,6 +97,7 @@ export function quantity(qty, unit) {
     return `${integer || ''}${fractional} tsp`;
   }
   if (unit === 'ml') {
+    if (spoonMeasuredIngredients.has(ingredientId)) return spoonMeasure(n);
     const rounded = n < 10 ? Math.round(n) : Math.round(n / 5) * 5;
     return `${rounded} ml`;
   }
