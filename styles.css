@@ -252,3 +252,10 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
  .archive-card li .archive-meal-name{font-size:12px;line-height:1.3}
  .notice{align-items:flex-start;gap:12px;flex-wrap:wrap}
 }
+
+/* Short recipe-specific preparation hints right beside the ingredient, no extra paragraphs. */
+.ingredient-list .ingredient-description{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;min-width:0;line-height:1.5}
+.ingredient-list .ingredient-main{min-width:0}
+.ingredient-list .ingredient-prep{display:inline-flex;align-items:center;width:max-content;max-width:100%;padding:3px 9px;border:1px solid #e4daca;border-radius:999px;background:#f2e9db;color:#755b48;font-family:var(--sans);font-size:11px;font-weight:600;line-height:1.35;text-decoration:none;white-space:normal}
+.ingredient-list label:has(input:checked) .ingredient-prep{opacity:.55;text-decoration:line-through}
+@media(max-width:520px){.ingredient-list .ingredient-description{gap:5px 8px}.ingredient-list .ingredient-prep{font-size:10px;padding:3px 8px}}
