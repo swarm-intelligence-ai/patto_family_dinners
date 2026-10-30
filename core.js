@@ -13,7 +13,7 @@ export function validateData(book, plans) {
     for (const [id, qty] of [...r.ingredients, ...Object.values(r.proteins || {}).flat()]) {
       if (!book.ingredients[id] || !Number.isFinite(qty) || qty <= 0) fail(`Invalid ingredient ${id} in ${r.id}.`);
     }
-    if (r.proteins && ['salmon','chicken','mixed'].some(k => !Array.isArray(r.proteins[k]))) fail(`Missing protein choices in ${r.id}.`);
+    if (r.proteins && (!Array.isArray(r.proteins.mixed) || !Array.isArray(r.proteins.chicken) || (!Array.isArray(r.proteins.salmon) && !Array.isArray(r.proteins.beef)))) fail(`Missing protein choices in ${r.id}.`);
   };
   for (const item of Object.values(book.ingredients)) if (typeof item.name !== 'string' || typeof item.unit !== 'string' || !book.aisles.includes(item.aisle)) fail('Invalid grocery aisle or ingredient.');
   for (const r of book.recipes) { validateRecipe(r); if (ids.has(r.id)) fail(`Duplicate recipe ${r.id}.`); ids.add(r.id); }
@@ -48,7 +48,7 @@ export function consolidateMealSettings(book,week,settings={}) {
     const recipe=getRecipe(book,week,meal.recipe);
     const setting=settings[meal.recipe]||{};
     const servings=Number.isInteger(setting.servings)&&setting.servings>=1&&setting.servings<=20?setting.servings:5;
-    const protein=recipe.proteins&&['salmon','chicken','mixed'].includes(setting.protein)?setting.protein:'mixed';
+    const protein=recipe.proteins&&Object.prototype.hasOwnProperty.call(recipe.proteins,setting.protein)?setting.protein:'mixed';
     for(const [id,qty] of recipeIngredients(recipe,servings,protein)){
       totals.set(id,(totals.get(id)||0)+qty);
     }
