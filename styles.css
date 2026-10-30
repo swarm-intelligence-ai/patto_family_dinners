@@ -259,3 +259,10 @@ dialog{border:0;padding:0;background:var(--oat);color:var(--ink);border-radius:1
 .ingredient-list .ingredient-prep{display:inline-flex;align-items:center;width:max-content;max-width:100%;padding:3px 9px;border:1px solid #e4daca;border-radius:999px;background:#f2e9db;color:#755b48;font-family:var(--sans);font-size:11px;font-weight:600;line-height:1.35;text-decoration:none;white-space:normal}
 .ingredient-list label:has(input:checked) .ingredient-prep{opacity:.55;text-decoration:line-through}
 @media(max-width:520px){.ingredient-list .ingredient-description{gap:5px 8px}.ingredient-list .ingredient-prep{font-size:10px;padding:3px 8px}}
+
+/* The Nov 2026 meal photos are locally hosted, not emoji-based placeholder graphics. */
+.meal-art .art-open{display:block;padding:0;overflow:hidden}
+.meal-art .art-open img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .2s ease}
+.meal-art .art-open:hover img{transform:scale(1.025) rotate(0)}
+.recipe-banner img{width:240px;height:230px;object-fit:cover;object-position:center;border-radius:8px}
+@media(max-width:700px){.meal-art .art-open img{width:100%;height:100%;object-fit:cover}.recipe-banner img{width:100%;height:240px;object-fit:cover}}

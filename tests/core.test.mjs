@@ -166,3 +166,13 @@ test('steak and salmon are separate selectable protein dinners',()=>{
  assert.ok(!c.some(i=>i.id==='salmon'));
  assert.ok(!c.some(i=>i.id==='beef-steak'));
 });
+
+test('published November dinner photos exist locally as valid JPEG files',async()=>{
+  const arts=['tm5-risotto','tm5-mexican-beef','med-salmon-salsa','chicken-veg-nachos','steak-capsicum'];
+  for(const art of arts){
+    const bytes=await readFile(new URL('../assets/meal-photos/'+art+'.jpg',import.meta.url));
+    assert.ok(bytes.length>10000,art+' photo is unexpectedly small');
+    assert.equal(bytes[0],255,art+' does not look like JPEG');
+    assert.equal(bytes[1],216,art+' does not look like JPEG');
+  }
+});
