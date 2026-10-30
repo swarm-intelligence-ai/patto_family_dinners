@@ -6,7 +6,7 @@ export function validateData(book, plans) {
   const validateRecipe = r => {
     if (!r || typeof r.id !== 'string' || !/^[a-z0-9-]+$/.test(r.id)) fail('Recipe IDs need lowercase letters, numbers and hyphens.');
     for (const key of ['title','shortTitle','subtitle','cuisine','art','colour','family','kidJob','allergens','variation','prepTip']) if (typeof r[key] !== 'string' || !r[key]) fail(`Missing ${key} in ${r.id}.`);
-    if (!/^#[a-f0-9]{6}$/i.test(r.colour) || !/^[a-z-]+$/.test(r.art)) fail(`Invalid artwork in ${r.id}.`);
+    if (!/^#[a-f0-9]{6}$/i.test(r.colour) || !/^[a-z0-9-]+$/.test(r.art)) fail(`Invalid artwork in ${r.id}.`);
     if (!Number.isFinite(r.serves) || r.serves <= 0 || !Number.isFinite(r.time) || r.time <= 0) fail(`Invalid portions or time in ${r.id}.`);
     if (!Array.isArray(r.ingredients) || !r.ingredients.length || !Array.isArray(r.steps) || !r.steps.length || r.steps.some(s => !Array.isArray(s) || s.length !== 2 || s.some(v => typeof v !== 'string'))) fail(`Incomplete ingredients or method in ${r.id}.`);
     if (!r.nutrition || ['kcal','protein','fibre'].some(k => !Number.isFinite(r.nutrition[k]) || r.nutrition[k] < 0) || typeof r.nutrition.note !== 'string') fail(`Missing nutrition in ${r.id}.`);
