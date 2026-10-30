@@ -163,7 +163,7 @@ function listItems() {
 }
 function dinnerSettings(r) {
   const choice=mealChoice(r.id);
-  return `<div class="dinner-settings"><label>Cooking for <select data-dinner-servings="${e(r.id)}" aria-label="Number of people eating ${e(r.title)}">${Array.from({length:10},(_,i)=>i+1).map(n=>`<option value="${n}" ${n===choice.servings?'selected':''}>${n} ${n===1?'person':'people'}</option>`).join('')}</select></label>${r.proteins?`<label>Protein <select data-dinner-protein="${e(r.id)}" aria-label="Protein for ${e(r.title)}"><option value="mixed" ${choice.protein==='mixed'?'selected':''}>Salmon + chicken</option><option value="salmon" ${choice.protein==='salmon'?'selected':''}>All salmon</option><option value="chicken" ${choice.protein==='chicken'?'selected':''}>All chicken</option></select></label>`:''}</div>`;
+  return `<div class="dinner-settings"><label>Cooking for <select data-dinner-servings="${e(r.id)}" aria-label="Number of people eating ${e(r.title)}">${Array.from({length:10},(_,i)=>i+1).map(n=>`<option value="${n}" ${n===choice.servings?'selected':''}>${n} ${n===1?'person':'people'}</option>`).join('')}</select></label>${r.proteins?`<label>Protein <select data-dinner-protein="${e(r.id)}" aria-label="Protein for ${e(r.title)}">${Object.keys(r.proteins).map(key=>`<option value="${e(key)}" ${choice.protein===key?'selected':''}>${e(r.proteinOptions?.[key]||({salmon:"All salmon",chicken:"All chicken",mixed:"Salmon + chicken",beef:"All steak"}[key]||key))}</option>`).join('')}</select></label>`:''}</div>`;
 }
 function card(r, day, position = -1, count = 0) {
   const liked=favourites.includes(r.id);
