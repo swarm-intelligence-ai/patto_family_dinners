@@ -12,6 +12,7 @@ const photoSources = {
   "pork-wraps": "https://v.cdn.ww.com/media/system/wine/5996ece2b0a1a625825a7ad7/708dc88e-cb7d-41af-b405-3bee3768d070/wsyb196tofnux6zfil7o.jpg",
   "fried-rice": "https://www.zoopindia.com/_next/image?q=75&url=https%3A%2F%2Fmedia.zoopindia.com%2Fixigo-outlets-images%2Fi1573.webp&w=580",
   "cheeseburgers": "https://i.pinimg.com/originals/c9/96/d2/c996d2b5b84306b7a867b232aecb5261.jpg",
+  "tm5-risotto": "https://www.healthyfreshmeals.com/cdn/shop/files/Chicken_Mushroom_Risotto.jpg?v=1753355869",
   "thai-basil-beef": "https://stickyricethaikitchen.com/wp-content/uploads/2024/01/Pad-Kra-Pao-with-Beef.jpg",
   "crispy-skin-salmon": "https://assets.icanet.se/e_sharpen%3A80%2Cq_auto%2Cdpr_1.25%2Cw_718%2Ch_718%2Cc_lfill/imagevaultfiles/id_132358/cf_259/halstrad_lax_med_fargglad_crudit%C3%A9sallad_pa_asiatiskt_vis.jpg",
   "mango-chicken-wraps": "https://cdn.chellesrecipes.com/images/0864b40c-27a7-4295-991e-c44bc6ec9e48_a03f7ebb.webp",
