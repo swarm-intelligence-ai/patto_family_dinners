@@ -442,6 +442,86 @@
       "name": "Sweet chilli sauce",
       "unit": "ml",
       "aisle": "Sauces & seasonings"
+    },
+    "arborio": {
+      "name": "Arborio risotto rice (dry)",
+      "unit": "g",
+      "aisle": "Rice, pasta & tins"
+    },
+    "chicken-breast": {
+      "name": "Chicken breast fillets",
+      "unit": "g",
+      "aisle": "Meat & seafood"
+    },
+    "passata": {
+      "name": "Tomato passata",
+      "unit": "g",
+      "aisle": "Rice, pasta & tins"
+    },
+    "stock-paste": {
+      "name": "Chicken or vegetable stock paste",
+      "unit": "g",
+      "aisle": "Sauces & seasonings"
+    },
+    "capsicum-roasted": {
+      "name": "Roasted red capsicum (jarred, drained)",
+      "unit": "g",
+      "aisle": "Rice, pasta & tins"
+    },
+    "corn-chips": {
+      "name": "Plain corn chips",
+      "unit": "g",
+      "aisle": "Rice, pasta & tins"
+    },
+    "sour-cream-light": {
+      "name": "Light sour cream",
+      "unit": "g",
+      "aisle": "Dairy & eggs"
+    },
+    "chilli-powder": {
+      "name": "Mild chilli powder",
+      "unit": "tsp",
+      "aisle": "Pantry check"
+    },
+    "tomato-diced": {
+      "name": "Diced tomatoes",
+      "unit": "× 400 g tin",
+      "aisle": "Rice, pasta & tins"
+    },
+    "baby-potato": {
+      "name": "Baby potatoes",
+      "unit": "g",
+      "aisle": "Fruit & veg"
+    },
+    "rocket": {
+      "name": "Rocket leaves",
+      "unit": "g",
+      "aisle": "Fruit & veg"
+    },
+    "balsamic": {
+      "name": "Balsamic vinegar",
+      "unit": "ml",
+      "aisle": "Sauces & seasonings"
+    },
+    "parsley": {
+      "name": "Fresh flat-leaf parsley",
+      "unit": "bunch",
+      "aisle": "Fruit & veg"
+    },
+    "capsicum-powder": {
+      "name": "Sweet paprika",
+      "unit": "tsp",
+      "aisle": "Pantry check"
+    },
+    "mushrooms": {
+      "name": "Sliced mushrooms",
+      "unit": "g",
+      "aisle": "Fruit & veg"
+    },
+    "water": {
+      "name": "Water",
+      "unit": "ml",
+      "aisle": "Pantry check"
     }
   },
   "recipes": [
@@ -2365,6 +2445,614 @@
         "orange": "zested",
         "ginger": "grated",
         "spring-onion": "thinly sliced"
+      }
+    },
+    {
+      "id": "tm5-chicken-mushroom-risotto",
+      "title": "TM5 Chicken, Mushroom & Spinach Risotto",
+      "shortTitle": "TM5 Chicken, Mushroom & Spinach Risotto",
+      "subtitle": "Creamy Parmesan risotto from the Thermomix with tender pan-cooked chicken and green vegetables.",
+      "cuisine": "Thermomix TM5",
+      "art": "tm5-risotto",
+      "colour": "#e1e6d6",
+      "serves": 5,
+      "time": 40,
+      "tags": [
+        "Thermomix TM5"
+      ],
+      "ingredients": [
+        [
+          "chicken",
+          1000
+        ],
+        [
+          "arborio",
+          350
+        ],
+        [
+          "mushroom",
+          250
+        ],
+        [
+          "spinach",
+          170
+        ],
+        [
+          "peas",
+          200
+        ],
+        [
+          "onion",
+          1
+        ],
+        [
+          "garlic",
+          1
+        ],
+        [
+          "parmesan",
+          80
+        ],
+        [
+          "butter",
+          25
+        ],
+        [
+          "oil",
+          30
+        ],
+        [
+          "stock-chicken",
+          750
+        ],
+        [
+          "salt",
+          0.5
+        ],
+        [
+          "pepper",
+          0.25
+        ]
+      ],
+      "steps": [
+        [
+          "TM5: grate the Parmesan",
+          "Put the Parmesan in pieces into the clean, dry TM5 bowl. Grate 8 sec / speed 9. Tip into a bowl and set aside."
+        ],
+        [
+          "TM5: chop and soften",
+          "Put quartered onion and garlic in the bowl. Chop 5 sec / speed 5; scrape down. Add 15 ml oil and the sliced mushrooms. Sauté 4 min / 100°C / reverse / speed spoon."
+        ],
+        [
+          "TM5: start the risotto",
+          "Add arborio rice and cook 2 min / 100°C / reverse / speed spoon. Pour in 750 ml hot chicken stock, then cook 16 min / 100°C / reverse / speed spoon, with the simmering basket resting on the lid instead of the measuring cup. Check the 2.2 L bowl limit before cooking and stop if the mixture rises too high."
+        ],
+        [
+          "Cook chicken separately while the TM5 works",
+          "Cut chicken into bite-sized pieces. In a large frying pan with remaining oil, cook in batches until golden and 75°C in the centre. This keeps the TM5 below its safe fill limit and gives the family a proper protein portion."
+        ],
+        [
+          "TM5: finish and stand",
+          "At the end of the cooking time check the rice; add a splash of hot stock and cook another 2–4 min / 100°C / reverse / speed spoon if still firm. Stir in thawed peas, spinach, butter and Parmesan using the spatula, close lid and stand 3–4 minutes until spinach is wilted and peas hot. Fold in cooked chicken in a serving bowl; do not force the full five-person batch back into the TM5."
+        ]
+      ],
+      "prep": {
+        "chicken": "bite-sized pieces",
+        "mushroom": "sliced",
+        "spinach": "washed",
+        "peas": "thawed",
+        "onion": "quartered",
+        "garlic": "peeled",
+        "parmesan": "cut into chunks"
+      },
+      "family": "A pan of chicken cooks alongside the TM5 risotto, avoiding a crowded bowl. Portion some risotto before adding mushrooms for anyone who dislikes them.",
+      "kidJob": "Weigh the rice and wash spinach.",
+      "allergens": "Milk; check stock for gluten, celery or other allergens.",
+      "variation": "Adjust the vegetable and carbohydrate portions to appetite.",
+      "prepTip": "Buy pre-sliced mushrooms; chicken can be chopped earlier and chilled.",
+      "nutrition": {
+        "kcal": 710,
+        "protein": 55,
+        "fibre": 6,
+        "note": "Pan-cooked 200 g raw chicken per serving supplies substantial lean protein. TM5 mixing bowl holds a maximum 2.2 L."
+      },
+      "thermomix": "TM5"
+    },
+    {
+      "id": "tm5-beef-chilli-sweet-potatoes",
+      "title": "TM5 Beef & Bean Loaded Sweet Potatoes",
+      "shortTitle": "TM5 Beef & Bean Loaded Sweet Potatoes",
+      "subtitle": "Mild tomato-rich beef chilli, beans and corn over hot sweet potatoes with avocado and cheese.",
+      "cuisine": "Thermomix TM5",
+      "art": "tm5-mexican-beef",
+      "colour": "#f1dfc5",
+      "serves": 5,
+      "time": 40,
+      "tags": [
+        "Thermomix TM5"
+      ],
+      "ingredients": [
+        [
+          "beef",
+          1000
+        ],
+        [
+          "sweet-potato",
+          1500
+        ],
+        [
+          "beans",
+          2
+        ],
+        [
+          "corn",
+          1
+        ],
+        [
+          "tomato-diced",
+          2
+        ],
+        [
+          "capsicum",
+          2
+        ],
+        [
+          "onion",
+          1
+        ],
+        [
+          "garlic",
+          2
+        ],
+        [
+          "cumin",
+          2
+        ],
+        [
+          "paprika",
+          2
+        ],
+        [
+          "chilli-powder",
+          0.5
+        ],
+        [
+          "oil",
+          15
+        ],
+        [
+          "cheddar",
+          150
+        ],
+        [
+          "avocado",
+          2
+        ],
+        [
+          "yoghurt",
+          180
+        ]
+      ],
+      "steps": [
+        [
+          "Start the sweet potatoes",
+          "Prick the sweet potatoes; microwave in batches 7–10 minutes until nearly soft (time depends on size), then finish in the air fryer at 200°C for about 10 minutes. For large potatoes, halve lengthways before cooking."
+        ],
+        [
+          "TM5: make the vegetable sauce",
+          "Place quartered onion and garlic into TM5 bowl; chop 5 sec / speed 5. Add oil and cook 3 min / 100°C / speed 1. Add chopped capsicum and chop 3 sec / speed 4. Add diced tomatoes, cumin, paprika and a little mild chilli powder. Simmer 12 min / 100°C / reverse / speed spoon, with simmering basket on the lid to allow steam to escape. Keep the bowl well below the 2.2 L maximum."
+        ],
+        [
+          "Brown beef in a pan",
+          "While the TM5 sauce cooks, brown the mince in a large frying pan over medium-high heat, breaking into small pieces; cook to at least 75°C throughout. Use a large pan to avoid crowding."
+        ],
+        [
+          "Finish the chilli in the pan",
+          "Tip TM5 tomato mixture into the beef pan. Drain and rinse black beans and corn; add to the pan and simmer about 6–8 minutes until piping hot. Add water if needed. The full beef-and-bean batch must not be packed into the TM5 bowl."
+        ],
+        [
+          "Serve loaded sweet potatoes",
+          "Split sweet potatoes, spoon over beef chilli, add grated cheddar, diced avocado and a little yoghurt. Put the toppings on the table for the family to help themselves."
+        ]
+      ],
+      "prep": {
+        "beef": "break up in pan",
+        "sweet-potato": "pricked & halved",
+        "beans": "drained & rinsed",
+        "corn": "drained",
+        "capsicum": "roughly chopped",
+        "onion": "quartered",
+        "garlic": "peeled",
+        "cheddar": "grated",
+        "avocado": "diced"
+      },
+      "family": "Keep chilli powder minimal and offer extra hot sauce separately. The kids can choose beans and corn.",
+      "kidJob": "Drain and rinse canned beans with help.",
+      "allergens": "Milk; check spice blends and canned ingredients.",
+      "variation": "Adjust the vegetable and carbohydrate portions to appetite.",
+      "prepTip": "Pre-washed sweet potatoes and frozen chopped capsicum reduce prep.",
+      "nutrition": {
+        "kcal": 790,
+        "protein": 55,
+        "fibre": 12,
+        "note": "High-protein beef and beans, plenty of fibre and sweet potato. TM5 prepares the tomato sauce while beef cooks separately."
+      },
+      "thermomix": "TM5"
+    },
+    {
+      "id": "mediterranean-salmon-tomato",
+      "title": "Mediterranean Salmon with Tomato & Herb Salsa",
+      "shortTitle": "Mediterranean Salmon with Tomato & Herb Salsa",
+      "subtitle": "Crispy-skinned salmon or chicken with balsamic tomato salsa, golden baby potatoes and green beans.",
+      "cuisine": "Mediterranean",
+      "art": "med-salmon-salsa",
+      "colour": "#d8eddf",
+      "serves": 5,
+      "time": 30,
+      "tags": [
+        "Mediterranean"
+      ],
+      "ingredients": [
+        [
+          "baby-potato",
+          1050
+        ],
+        [
+          "green-beans",
+          550
+        ],
+        [
+          "tomato",
+          450
+        ],
+        [
+          "basil",
+          1
+        ],
+        [
+          "balsamic",
+          40
+        ],
+        [
+          "oil",
+          30
+        ],
+        [
+          "pepper",
+          0.25
+        ],
+        [
+          "salt",
+          0.5
+        ]
+      ],
+      "steps": [
+        [
+          "Start the potatoes",
+          "Halve baby potatoes, toss with some olive oil and salt. Air-fry at 200°C for 18–23 minutes, shaking once, until golden and tender. Start these before preparing the rest."
+        ],
+        [
+          "Make the fresh salsa",
+          "Halve cherry tomatoes and finely tear basil. Toss with balsamic, a little oil, salt and pepper. Set aside while the proteins cook; keep it fresh rather than making a heavy sauce."
+        ],
+        [
+          "Cook fish or chicken separately",
+          "For salmon, pat skin completely dry. Pan-sear skin-side down in hot oil for 5–7 minutes until crisp; turn carefully and finish 1–3 minutes until cooked to preference. For chicken, pan-cook thin breast fillets in a separate pan until 75°C at the centre."
+        ],
+        [
+          "Steam the beans and plate",
+          "Steam trimmed green beans for 4–5 minutes until just tender. Serve salmon skin-up (or chicken) alongside potatoes and beans, with tomato salsa spooned next to the skin to keep it crisp."
+        ]
+      ],
+      "prep": {
+        "baby-potato": "halved",
+        "green-beans": "trimmed",
+        "tomato": "halved",
+        "basil": "leaves torn",
+        "salmon": "skin patted dry",
+        "chicken": "thin fillets"
+      },
+      "family": "Phoebe and Tobias have chicken breast with the same salsa and vegetables.",
+      "kidJob": "Wash vegetables and help set out the serving bowls.",
+      "allergens": "Fish if salmon selected; check any bottled balsamic ingredients.",
+      "variation": "Adjust the vegetable and carbohydrate portions to appetite.",
+      "prepTip": "Use pre-washed potatoes and pre-trimmed green beans.",
+      "nutrition": {
+        "kcal": 665,
+        "protein": 48,
+        "fibre": 6,
+        "note": "Values vary by salmon/chicken option. Crispy salmon skin is best left clear of the salsa."
+      },
+      "proteins": {
+        "salmon": [
+          [
+            "salmon",
+            1000
+          ]
+        ],
+        "chicken": [
+          [
+            "chicken",
+            1050
+          ]
+        ],
+        "mixed": [
+          [
+            "salmon",
+            600
+          ],
+          [
+            "chicken",
+            420
+          ]
+        ]
+      },
+      "proteinOptions": {
+        "mixed": "Salmon + chicken",
+        "salmon": "All salmon",
+        "chicken": "All chicken"
+      },
+      "proteinNutrition": {
+        "salmon": {
+          "kcal": 690,
+          "protein": 46,
+          "fibre": 6
+        },
+        "chicken": {
+          "kcal": 625,
+          "protein": 51,
+          "fibre": 6
+        },
+        "mixed": {
+          "kcal": 665,
+          "protein": 48,
+          "fibre": 6
+        }
+      }
+    },
+    {
+      "id": "loaded-chicken-vegetable-nachos",
+      "title": "Loaded Chicken & Vegetable Nachos",
+      "shortTitle": "Loaded Chicken & Vegetable Nachos",
+      "subtitle": "Crunchy corn chips, spiced chicken, beans, corn, capsicum, cheese and a big fresh salad.",
+      "cuisine": "Mexican-inspired",
+      "art": "chicken-veg-nachos",
+      "colour": "#f2dfbf",
+      "serves": 5,
+      "time": 25,
+      "tags": [
+        "Mexican-inspired"
+      ],
+      "ingredients": [
+        [
+          "chicken",
+          1050
+        ],
+        [
+          "corn-chips",
+          300
+        ],
+        [
+          "beans",
+          2
+        ],
+        [
+          "corn",
+          1
+        ],
+        [
+          "capsicum",
+          2
+        ],
+        [
+          "tomato-large",
+          3
+        ],
+        [
+          "lettuce",
+          1
+        ],
+        [
+          "cheddar",
+          220
+        ],
+        [
+          "avocado",
+          2
+        ],
+        [
+          "yoghurt",
+          250
+        ],
+        [
+          "paprika",
+          2
+        ],
+        [
+          "cumin",
+          2
+        ],
+        [
+          "oil",
+          20
+        ]
+      ],
+      "steps": [
+        [
+          "Get ready",
+          "Heat oven to 200°C fan. Slice chicken breast into small bite-size pieces. Dice capsicum and tomatoes, shred lettuce, drain and rinse beans and corn."
+        ],
+        [
+          "Cook the chicken",
+          "Heat oil in a pan, add chicken, paprika and cumin. Sauté 7–9 minutes until golden and fully cooked to 75°C. Add capsicum for the last 3 minutes to soften slightly."
+        ],
+        [
+          "Build and bake",
+          "Spread corn chips over two lined baking trays. Scatter drained beans, corn, chicken and capsicum evenly; top with grated cheese. Bake 6–8 minutes until the cheese melts and everything is hot. Two trays avoid soggy chips."
+        ],
+        [
+          "Finish fresh",
+          "Scatter tomato, lettuce and diced avocado over each portion after baking. Offer plain Greek yoghurt on the side."
+        ]
+      ],
+      "prep": {
+        "chicken": "bite-sized pieces",
+        "beans": "drained & rinsed",
+        "corn": "drained",
+        "capsicum": "diced",
+        "tomato-large": "diced",
+        "lettuce": "shredded",
+        "cheddar": "grated",
+        "avocado": "diced"
+      },
+      "family": "Reserve some chips, chicken and cheese without beans for any picky eaters.",
+      "kidJob": "Scatter cheese over the chips and build their own toppings.",
+      "allergens": "Milk; check corn chips and spice packaging for gluten or other allergens.",
+      "variation": "Adjust the vegetable and carbohydrate portions to appetite.",
+      "prepTip": "Use bagged shredded lettuce, canned beans and ready-made grated cheese.",
+      "nutrition": {
+        "kcal": 750,
+        "protein": 54,
+        "fibre": 11,
+        "note": "Chicken breast and beans provide substantial protein; chips and cheese portions vary."
+      }
+    },
+    {
+      "id": "steak-smoky-capsicum",
+      "title": "Steak with Smoky Capsicum Sauce & Crispy Potatoes",
+      "shortTitle": "Steak with Smoky Capsicum Sauce & Crispy Potatoes",
+      "subtitle": "BBQ steak or chicken with smoky roasted-capsicum sauce, air-fryer potatoes and green vegetables.",
+      "cuisine": "Australian-inspired",
+      "art": "steak-capsicum",
+      "colour": "#e6e3d6",
+      "serves": 5,
+      "time": 30,
+      "tags": [
+        "Australian-inspired"
+      ],
+      "ingredients": [
+        [
+          "baby-potato",
+          1150
+        ],
+        [
+          "broccoli",
+          550
+        ],
+        [
+          "capsicum-roasted",
+          300
+        ],
+        [
+          "tomato-paste",
+          40
+        ],
+        [
+          "paprika",
+          1.5
+        ],
+        [
+          "balsamic",
+          20
+        ],
+        [
+          "oil",
+          25
+        ],
+        [
+          "yoghurt",
+          100
+        ],
+        [
+          "pepper",
+          0.25
+        ],
+        [
+          "salt",
+          0.5
+        ]
+      ],
+      "steps": [
+        [
+          "Air-fry the potatoes",
+          "Halve baby potatoes, toss in some oil and seasoning. Air-fry at 200°C for 18–22 minutes, shaking once, while preparing the meat and sauce."
+        ],
+        [
+          "Whiz the smoky sauce",
+          "Blend drained roasted capsicum with tomato paste, smoked paprika, balsamic and a little yoghurt in a blender or food processor until smooth. Taste, adjust seasoning and serve cool or gently warmed in a small saucepan. No garlic or cream needed."
+        ],
+        [
+          "BBQ steak and chicken separately",
+          "Season steak and grill to preferred doneness; rest for 5 minutes and slice against the grain. For Phoebe and Tobias, use flattened chicken breast portions, cooking them separately to at least 75°C in the centre. Avoid raw-meat cross-contact."
+        ],
+        [
+          "Finish the veg",
+          "Steam broccoli for 4–5 minutes until bright green. Serve steak or chicken with potatoes, plenty of broccoli, and smoky capsicum sauce on the side."
+        ]
+      ],
+      "prep": {
+        "baby-potato": "halved",
+        "broccoli": "cut into florets",
+        "capsicum-roasted": "drained",
+        "beef-steak": "rest & thinly slice",
+        "chicken": "thin fillets"
+      },
+      "family": "Phoebe and Tobias can have chicken with exactly the same vegetables and sauce.",
+      "kidJob": "Wash potatoes and broccoli.",
+      "allergens": "Milk in yoghurt; check jarred capsicum and tomato paste.",
+      "variation": "Adjust the vegetable and carbohydrate portions to appetite.",
+      "prepTip": "Jarred roasted capsicum makes the sauce quick; buy baby potatoes.",
+      "nutrition": {
+        "kcal": 730,
+        "protein": 53,
+        "fibre": 7,
+        "note": "Protein estimates vary with steak cut and whether individual plates use chicken."
+      },
+      "proteins": {
+        "beef": [
+          [
+            "beef-steak",
+            1100
+          ]
+        ],
+        "chicken": [
+          [
+            "chicken",
+            1050
+          ]
+        ],
+        "mixed": [
+          [
+            "beef-steak",
+            700
+          ],
+          [
+            "chicken",
+            420
+          ]
+        ]
+      },
+      "proteinOptions": {
+        "mixed": "Steak + chicken",
+        "beef": "All steak",
+        "chicken": "All chicken"
+      },
+      "proteinNutrition": {
+        "beef": {
+          "kcal": 760,
+          "protein": 52,
+          "fibre": 7
+        },
+        "chicken": {
+          "kcal": 680,
+          "protein": 54,
+          "fibre": 7
+        },
+        "mixed": {
+          "kcal": 730,
+          "protein": 53,
+          "fibre": 7
+        }
       }
     }
   ]
