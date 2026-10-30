@@ -39,7 +39,7 @@ function loadMealSettings() {
 function mealChoice(id) {
   const value=mealSettings[id]||{};
   const servings=Number.isInteger(value.servings)&&value.servings>=1&&value.servings<=20?value.servings:5;
-  const protein=['salmon','chicken','mixed'].includes(value.protein)?value.protein:'mixed';
+  const protein=['salmon','chicken','mixed','beef'].includes(value.protein)?value.protein:'mixed';
   return {servings,protein};
 }
 function updateMealChoice(id,prop,value) {
@@ -76,8 +76,8 @@ function orderedMeals(week) {
 function shareUrl() {
   const ids=orderedMeals(current()).map(m=>m.recipe);
   const params=new URLSearchParams({week:selectedWeek,order:ids.join(','),guests:ids.map(id=>mealChoice(id).servings).join(',')});
-  const proteinMeal=current().meals.find(m=>getRecipe(book,current(),m.recipe).proteins);
-  if(proteinMeal) params.set('protein',mealChoice(proteinMeal.recipe).protein);
+  const proteinMeals=current().meals.filter(m=>getRecipe(book,current(),m.recipe).proteins);
+  if(proteinMeals.length) params.set('proteins',proteinMeals.map(m=>`${m.recipe}:${mealChoice(m.recipe).protein}`).join(','));
   return `${location.origin}${location.pathname}${location.search}#week?${params.toString()}`;
 }
 async function shareWeek() {
@@ -111,6 +111,12 @@ function applySharedLink() {
   if(['salmon','chicken','mixed'].includes(sharedProtein)) {
     const dish=week.meals.find(m=>getRecipe(book,week,m.recipe).proteins);
     if(dish) mealSettings[dish.recipe]={...mealChoice(dish.recipe),protein:sharedProtein};
+  }
+  const sharedChoices=params.get('proteins');
+  if(sharedChoices) for(const item of sharedChoices.split(',')) {
+    const [id,key]=item.split(':');
+    const meal=week.meals.find(m=>m.recipe===id);
+    if(meal && getRecipe(book,week,id).proteins?.[key]) mealSettings[id]={...mealChoice(id),protein:key};
   }
   write(`meal-settings:${week.id}`,mealSettings);
   write(`meal-order:${week.id}`,ids);
