@@ -1,47 +1,30 @@
 import {mkdir,writeFile} from 'node:fs/promises';
-import {join} from 'node:path';
-
-const dishes=[
-  {art:'tm5-risotto',id:'qrleIV6KkfI',credit:'Rob Wicks — Mushroom risotto'},
-  {art:'tm5-mexican-beef',id:'VAbBclifmvY',credit:'Svitlana — Sweet potato chili with beans'},
-  {art:'med-salmon-salsa',id:'xIDf1bUYCf8',credit:'Sander Dalhuisen — Salmon with potato and tomato'},
-  {art:'chicken-veg-nachos',id:'5PkRWJ3ndOw',credit:'lap lap — Nachos with melted cheese'},
-  {art:'steak-capsicum',id:'tLGAOnl4p28',credit:'Orkun Orcan — Steak, potatoes and broccoli'}
+const files=[
+  {art:'tm5-risotto',file:'Mushroom_risotto_(3990739885).jpg',credit:'Karen and Brad Emerson — Mushroom risotto — CC BY 2.0'},
+  {art:'tm5-mexican-beef',file:'Baked_Sweet_Potato_on_Salad.jpg',credit:'FitTasteTic — Baked sweet potato on salad — CC BY-SA 2.0'},
+  {art:'med-salmon-salsa',file:'Salmon_al_horno.jpg',credit:'LordT — Salmon with potatoes and tomatoes — CC BY-SA 4.0'},
+  {art:'chicken-veg-nachos',file:'Lindo_Mexico_-_June_2022_-_Sarah_Stierch_05.jpg',credit:'Sarah Stierch — Chicken, beef and bean nachos — CC BY 4.0'},
+  {art:'steak-capsicum',file:'Dinner_at_a_restaurant_with_steak_and_potatoes_and_broccoli.jpg',credit:'Tomwsulcer — Steak, potato and broccoli — CC0'}
 ];
 const dest=new URL('../assets/meal-photos/',import.meta.url);
 await mkdir(dest,{recursive:true});
-for(const d of dishes){
-  const candidates=[
-    'https://unsplash.com/photos/'+d.id+'/download?force=true&w=1000&q=83',
-    'https://unsplash.com/photos/'+d.id,
-    'https://unsplash.com/napi/photos/'+d.id
-  ];
-  let response=null;
-  for(const source of candidates){
-    const meta=await fetch(source,{headers:{'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130.0.0.0 Safari/537.36'}});
-    console.log(d.art,source,meta.status,meta.headers.get('content-type'));
-    if(meta.ok && (meta.headers.get('content-type')||'').startsWith('image/')){response=meta;break;}
-    if(!meta.ok)continue;
-    const text=await meta.text();
-    let imageUrl;
-    if(source.endsWith('/'+d.id)){
-      imageUrl=text.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)/i)?.[1]
-        ||text.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i)?.[1];
-    }else if(source.includes('/napi/')){
-      try{imageUrl=JSON.parse(text).urls?.regular;}catch{}
-    }
-    if(imageUrl){
-      imageUrl=imageUrl.replaceAll('&amp;','&');
-      const download=await fetch(imageUrl,{headers:{'User-Agent':'Mozilla/5.0'}});
-      console.log(d.art,'resolved image',download.status,download.headers.get('content-type'));
-      if(download.ok && (download.headers.get('content-type')||'').startsWith('image/')){response=download;break;}
-    }
-  }
-  if(!response)throw Error('Could not obtain licensed photo for '+d.art);
-  const bytes=Buffer.from(await response.arrayBuffer());
-  if(bytes.length<10000||bytes.length>6000000)throw Error('Unexpected photo size for '+d.art+': '+bytes.length);
-  await writeFile(new URL(d.art+'.jpg',dest),bytes);
-  console.log('Saved',d.art,bytes.length,'bytes',d.credit);
+let success=0;
+for(const item of files){
+  const url='https://commons.wikimedia.org/wiki/Special:Redirect/file/'+encodeURIComponent(item.file)+'?width=900';
+  let response;
+  try{
+    response=await fetch(url,{headers:{'User-Agent':'PattoFamilySocial/1.0 (personal family cookbook; attribution included)','Accept':'image/jpeg,image/*'}});
+    const type=response.headers.get('content-type')||'';
+    console.log(item.art,response.status,type,response.url);
+    if(!response.ok||!type.startsWith('image/'))continue;
+    const bytes=Buffer.from(await response.arrayBuffer());
+    if(bytes.length<10000||bytes.length>6000000)continue;
+    await writeFile(new URL(item.art+'.jpg',dest),bytes);
+    console.log('SAVED',item.art,bytes.length);
+    success++;
+  }catch(err){console.log('FAILED',item.art,err.message)}
 }
-const attribution=dishes.map(d=>'- '+d.art+': '+d.credit+' — https://unsplash.com/photos/'+d.id+' (Unsplash License)').join('\n');
-await writeFile(new URL('CREDITS.md',dest),'# Food photography credits\n\nImages downloaded from Unsplash and served locally to avoid broken remote links.\n\n'+attribution+'\n');
+const credits=files.map(x=>'- '+x.art+': '+x.credit+' — https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(x.file)).join('\n');
+await writeFile(new URL('CREDITS.md',dest),'# Photo credits\n\nPhotos hosted locally for reliable display. Images show representative versions of the dishes; plating may differ.\n\n'+credits+'\n\nLicenses: https://creativecommons.org/licenses/by/2.0/ · https://creativecommons.org/licenses/by-sa/2.0/ · https://creativecommons.org/licenses/by-sa/4.0/ · https://creativecommons.org/licenses/by/4.0/\n');
+console.log('Downloaded',success,'of',files.length);
+if(success!==files.length)process.exitCode=1;

@@ -1,4 +1,4 @@
-name: Cache verified food photography (retry)
+name: Cache openly licensed meal photographs
 on:
   push:
     paths:
