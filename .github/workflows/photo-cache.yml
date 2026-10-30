@@ -1,4 +1,4 @@
-name: Cache verified food photography
+name: Cache verified food photography (retry)
 on:
   push:
     paths:

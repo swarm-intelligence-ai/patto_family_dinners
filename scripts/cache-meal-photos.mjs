@@ -11,19 +11,37 @@ const dishes=[
 const dest=new URL('../assets/meal-photos/',import.meta.url);
 await mkdir(dest,{recursive:true});
 for(const d of dishes){
-  const api=await fetch('https://unsplash.com/napi/photos/'+d.id,{headers:{'User-Agent':'Mozilla/5.0 (compatible; FamilyCookbookBot/1.0)','Accept':'application/json'}});
-  console.log(d.art,'photo lookup',api.status);
-  if(!api.ok)throw Error('Unsplash photo lookup failed for '+d.art+': '+api.status);
-  const photo=await api.json();
-  if(!photo.urls?.regular)throw Error('Photo URL unavailable for '+d.art);
-  const url=new URL(photo.urls.regular);url.searchParams.set('w','1000');url.searchParams.set('q','83');url.searchParams.set('fm','jpg');url.searchParams.set('fit','crop');
-  const response=await fetch(url,{headers:{'User-Agent':'Mozilla/5.0'}});
-  const mime=response.headers.get('content-type')||'';
-  if(!response.ok||!mime.startsWith('image/'))throw Error('Image download failed for '+d.art+' '+response.status+' '+mime);
+  const candidates=[
+    'https://unsplash.com/photos/'+d.id+'/download?force=true&w=1000&q=83',
+    'https://unsplash.com/photos/'+d.id,
+    'https://unsplash.com/napi/photos/'+d.id
+  ];
+  let response=null;
+  for(const source of candidates){
+    const meta=await fetch(source,{headers:{'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130.0.0.0 Safari/537.36'}});
+    console.log(d.art,source,meta.status,meta.headers.get('content-type'));
+    if(meta.ok && (meta.headers.get('content-type')||'').startsWith('image/')){response=meta;break;}
+    if(!meta.ok)continue;
+    const text=await meta.text();
+    let imageUrl;
+    if(source.endsWith('/'+d.id)){
+      imageUrl=text.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)/i)?.[1]
+        ||text.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i)?.[1];
+    }else if(source.includes('/napi/')){
+      try{imageUrl=JSON.parse(text).urls?.regular;}catch{}
+    }
+    if(imageUrl){
+      imageUrl=imageUrl.replaceAll('&amp;','&');
+      const download=await fetch(imageUrl,{headers:{'User-Agent':'Mozilla/5.0'}});
+      console.log(d.art,'resolved image',download.status,download.headers.get('content-type'));
+      if(download.ok && (download.headers.get('content-type')||'').startsWith('image/')){response=download;break;}
+    }
+  }
+  if(!response)throw Error('Could not obtain licensed photo for '+d.art);
   const bytes=Buffer.from(await response.arrayBuffer());
   if(bytes.length<10000||bytes.length>6000000)throw Error('Unexpected photo size for '+d.art+': '+bytes.length);
   await writeFile(new URL(d.art+'.jpg',dest),bytes);
-  console.log('Saved',d.art,bytes.length,'bytes',photo.user?.name||'');
+  console.log('Saved',d.art,bytes.length,'bytes',d.credit);
 }
 const attribution=dishes.map(d=>'- '+d.art+': '+d.credit+' — https://unsplash.com/photos/'+d.id+' (Unsplash License)').join('\n');
 await writeFile(new URL('CREDITS.md',dest),'# Food photography credits\n\nImages downloaded from Unsplash and served locally to avoid broken remote links.\n\n'+attribution+'\n');
