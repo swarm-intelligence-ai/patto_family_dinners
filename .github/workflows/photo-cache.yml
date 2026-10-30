@@ -1,0 +1,29 @@
+name: Cache verified food photography
+on:
+  push:
+    paths:
+      - .github/workflows/photo-cache.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download-and-store:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Download five licensed food photographs
+        run: node scripts/cache-meal-photos.mjs
+      - name: Commit photos for reliable GitHub Pages serving
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/meal-photos
+          git diff --cached --quiet || git commit -m "Store local family dinner photographs [skip ci]"
+          git push
