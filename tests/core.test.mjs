@@ -176,3 +176,12 @@ test('published November dinner photos exist locally as valid JPEG files',async(
     assert.equal(bytes[1],216,art+' does not look like JPEG');
   }
 });
+
+test('new approved food photographs are stored in GitHub Pages assets',async()=>{
+ const names=["tm5-risotto","tm5-mexican-beef","med-salmon-salsa","chicken-veg-nachos","steak-capsicum"];
+ for(const name of names){
+  const bytes=await readFile(new URL('../assets/meal-photos/generated/'+name+'.avif',import.meta.url));
+  assert.ok(bytes.length>3000,'Missing compressed approved food image: '+name);
+  assert.equal(bytes.toString('ascii',4,12),'ftypavif','Not an AVIF image: '+name);
+ }
+});
