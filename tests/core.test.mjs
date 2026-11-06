@@ -24,8 +24,8 @@ test('recipe-specific prep notes match real ingredients in current and archived 
  for(const w of plans.weeks.filter(x=>x.id!==plans.current)){
    for(const r of Object.values(w.recipeSnapshots||{}))assert.ok(r.prep && Object.keys(r.prep).length>0,r.id+' archive missing prep hints');
  }
- assert.equal(getRecipe(book,week,'steak-smoky-capsicum').prep['baby-potato'],'halved');
- assert.equal(getRecipe(book,week,'loaded-chicken-vegetable-nachos').prep.capsicum,'diced');
+ assert.equal(getRecipe(book,week,'tm5-beef-vegetable-cottage-pie').prep.potato,'peeled, 2 cm pieces');
+ assert.equal(getRecipe(book,week,'spanish-chicken-chickpea-pan').prep.capsicum,'diced');
 });
 test('family-size grocery quantities consolidate without duplicate lines',()=>{
  const list=consolidate(book,week,5,'mixed');
@@ -37,12 +37,11 @@ test('family-size grocery quantities consolidate without duplicate lines',()=>{
  assert.equal(list.find(i=>i.id==='beef')?.qty,beef);
 });
 test('fish/chicken variations change only selected dinner ingredients',()=>{
- const salmon=consolidate(book,week,5,'salmon');
- const chicken=consolidate(book,week,5,'chicken');
- const mixed=consolidate(book,week,5,'mixed');
- assert.ok(salmon.some(i=>i.id==='salmon'));
- assert.ok(!chicken.some(i=>i.id==='salmon'));
- assert.ok(mixed.some(i=>i.id==='salmon')&&mixed.some(i=>i.id==='chicken'));
+ const ingredients=consolidate(book,week,5,'mixed');
+ assert.ok(ingredients.some(i=>i.id==='chicken'));
+ assert.ok(ingredients.some(i=>i.id==='beef'));
+ assert.ok(!ingredients.some(i=>i.id==='salmon'));
+ assert.ok(!ingredients.some(i=>i.id==='pork'));
 });
 test('serving amounts use real-life cooking measures',()=>{
  assert.equal(quantity(1.25,''),'2');
@@ -62,9 +61,9 @@ test('kitchen liquids show Australian spoon measures in recipes and shopping',()
  assert.equal(quantity(7.5,'ml','sesame-oil'),'1½ tsp');
  assert.equal(quantity(10,'ml','stock-chicken'),'10 ml');
  assert.equal(quantity(100,'ml','milk'),'100 ml');
- const dinner=getRecipe(book,week,'mediterranean-salmon-tomato');
- const sesame=dinner.ingredients.find(([id])=>id==='balsamic');
- assert.equal(quantity(sesame[1],book.ingredients['balsamic'].unit,'balsamic'),'40 ml');
+ const dinner=getRecipe(book,week,'yakitori-chicken-slaw');
+ const sesame=dinner.ingredients.find(([id])=>id==='sesame-oil');
+ assert.equal(quantity(sesame[1],book.ingredients['sesame-oil'].unit,'sesame-oil'),'½ tbsp');
  const shopping=consolidateMealSettings(book,week,{});
  const shoppingOil=shopping.find(i=>i.id==='oil');
  assert.ok(shoppingOil);
@@ -119,21 +118,18 @@ test('broken references and unsafe HTML fail safely',()=>{
 test('guest count is independent for each dinner and scales its recipe only',()=>{
   const settings=Object.fromEntries(week.meals.map(m=>[m.recipe,{servings:5,protein:'mixed'}]));
   const before=consolidateMealSettings(book,week,settings);
-  const recipe=getRecipe(book,week,'tm5-beef-chilli-sweet-potatoes');
+  const recipe=getRecipe(book,week,'tm5-beef-vegetable-cottage-pie');
   assert.ok(recipe);
   settings[recipe.id]={servings:6,protein:'mixed'};
   const after=consolidateMealSettings(book,week,settings);
   const baseBeef=recipe.ingredients.find(([id])=>id==='beef')[1];
   assert.equal(Math.round((after.find(i=>i.id==='beef').qty-before.find(i=>i.id==='beef').qty)*1000)/1000,baseBeef/recipe.serves);
-  assert.equal(after.find(i=>i.id==='salmon').qty,before.find(i=>i.id==='salmon').qty);
+  assert.equal(after.find(i=>i.id==='orzo').qty,before.find(i=>i.id==='orzo').qty);
 });
-test('salmon and chicken selections update only the fish dinner',()=>{
-  const id='mediterranean-salmon-tomato';
-  const chicken=consolidateMealSettings(book,week,{[id]:{servings:3,protein:'chicken'}});
-  const salmon=consolidateMealSettings(book,week,{[id]:{servings:3,protein:'salmon'}});
-  assert.ok(!chicken.some(item=>item.id==='salmon'));
-  assert.ok(salmon.some(item=>item.id==='salmon'));
-  assert.ok(salmon.find(i=>i.id==='chicken').qty<chicken.find(i=>i.id==='chicken').qty);
+test('no pork or salmon in approved new dinners',()=>{
+ const all=consolidateMealSettings(book,week,{});
+ assert.ok(!all.some(i=>['pork','salmon'].includes(i.id)));
+ assert.equal(week.meals.length,6);
 });
 test('previous current week and its five recipes are frozen in the archive',()=>{
   const old=plans.weeks.find(w=>w.id==='2026-10-12');
@@ -143,30 +139,23 @@ test('previous current week and its five recipes are frozen in the archive',()=>
     assert.ok(old.recipeSnapshots[meal.recipe]);
     assert.deepEqual(old.recipeSnapshots[meal.recipe],book.recipes.find(r=>r.id===meal.recipe));
   }
-  assert.equal(week.id,'2026-11-02');
-  assert.equal(week.meals.length,5);
+  assert.equal(week.id,'2026-11-09');
+  assert.equal(week.meals.length,6);
 });
 
 test('TM5 batch avoids including full meat load in the bowl',()=>{
- for(const id of ['tm5-chicken-mushroom-risotto','tm5-beef-chilli-sweet-potatoes']){
+ for(const id of ['tuscan-chicken-orzo','tm5-beef-vegetable-cottage-pie']){
    const r=getRecipe(book,week,id);
    assert.equal(r.thermomix,'TM5');
    assert.ok(r.steps.some(([,method])=>method.includes('TM5')));
    assert.ok(r.steps.some(([,method])=>/pan/i.test(method)));
  }
 });
-test('steak and salmon are separate selectable protein dinners',()=>{
- for(const id of ['mediterranean-salmon-tomato','steak-smoky-capsicum']){
-   const r=getRecipe(book,week,id);
-   for(const key of ['chicken','mixed'])assert.ok(r.proteins[key]);
- }
- const s=consolidateMealSettings(book,week,{'mediterranean-salmon-tomato':{protein:'salmon'},'steak-smoky-capsicum':{protein:'beef'}});
- const c=consolidateMealSettings(book,week,{'mediterranean-salmon-tomato':{protein:'chicken'},'steak-smoky-capsicum':{protein:'chicken'}});
- assert.ok(s.some(i=>i.id==='salmon')&&s.some(i=>i.id==='beef-steak'));
- assert.ok(!c.some(i=>i.id==='salmon'));
- assert.ok(!c.some(i=>i.id==='beef-steak'));
+test('November 2 week is fully frozen in history',()=>{
+ const previous=plans.weeks.find(w=>w.id==='2026-11-02');
+ assert.equal(previous.meals.length,5);
+ for(const m of previous.meals)assert.ok(previous.recipeSnapshots[m.recipe]);
 });
-
 test('published November dinner photos exist locally as valid JPEG files',async()=>{
   const arts=['tm5-risotto','tm5-mexican-beef','med-salmon-salsa','chicken-veg-nachos','steak-capsicum'];
   for(const art of arts){
