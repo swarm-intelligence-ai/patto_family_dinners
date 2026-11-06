@@ -184,3 +184,12 @@ test('all six current-week meal photos exist in GitHub Pages assets',async()=>{
   assert.equal(data[1],216);
  }
 });
+
+test('All six newly approved November food images are published locally',async()=>{
+ const names=["tuscan-orzo","hoisin-udon","thai-coconut-chicken","cottage-pie","spanish-chicken","yakitori-chicken"];
+ for(const name of names){
+  const image=await readFile(new URL('../assets/meal-photos/approved-nov-2026/'+name+'.avif',import.meta.url));
+  assert.ok(image.length>6000,name+' is missing a proper photo');
+  assert.equal(image.toString('ascii',4,12),'ftypavif',name+' is not a valid AVIF');
+ }
+});
