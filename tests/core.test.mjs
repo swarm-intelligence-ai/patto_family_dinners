@@ -174,3 +174,13 @@ test('new approved food photographs are stored in GitHub Pages assets',async()=>
   assert.equal(bytes.toString('ascii',4,12),'ftypavif','Not an AVIF image: '+name);
  }
 });
+
+test('all six current-week meal photos exist in GitHub Pages assets',async()=>{
+ const arts=["tuscan-orzo","hoisin-udon","thai-coconut-chicken","cottage-pie","spanish-chicken","yakitori-chicken"];
+ for(const art of arts){
+  const data=await readFile(new URL('../assets/meal-photos/nov-2026/'+art+'.jpg',import.meta.url));
+  assert.ok(data.length>8000,art+' has no real food photo');
+  assert.equal(data[0],255);
+  assert.equal(data[1],216);
+ }
+});

@@ -22,7 +22,13 @@ const photoSources = {
   "mango-chicken-wraps": "https://cdn.chellesrecipes.com/images/0864b40c-27a7-4295-991e-c44bc6ec9e48_a03f7ebb.webp",
   "crispy-chicken-burgers": "https://assets.unileversolutions.com/recipes-v3/253229-default.jpg",
   "aussie-bbq": "https://debarge.jp/images/convert/debargejp/0_269_AdobeStock_82262669-scaled.jpeg/image.webp",
-  "orange-chicken": "https://recipesbyclare.com/assets/images/orange-chicken-noodles-pinterest-747b6d5670a9.webp"
+  "orange-chicken": "https://recipesbyclare.com/assets/images/orange-chicken-noodles-pinterest-747b6d5670a9.webp",
+  "tuscan-orzo": "./assets/meal-photos/nov-2026/tuscan-orzo.jpg",
+  "hoisin-udon": "./assets/meal-photos/nov-2026/hoisin-udon.jpg",
+  "thai-coconut-chicken": "./assets/meal-photos/nov-2026/thai-coconut-chicken.jpg",
+  "cottage-pie": "./assets/meal-photos/nov-2026/cottage-pie.jpg",
+  "spanish-chicken": "./assets/meal-photos/nov-2026/spanish-chicken.jpg",
+  "yakitori-chicken": "./assets/meal-photos/nov-2026/yakitori-chicken.jpg"
 };
 const imageFor = r => photoSources[r.art] || `./assets/${r.art}.svg`;
 const fallbackFor = r => `./assets/${r.art}.svg`;
