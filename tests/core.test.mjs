@@ -213,3 +213,16 @@ test('build uses physical versioned asset filenames, not cache-sensitive query s
  assert.ok(build.includes("const appVersion=appSource.replace"));
  assert.ok(build.includes("await writeFile(new URL(appName,dist)"));
 });
+
+test('GitHub Pages main-branch HTML uses immutable, matching application assets',async()=>{
+ const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+ const js=html.match(/<script type="module" src="([^"]+)"/)?.[1];
+ const css=html.match(/<link rel="stylesheet" href="([^"]+)"/)?.[1];
+ assert.equal(js,'./app-20261107-dinner-photos.js');
+ assert.equal(css,'./styles-20261107-dinner-photos.css');
+ const actualApp=await readFile(new URL('../app-20261107-dinner-photos.js',import.meta.url),'utf8');
+ const originalApp=await readFile(new URL('../app.js',import.meta.url),'utf8');
+ assert.equal(actualApp,originalApp.replace("from './core.js'","from './core-20261107-dinner-photos.js'"));
+ assert.equal(await readFile(new URL('../core-20261107-dinner-photos.js',import.meta.url),'utf8'),await readFile(new URL('../core.js',import.meta.url),'utf8'));
+ assert.equal(await readFile(new URL('../styles-20261107-dinner-photos.css',import.meta.url),'utf8'),await readFile(new URL('../styles.css',import.meta.url),'utf8'));
+});

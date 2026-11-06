@@ -4,6 +4,10 @@ import {createHash} from 'node:crypto';
 const base='https://swarm-intelligence-ai.github.io/patto_family_dinners/';
 const names=['tuscan-orzo','hoisin-udon','thai-coconut-chicken','cottage-pie','spanish-chicken','yakitori-chicken'];
 const id=process.env.GITHUB_SHA?.slice(0,12)||'manual';
+const sourceHtml=await readFile(new URL('../index.html',import.meta.url),'utf8');
+const expectedApp=sourceHtml.match(/<script[^>]*src="([^"]+)"/)?.[1];
+const expectedCss=sourceHtml.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];
+if(!expectedApp||!expectedCss)throw Error('Local HTML cannot identify app/css');
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function download(url){
  const response=await fetch(url,{headers:{'Cache-Control':'no-cache','Pragma':'no-cache'},redirect:'follow'});
@@ -19,9 +23,14 @@ for(let attempt=1;attempt<=12;attempt++){
   const css=html.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/i)?.[1]||html.match(/<link[^>]*href="([^"]+)"[^>]*rel="stylesheet"/i)?.[1];
   console.log('Live HTML script:',js,'style:',css);
   if(!js)throw Error('Live HTML has no app script');
-  if(js!=='./app-'+id+'.js')throw Error('Live site NOT serving deployed application build. Expected app-'+id+'.js but found '+js+'; possible competing Pages deployment/source.');
+  if(js!==expectedApp)throw Error('Live site NOT serving the published main-branch application. Expected '+expectedApp+' but found '+js);
   const liveApp=(await download(new URL(js,base).href)).toString('utf8');
-  if(!liveApp.includes("from './core-"+id+".js'"))throw Error('App script not referencing matching versioned core');
+  const sourceApp=await readFile(new URL('../'+expectedApp.slice(2),import.meta.url));
+  if(!Buffer.from(liveApp,'utf8').equals(sourceApp))throw Error('Live app JS bytes DO NOT match the GitHub main-branch file');
+  if(!liveApp.includes("from './core-20261107-dinner-photos.js'"))throw Error('Live application is not referencing the unique matching core module');
+  if(css!==expectedCss)throw Error('Live site stylesheet mismatch: expected '+expectedCss+' got '+css);
+  const liveCss=await download(new URL(css,base).href);
+  if(!liveCss.equals(await readFile(new URL('../'+css.slice(2),import.meta.url))))throw Error('Live CSS bytes differ from source');
   for(const name of names){
    const path='./assets/meal-photos/verified-20261106/'+name+'.avif';
    if(!liveApp.includes('"'+name+'": "'+path+'"'))throw Error('Live JS does not map '+name+' to newly approved photo');
@@ -30,7 +39,7 @@ for(let attempt=1;attempt<=12;attempt++){
    if(!live.equals(local))throw Error('IMAGE BYTES DIFFER for '+name+': local '+hash(local)+' live '+hash(live));
    console.log('VERIFIED',name,'exact image byte-for-byte',live.length,'bytes',hash(live).slice(0,20));
   }
-  console.log('SUCCESS: live HTML, JS, and all SIX real photographic assets are verified against source.');
+  console.log('SUCCESS: live main-branch HTML, JS, CSS and all SIX approved food photographs verified byte-for-byte.');
   process.exit(0);
  }catch(error){lastError=error;console.error('NOT READY:',error.message);if(attempt<12)await new Promise(resolve=>setTimeout(resolve,15000));}
 }
