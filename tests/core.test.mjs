@@ -199,3 +199,17 @@ test('build injects versioned JS and CSS URLs for mobile browsers',async()=>{
  assert.ok(source.includes('Cache-busted site JS/CSS version'));
  assert.ok(source.includes('GITHUB_SHA'));
 });
+
+test('six high-quality approved November food photos are present',async()=>{
+ for(const name of ["tuscan-orzo","hoisin-udon","thai-coconut-chicken","cottage-pie","spanish-chicken","yakitori-chicken"]){
+  const img=await readFile(new URL('../assets/meal-photos/verified-20261106/'+name+'.avif',import.meta.url));
+  assert.ok(img.length>50000,'High-quality photograph missing or unexpectedly small: '+name);
+  assert.equal(img.toString('ascii',4,12),'ftypavif','Invalid AVIF: '+name);
+ }
+});
+test('build uses physical versioned asset filenames, not cache-sensitive query strings',async()=>{
+ const build=await readFile(new URL('../scripts/build.mjs',import.meta.url),'utf8');
+ assert.ok(build.includes("const coreName='core-'"));
+ assert.ok(build.includes("const appVersion=appSource.replace"));
+ assert.ok(build.includes("await writeFile(new URL(appName,dist)"));
+});

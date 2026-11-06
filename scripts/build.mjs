@@ -13,7 +13,15 @@ const files=await Promise.all(['app.js','core.js','styles.css','data/recipes.jso
 const version=process.env.GITHUB_SHA?.slice(0,12)||createHash('sha256').update(Buffer.concat(files)).digest('hex').slice(0,12);
 const pagePath=new URL('index.html',dist);
 let html=await readFile(pagePath,'utf8');
-html=html.replace(/href="\.\/styles\.css(?:\?[^"]*)?"/,'href="./styles.css?v='+version+'"')
-         .replace(/src="\.\/app\.js(?:\?[^"]*)?"/,'src="./app.js?v='+version+'"');
+// Use new physical filenames, not merely query strings. This defeats sticky
+// iOS Safari / in-app browser resource caches that survived previous deployments.
+const [appSource,coreSource,cssSource]=await Promise.all(['app.js','core.js','styles.css'].map(name=>readFile(new URL(name,root),'utf8')));
+const coreName='core-'+version+'.js',appName='app-'+version+'.js',styleName='styles-'+version+'.css';
+const appVersion=appSource.replace("from './core.js'","from './"+coreName+"'");
+await writeFile(new URL(coreName,dist),coreSource);
+await writeFile(new URL(appName,dist),appVersion);
+await writeFile(new URL(styleName,dist),cssSource);
+html=html.replace(/href="\.\/styles\.css(?:\?[^"]*)?"/,'href="./'+styleName+'"')
+         .replace(/src="\.\/app\.js(?:\?[^"]*)?"/,'src="./'+appName+'"');
 await writeFile(pagePath,html);
 console.log('Cache-busted site JS/CSS version:',version);
