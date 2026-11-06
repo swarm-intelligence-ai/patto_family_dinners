@@ -193,3 +193,9 @@ test('All six newly approved November food images are published locally',async()
   assert.equal(image.toString('ascii',4,12),'ftypavif',name+' is not a valid AVIF');
  }
 });
+
+test('build injects versioned JS and CSS URLs for mobile browsers',async()=>{
+ const source=await readFile(new URL('../scripts/build.mjs',import.meta.url),'utf8');
+ assert.ok(source.includes('Cache-busted site JS/CSS version'));
+ assert.ok(source.includes('GITHUB_SHA'));
+});
