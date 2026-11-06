@@ -1,0 +1,22 @@
+name: Verify actual live dinner images
+on:
+  push:
+    paths:
+      - .github/workflows/verify-live-images.yml
+      - scripts/verify-live-images.mjs
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compare live published HTML, JS and six photo files with GitHub repository
+        run: node scripts/verify-live-images.mjs
