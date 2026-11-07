@@ -32,6 +32,8 @@ for(let attempt=1;attempt<=12;attempt++){
   const liveCss=await download(new URL(css,base).href);
   if(!liveCss.equals(await readFile(new URL('../'+css.slice(2),import.meta.url))))throw Error('Live CSS bytes differ from source');
   for(const name of names){
+   const matches=[...liveApp.matchAll(new RegExp('^\\s*"'+name+'"\\s*:', 'gm'))];
+   if(matches.length!==1)throw Error('Duplicate or missing photo mapping for '+name+': '+matches.length+' entries. A later stale mapping can override the approved image.');
    const path='./assets/meal-photos/verified-20261106/'+name+'.avif';
    if(!liveApp.includes('"'+name+'": "'+path+'"'))throw Error('Live JS does not map '+name+' to newly approved photo');
    const local=await readFile(new URL('../assets/meal-photos/verified-20261106/'+name+'.avif',import.meta.url));
