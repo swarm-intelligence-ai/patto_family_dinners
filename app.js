@@ -29,12 +29,6 @@ const photoSources = {
   "cottage-pie": "./assets/meal-photos/verified-20261106/cottage-pie.avif",
   "spanish-chicken": "./assets/meal-photos/verified-20261106/spanish-chicken.avif",
   "yakitori-chicken": "./assets/meal-photos/verified-20261106/yakitori-chicken.avif",
-  "tuscan-orzo": "./assets/meal-photos/nov-2026/tuscan-orzo.jpg",
-  "hoisin-udon": "./assets/meal-photos/nov-2026/hoisin-udon.jpg",
-  "thai-coconut-chicken": "./assets/meal-photos/nov-2026/thai-coconut-chicken.jpg",
-  "cottage-pie": "./assets/meal-photos/nov-2026/cottage-pie.jpg",
-  "spanish-chicken": "./assets/meal-photos/nov-2026/spanish-chicken.jpg",
-  "yakitori-chicken": "./assets/meal-photos/nov-2026/yakitori-chicken.jpg"
 };
 const imageFor = r => photoSources[r.art] || `./assets/${r.art}.svg`;
 const fallbackFor = r => `./assets/${r.art}.svg`;
