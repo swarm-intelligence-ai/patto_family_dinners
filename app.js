@@ -30,7 +30,7 @@ const photoSources = {
   "spanish-chicken": "./assets/meal-photos/verified-20261106/spanish-chicken.avif",
   "yakitori-chicken": "./assets/meal-photos/verified-20261106/yakitori-chicken.avif",
   "nov16-schnitzel": "https://recipe-images-cdn.mfb.nz/Medium/933fd2bb-81e8-4e1c-bd13-674afddec167.jpg",
-  "nov16-souvlaki": "https://www.recipetineats.com/wp-content/uploads/2016/07/Chicken-Souvlaki_1.jpg",
+  "nov16-souvlaki": "https://www.recipetineats.com/tachyon/2016/07/Chicken-Souvlaki_1-680x952.jpg",
   "nov16-bulgogi": "https://s3.us-east-2.amazonaws.com/pfimg1/013/98/aa/98aa968db5d1969d48563129a74bff72_500x500.jpg",
   "nov16-burgers": "https://assets.unileversolutions.com/recipes-v3/253229-default.jpg",
   "nov16-steak": "https://fourthandheart.com/cdn/shop/articles/11---Garlic-Ghee-Steak-Bites---Charred-Broccolini_2_16x9_f4d0667c-f1e9-4dea-9235-1edc5f1f0d8a.jpg?v=1761162491",
