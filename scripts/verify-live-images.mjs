@@ -2,47 +2,50 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 
 const base='https://swarm-intelligence-ai.github.io/patto_family_dinners/';
-const names=['tuscan-orzo','hoisin-udon','thai-coconut-chicken','cottage-pie','spanish-chicken','yakitori-chicken'];
-const id=process.env.GITHUB_SHA?.slice(0,12)||'manual';
-const sourceHtml=await readFile(new URL('../index.html',import.meta.url),'utf8');
-const expectedApp=sourceHtml.match(/<script[^>]*src="([^"]+)"/)?.[1];
-const expectedCss=sourceHtml.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];
-if(!expectedApp||!expectedCss)throw Error('Local HTML cannot identify app/css');
-const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-async function download(url){
- const response=await fetch(url,{headers:{'Cache-Control':'no-cache','Pragma':'no-cache'},redirect:'follow'});
+const names=['nov16-schnitzel','nov16-souvlaki','nov16-bulgogi','nov16-burgers','nov16-steak','nov16-salmon'];
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const local=path=>readFile(new URL('../dist/'+path,import.meta.url));
+const expectedHtml=(await local('index.html')).toString('utf8');
+const script=expectedHtml.match(/<script[^>]*src="([^"]+)"/)?.[1];
+const css=expectedHtml.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];
+if(!script||!css)throw Error('Build HTML is missing app or stylesheet');
+const get=async path=>{
+ const url=new URL(path.replace(/^\.\//,''),base);
+ url.searchParams.set('audit',process.env.GITHUB_SHA?.slice(0,12)||'nov16');
+ const response=await fetch(url,{headers:{'Cache-Control':'no-cache'},redirect:'follow'});
  if(!response.ok)throw Error(url+' => HTTP '+response.status);
  return Buffer.from(await response.arrayBuffer());
-}
-let lastError;
+};
+let latest;
 for(let attempt=1;attempt<=12;attempt++){
  try{
-  console.log('LIVE PUBLIC WEBSITE AUDIT attempt',attempt,'commit',id);
-  const html=(await download(base+'?audit='+id+'-'+attempt)).toString('utf8');
-  const js=html.match(/<script[^>]*src="([^"]+)"[^>]*><\/script>/i)?.[1];
-  const css=html.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/i)?.[1]||html.match(/<link[^>]*href="([^"]+)"[^>]*rel="stylesheet"/i)?.[1];
-  console.log('Live HTML script:',js,'style:',css);
-  if(!js)throw Error('Live HTML has no app script');
-  if(js!==expectedApp)throw Error('Live site NOT serving the published main-branch application. Expected '+expectedApp+' but found '+js);
-  const liveApp=(await download(new URL(js,base).href)).toString('utf8');
-  const sourceApp=await readFile(new URL('../'+expectedApp.slice(2),import.meta.url));
-  if(!Buffer.from(liveApp,'utf8').equals(sourceApp))throw Error('Live app JS bytes DO NOT match the GitHub main-branch file');
-  if(!liveApp.includes("from './core-20261107-dinner-photos.js'"))throw Error('Live application is not referencing the unique matching core module');
-  if(css!==expectedCss)throw Error('Live site stylesheet mismatch: expected '+expectedCss+' got '+css);
-  const liveCss=await download(new URL(css,base).href);
-  if(!liveCss.equals(await readFile(new URL('../'+css.slice(2),import.meta.url))))throw Error('Live CSS bytes differ from source');
-  for(const name of names){
-   const matches=[...liveApp.matchAll(new RegExp('^\\s*"'+name+'"\\s*:', 'gm'))];
-   if(matches.length!==1)throw Error('Duplicate or missing photo mapping for '+name+': '+matches.length+' entries. A later stale mapping can override the approved image.');
-   const path='./assets/meal-photos/verified-20261106/'+name+'.avif';
-   if(!liveApp.includes('"'+name+'": "'+path+'"'))throw Error('Live JS does not map '+name+' to newly approved photo');
-   const local=await readFile(new URL('../assets/meal-photos/verified-20261106/'+name+'.avif',import.meta.url));
-   const live=await download(new URL(path+'?audit='+id,base).href);
-   if(!live.equals(local))throw Error('IMAGE BYTES DIFFER for '+name+': local '+hash(local)+' live '+hash(live));
-   console.log('VERIFIED',name,'exact image byte-for-byte',live.length,'bytes',hash(live).slice(0,20));
+  const html=(await get('./')).toString('utf8');
+  if(!html.includes('src="'+script+'"')||!html.includes('href="'+css+'"'))throw Error('Live HTML not showing current build: '+script);
+  for(const path of [script,css,'./data/plans.json','./data/recipes.json']){
+    const filename=path.replace(/^\.\//,'');
+    const live=await get(path), expected=await local(filename);
+    if(!live.equals(expected))throw Error('Live bytes do not match deployed source: '+path+' local '+sha(expected)+' live '+sha(live));
   }
-  console.log('SUCCESS: live main-branch HTML, JS, CSS and all SIX approved food photographs verified byte-for-byte.');
+  const app=(await get(script)).toString('utf8');
+  const plans=JSON.parse((await get('./data/plans.json')).toString('utf8'));
+  const recipes=JSON.parse((await get('./data/recipes.json')).toString('utf8'));
+  if(plans.current!=='2026-11-16')throw Error('Wrong live menu: '+plans.current);
+  const week=plans.weeks.find(w=>w.id===plans.current);
+  if(week?.meals.length!==6)throw Error('Live week must contain six dinners');
+  for(const meal of week.meals){
+    const recipe=recipes.recipes.find(r=>r.id===meal.recipe);
+    if(!recipe)throw Error('Recipe missing: '+meal.recipe);
+    const name=recipe.art;
+    if(!names.includes(name))throw Error('Unexpected photo art: '+name);
+    const matches=[...app.matchAll(new RegExp('^\\s*"'+name+'"\\s*:', 'gm'))];
+    if(matches.length!==1)throw Error('Duplicate or missing image mapping: '+name+' count='+matches.length);
+    const asset='./assets/meal-photos/nov16/'+name+'.svg';
+    if(!app.includes('"'+name+'": "'+asset+'"'))throw Error('Wrong photo mapping: '+name);
+    if(!(await get(asset)).equals(await local(asset.slice(2))))throw Error('Published image differs from repo: '+asset);
+    console.log('Verified',meal.day,recipe.title,asset);
+  }
+  console.log('SUCCESS: Live HTML, JS, CSS, JSON, six distinct images match published build');
   process.exit(0);
- }catch(error){lastError=error;console.error('NOT READY:',error.message);if(attempt<12)await new Promise(resolve=>setTimeout(resolve,15000));}
+ }catch(error){latest=error;console.error('Live site not ready (attempt '+attempt+'):',error.message);if(attempt<12)await new Promise(r=>setTimeout(r,15000));}
 }
-throw Error('Live website image verification FAILED after retries: '+lastError?.message);
+throw Error('Live image check failed: '+latest?.message);
