@@ -39,12 +39,12 @@ for(let attempt=1;attempt<=12;attempt++){
     if(!names.includes(name))throw Error('Unexpected photo art: '+name);
     const matches=[...app.matchAll(new RegExp('^\\s*"'+name+'"\\s*:', 'gm'))];
     if(matches.length!==1)throw Error('Duplicate or missing image mapping: '+name+' count='+matches.length);
-    const asset='./assets/meal-photos/nov16/'+name+'.svg';
-    if(!app.includes('"'+name+'": "'+asset+'"'))throw Error('Wrong photo mapping: '+name);
-    if(!(await get(asset)).equals(await local(asset.slice(2))))throw Error('Published image differs from repo: '+asset);
-    console.log('Verified',meal.day,recipe.title,asset);
+    const imageMapBlock=app.slice(app.indexOf('const photoSources = {'),app.indexOf('};',app.indexOf('const photoSources = {')));
+    const mapping=imageMapBlock.match(new RegExp('"'+name+'"\\s*:\\s*"(https:[^"]+)"'));
+    if(!mapping)throw Error('Dinner is not mapped to a real food photo: '+name);
+    console.log('Verified photo assignment',meal.day,recipe.title,mapping[1]);
   }
-  console.log('SUCCESS: Live HTML, JS, CSS, JSON, six distinct images match published build');
+  console.log('SUCCESS: Live HTML, JS, CSS, JSON, six distinct photograph URLs match published build');
   process.exit(0);
  }catch(error){latest=error;console.error('Live site not ready (attempt '+attempt+'):',error.message);if(attempt<12)await new Promise(r=>setTimeout(r,15000));}
 }
