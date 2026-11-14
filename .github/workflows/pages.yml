@@ -1,4 +1,4 @@
-name: Test and verify the Dinner Club
+name: Test and publish the Dinner Club
 on:
   push:
     branches: [main]
@@ -8,13 +8,38 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: patto-verify-${{ github.ref }}
-  cancel-in-progress: true
+  group: patto-pages-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  check-and-verify:
+  publish:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify live page, current menu, and all six unique images
+        run: node scripts/verify-live-images.mjs
+
+  test-pr:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,6 +48,3 @@ jobs:
           node-version: '22'
       - run: npm test
       - run: npm run build
-      - name: Verify the real public website matches main branch and all six meal photos
-        if: github.event_name != 'pull_request'
-        run: node scripts/verify-live-images.mjs
