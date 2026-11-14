@@ -1,5 +1,5 @@
 {
-  "current": "2026-11-09",
+  "current": "2026-11-16",
   "weeks": [
     {
       "id": "2026-10-05",
@@ -2683,6 +2683,662 @@
         {
           "day": "Saturday",
           "recipe": "yakitori-chicken-slaw"
+        }
+      ],
+      "recipeSnapshots": {
+        "tuscan-chicken-orzo": {
+          "id": "tuscan-chicken-orzo",
+          "title": "Tuscan Chicken & Roasted Capsicum Orzo",
+          "shortTitle": "Tuscan Chicken & Roasted Capsicum Orzo",
+          "subtitle": "Chicken breast, orzo, roasted capsicum, spinach and Parmesan in a light tomato sauce.",
+          "cuisine": "Italian-inspired",
+          "art": "tuscan-orzo",
+          "colour": "#e7ddcb",
+          "serves": 5,
+          "time": 35,
+          "ingredients": [
+            [
+              "chicken",
+              1050
+            ],
+            [
+              "orzo",
+              400
+            ],
+            [
+              "capsicum-roasted",
+              300
+            ],
+            [
+              "spinach",
+              200
+            ],
+            [
+              "passata",
+              350
+            ],
+            [
+              "stock-chicken",
+              550
+            ],
+            [
+              "parmesan",
+              75
+            ],
+            [
+              "onion",
+              1
+            ],
+            [
+              "garlic",
+              1
+            ],
+            [
+              "oil",
+              25
+            ],
+            [
+              "oregano",
+              1
+            ],
+            [
+              "pepper",
+              0.25
+            ]
+          ],
+          "steps": [
+            [
+              "Get the chicken started",
+              "Slice chicken breast into even strips, season lightly and cook in a large pan with a little oil until golden and 75°C through the thickest part. Keep warm, covered, while the TM5 makes the sauce."
+            ],
+            [
+              "TM5: chop and soften",
+              "Put quartered onion and peeled garlic in the TM5 bowl. Chop 5 sec / speed 5, scrape down, add remaining oil and cook 3 min / 100°C / speed 1."
+            ],
+            [
+              "TM5: simmer the sauce",
+              "Add drained roasted capsicum, passata, stock and oregano. Chop 4 sec / speed 5, then cook 8 min / 100°C / speed 1. Keep below the TM5 2.2 L fill line. Blend 15 sec / speed 5, increasing gradually, only if the bowl is safely filled and the hot mixture has settled; never exceed the manufacturer's hot-liquid blending precautions."
+            ],
+            [
+              "Cook the orzo separately",
+              "While the sauce cooks, boil orzo in salted water as directed on its packet until just tender. Drain. Do not try to cook five portions of orzo and chicken together in the TM5 bowl."
+            ],
+            [
+              "Finish and serve",
+              "Pour the TM5 sauce into the chicken pan, stir through cooked orzo, baby spinach and grated Parmesan. Warm 1–2 minutes to wilt spinach, adding a little hot water if the sauce becomes thick."
+            ]
+          ],
+          "prep": {
+            "chicken": "even strips",
+            "capsicum-roasted": "drained",
+            "spinach": "washed",
+            "parmesan": "grated",
+            "onion": "quartered",
+            "garlic": "peeled"
+          },
+          "family": "Keep some chicken and orzo separate before mixing in the tomato sauce, if preferred.",
+          "kidJob": "Help wash vegetables and set the dinner table.",
+          "allergens": "Wheat/gluten (orzo), milk (Parmesan); check stock.",
+          "variation": "Adjust carbohydrate portions for appetite; add extra vegetables or lean meat as needed.",
+          "prepTip": "Use pre-washed or ready-cut vegetables to keep preparation under 15 minutes.",
+          "nutrition": {
+            "kcal": 680,
+            "protein": 56,
+            "fibre": 6,
+            "note": "Roughly 210 g raw chicken per adult serving supports a high-protein meal."
+          },
+          "thermomix": "TM5"
+        },
+        "hoisin-beef-udon": {
+          "id": "hoisin-beef-udon",
+          "title": "Hoisin Beef & Vegetable Udon Noodles",
+          "shortTitle": "Hoisin Beef & Vegetable Udon Noodles",
+          "subtitle": "Tender beef strips with chewy udon noodles, broccoli, bok choy and capsicum.",
+          "cuisine": "Asian-inspired",
+          "art": "hoisin-udon",
+          "colour": "#dae2cb",
+          "serves": 5,
+          "time": 25,
+          "ingredients": [
+            [
+              "beef-strips",
+              1050
+            ],
+            [
+              "udon",
+              900
+            ],
+            [
+              "broccoli",
+              450
+            ],
+            [
+              "bok-choy",
+              3
+            ],
+            [
+              "capsicum",
+              2
+            ],
+            [
+              "hoisin",
+              80
+            ],
+            [
+              "soy",
+              45
+            ],
+            [
+              "vinegar",
+              25
+            ],
+            [
+              "ginger",
+              20
+            ],
+            [
+              "oil",
+              25
+            ],
+            [
+              "sesame-oil",
+              10
+            ]
+          ],
+          "steps": [
+            [
+              "Quick preparation",
+              "Use ready-to-wok udon and pre-cut stir-fry vegetables where available. Slice beef thinly across the grain. Cut bok choy into quarters and broccoli into small florets."
+            ],
+            [
+              "Mix the sauce",
+              "Stir hoisin, soy, vinegar, grated ginger and sesame oil with 3 tablespoons water in a small bowl. Taste before adding extra salt; hoisin and soy are already salty."
+            ],
+            [
+              "Sear the beef",
+              "In a large hot wok or frying pan, brown beef strips in two batches using a little oil. Cook to preference and remove so the beef stays tender."
+            ],
+            [
+              "Stir-fry vegetables",
+              "Add broccoli, sliced capsicum and bok choy to the wok. Add a splash of water, cover for 2 minutes, then stir-fry for a further 2–3 minutes until crisp-tender."
+            ],
+            [
+              "Toss and serve",
+              "Add udon noodles and sauce; toss until noodles are hot and sauce coats everything. Add beef and any resting juices for the last minute. Serve immediately."
+            ]
+          ],
+          "prep": {
+            "beef-strips": "thin strips",
+            "broccoli": "small florets",
+            "bok-choy": "quartered",
+            "capsicum": "thin strips",
+            "ginger": "grated"
+          },
+          "family": "Keep sauces and vegetables separate for anyone who prefers their meal plainer.",
+          "kidJob": "Help wash vegetables and set the dinner table.",
+          "allergens": "Soy, wheat/gluten (udon, hoisin and soy), sesame; check all sauces.",
+          "variation": "Adjust carbohydrate portions for appetite; add extra vegetables or lean meat as needed.",
+          "prepTip": "A supermarket Asian stir-fry veggie pack keeps active preparation to around 10 minutes.",
+          "nutrition": {
+            "kcal": 720,
+            "protein": 52,
+            "fibre": 8,
+            "note": "Lean beef provides protein and iron; vegetables make up a generous share of the plate."
+          }
+        },
+        "thai-coconut-ginger-chicken": {
+          "id": "thai-coconut-ginger-chicken",
+          "title": "Thai Coconut & Ginger Chicken with Greens",
+          "shortTitle": "Thai Coconut & Ginger Chicken with Greens",
+          "subtitle": "Tender chicken breast in an aromatic, mild coconut-ginger broth with bok choy, snow peas and spinach.",
+          "cuisine": "Thai-inspired",
+          "art": "thai-coconut-chicken",
+          "colour": "#dfeadb",
+          "serves": 5,
+          "time": 25,
+          "ingredients": [
+            [
+              "chicken",
+              1100
+            ],
+            [
+              "coconut-milk",
+              700
+            ],
+            [
+              "stock-chicken",
+              250
+            ],
+            [
+              "bok-choy",
+              3
+            ],
+            [
+              "snow-peas",
+              350
+            ],
+            [
+              "spinach",
+              200
+            ],
+            [
+              "ginger",
+              30
+            ],
+            [
+              "red-curry-paste",
+              30
+            ],
+            [
+              "lime",
+              1
+            ],
+            [
+              "soy",
+              20
+            ],
+            [
+              "oil",
+              10
+            ],
+            [
+              "rice",
+              200
+            ]
+          ],
+          "steps": [
+            [
+              "Prep the greens",
+              "Cut chicken breast into even bite-sized strips. Quarter bok choy, trim snow peas and wash spinach. Rinse the rice and cook separately using the packet directions if serving a small scoop."
+            ],
+            [
+              "Build the gentle coconut broth",
+              "Warm oil in a deep frying pan. Stir grated ginger and mild curry paste for about 30 seconds, then add coconut milk, chicken stock and soy. Bring to a gentle simmer, not a fierce boil."
+            ],
+            [
+              "Poach the chicken",
+              "Add chicken in a single layer and simmer gently for around 8–12 minutes depending on thickness, until each piece reaches 75°C internally. Avoid rapid boiling so breast stays juicy."
+            ],
+            [
+              "Add vegetables",
+              "Add bok choy and snow peas for the final 3–4 minutes, then stir through spinach to wilt. Add a squeeze of lime at the table only if desired. Taste and adjust the mild seasoning."
+            ],
+            [
+              "Serve",
+              "Spoon chicken, vegetables and aromatic coconut broth into bowls. Serve with a modest scoop of rice if wanted, and offer extra chilli separately for adults."
+            ]
+          ],
+          "prep": {
+            "chicken": "bite-sized strips",
+            "bok-choy": "quartered",
+            "snow-peas": "trimmed",
+            "spinach": "washed",
+            "ginger": "finely grated",
+            "lime": "optional wedges"
+          },
+          "family": "Keep it very mild for Phoebe and Tobias. Coconut chicken and veggies can be served separately.",
+          "kidJob": "Help wash vegetables and set the dinner table.",
+          "allergens": "Soy, and possible fish/shrimp in curry paste. Check curry paste and stock carefully.",
+          "variation": "Adjust carbohydrate portions for appetite; add extra vegetables or lean meat as needed.",
+          "prepTip": "Buy trimmed snow peas and prewashed spinach; the sauce requires almost no chopping.",
+          "nutrition": {
+            "kcal": 665,
+            "protein": 53,
+            "fibre": 7,
+            "note": "Chicken breast supplies most of the protein; amount of rice and coconut milk affects energy."
+          }
+        },
+        "tm5-beef-vegetable-cottage-pie": {
+          "id": "tm5-beef-vegetable-cottage-pie",
+          "title": "Beef & Vegetable Cottage Pie (TM5 Mash)",
+          "shortTitle": "Beef & Vegetable Cottage Pie (TM5 Mash)",
+          "subtitle": "Lean beef, carrot, peas and mushrooms beneath golden mashed potato.",
+          "cuisine": "Family comfort",
+          "art": "cottage-pie",
+          "colour": "#ebd8bf",
+          "serves": 5,
+          "time": 45,
+          "ingredients": [
+            [
+              "beef",
+              1000
+            ],
+            [
+              "potato",
+              1350
+            ],
+            [
+              "carrot",
+              3
+            ],
+            [
+              "peas",
+              300
+            ],
+            [
+              "mushroom",
+              250
+            ],
+            [
+              "onion",
+              1
+            ],
+            [
+              "tomato-paste",
+              60
+            ],
+            [
+              "stock-beef",
+              270
+            ],
+            [
+              "worcestershire",
+              30
+            ],
+            [
+              "milk",
+              180
+            ],
+            [
+              "butter",
+              50
+            ],
+            [
+              "cheddar",
+              100
+            ],
+            [
+              "oil",
+              15
+            ],
+            [
+              "pepper",
+              0.25
+            ]
+          ],
+          "steps": [
+            [
+              "Start with the TM5 mash",
+              "Peel and cut potatoes into roughly 2 cm pieces. Put butterfly whisk in the TM5 mixing bowl. Add potatoes, milk and a pinch of salt. Cook 25 min / 95°C / reverse / speed 1. Check the TM5 maximum capacity and never force the potatoes down. If overfilled, cook mash in two batches or on the stove. When tender, add butter and mix 20–30 sec / speed 3; check texture, use spatula if needed. Do not exceed speed 4 with the butterfly."
+            ],
+            [
+              "Brown beef in the pan",
+              "While potatoes cook, heat oil in a large deep frying pan. Brown beef mince, breaking apart; cook to at least 75°C. Add diced onion, carrot and mushrooms and stir-fry for 5–6 minutes."
+            ],
+            [
+              "Make the filling",
+              "Stir in tomato paste, Worcestershire and beef stock. Simmer for 7–9 minutes, then fold through peas to heat. Keep the filling moist but not watery. Taste before seasoning."
+            ],
+            [
+              "Assemble quickly",
+              "Heat oven grill to medium-high. Spoon filling into a large ovenproof dish, top with the TM5 mash and lightly rake with a fork. Scatter grated cheese over the top."
+            ],
+            [
+              "Brown and serve",
+              "Grill 5–8 minutes until golden and bubbling, watching closely. Allow to stand 5 minutes before serving, with extra fresh vegetables if desired."
+            ]
+          ],
+          "prep": {
+            "beef": "break up in pan",
+            "potato": "peeled, 2 cm pieces",
+            "carrot": "small dice",
+            "peas": "thawed",
+            "mushroom": "sliced",
+            "onion": "diced",
+            "cheddar": "grated"
+          },
+          "family": "Serve with carrots and peas on the side if anyone prefers their pie filling plainer.",
+          "kidJob": "Help wash vegetables and set the dinner table.",
+          "allergens": "Milk, and possible fish in Worcestershire sauce; check stock.",
+          "variation": "Adjust carbohydrate portions for appetite; add extra vegetables or lean meat as needed.",
+          "prepTip": "Pre-cut carrot and sliced mushrooms reduce prep. Use TM5 for mash while cooking beef in a separate pan.",
+          "nutrition": {
+            "kcal": 740,
+            "protein": 50,
+            "fibre": 9,
+            "note": "Family-sized cottage pie supplies beef protein and a generous vegetable filling."
+          },
+          "thermomix": "TM5"
+        },
+        "spanish-chicken-chickpea-pan": {
+          "id": "spanish-chicken-chickpea-pan",
+          "title": "Spanish Smoky Chicken & Chickpea Skillet",
+          "shortTitle": "Spanish Smoky Chicken & Chickpea Skillet",
+          "subtitle": "Smoky chicken breast, chickpeas, capsicum, cherry tomatoes and spinach in a one-pan tomato sauce.",
+          "cuisine": "Spanish-inspired",
+          "art": "spanish-chicken",
+          "colour": "#e9dacc",
+          "serves": 5,
+          "time": 30,
+          "ingredients": [
+            [
+              "chicken",
+              1100
+            ],
+            [
+              "chickpeas",
+              2
+            ],
+            [
+              "capsicum",
+              2
+            ],
+            [
+              "tomato",
+              450
+            ],
+            [
+              "spinach",
+              200
+            ],
+            [
+              "passata",
+              400
+            ],
+            [
+              "paprika",
+              2
+            ],
+            [
+              "oregano",
+              1
+            ],
+            [
+              "onion",
+              1
+            ],
+            [
+              "oil",
+              25
+            ],
+            [
+              "stock-chicken",
+              150
+            ],
+            [
+              "crusty-bread",
+              5
+            ]
+          ],
+          "steps": [
+            [
+              "Prepare the pan",
+              "Slice chicken breasts into even strips. Dice onion and capsicum, halve cherry tomatoes and drain and rinse chickpeas. Use pre-cut vegetables to speed this up."
+            ],
+            [
+              "Sear chicken",
+              "Heat oil in a large deep frying pan. Sear chicken in two batches for 3–4 minutes each side until coloured; return to pan later to finish."
+            ],
+            [
+              "Make a smoky vegetable base",
+              "Add onion and capsicum, cook 4 minutes, then stir in smoked paprika and oregano for 20 seconds. Add passata, stock, tomatoes and drained chickpeas."
+            ],
+            [
+              "Simmer chicken through",
+              "Return chicken and any juices. Simmer uncovered for 7–9 minutes until sauce reduces slightly and chicken reaches 75°C in the thickest piece."
+            ],
+            [
+              "Add greens and serve",
+              "Fold in spinach until wilted. Serve in bowls with a small crusty bread roll for anyone wanting extra carbohydrate."
+            ]
+          ],
+          "prep": {
+            "chicken": "even strips",
+            "chickpeas": "drained & rinsed",
+            "capsicum": "diced",
+            "tomato": "halved",
+            "spinach": "washed",
+            "onion": "diced"
+          },
+          "family": "Leave the bread aside for anyone who prefers a veggie-and-chicken bowl.",
+          "kidJob": "Help wash vegetables and set the dinner table.",
+          "allergens": "Wheat/gluten in bread, and possible allergens in stock.",
+          "variation": "Adjust carbohydrate portions for appetite; add extra vegetables or lean meat as needed.",
+          "prepTip": "Use canned chickpeas and chopped capsicum; no marinating.",
+          "nutrition": {
+            "kcal": 690,
+            "protein": 58,
+            "fibre": 13,
+            "note": "Chicken and chickpeas provide high protein and plenty of fibre."
+          }
+        },
+        "yakitori-chicken-slaw": {
+          "id": "yakitori-chicken-slaw",
+          "title": "Japanese Chicken Yakitori with Crunchy Slaw",
+          "shortTitle": "Japanese Chicken Yakitori with Crunchy Slaw",
+          "subtitle": "Glazed chicken breast pieces, crunchy cabbage and cucumber slaw, edamame and air-fryer sweet potato.",
+          "cuisine": "Japanese-inspired",
+          "art": "yakitori-chicken",
+          "colour": "#e4e8cc",
+          "serves": 5,
+          "time": 30,
+          "ingredients": [
+            [
+              "chicken",
+              1100
+            ],
+            [
+              "sweet-potato",
+              1000
+            ],
+            [
+              "slaw-mix",
+              450
+            ],
+            [
+              "cucumber",
+              2
+            ],
+            [
+              "edamame",
+              350
+            ],
+            [
+              "carrot",
+              2
+            ],
+            [
+              "soy",
+              65
+            ],
+            [
+              "honey",
+              45
+            ],
+            [
+              "vinegar",
+              35
+            ],
+            [
+              "ginger",
+              15
+            ],
+            [
+              "sesame-oil",
+              10
+            ],
+            [
+              "oil",
+              20
+            ],
+            [
+              "yoghurt",
+              170
+            ]
+          ],
+          "steps": [
+            [
+              "Get the wedges on",
+              "Cut sweet potato into slim wedges, toss with a little oil and air-fry at 200°C for around 18–22 minutes, turning halfway through. Timing depends on thickness."
+            ],
+            [
+              "Make yakitori-style sauce",
+              "Stir soy, honey, vinegar and grated ginger with 3 tablespoons water. Put half into a clean bowl for glazing after cooking, keeping it separate from raw chicken."
+            ],
+            [
+              "Cook the chicken",
+              "Cut breast into bite-sized pieces, toss lightly with remaining sauce, then spread in a single layer in the air fryer or sauté in a pan. Cook until golden and 75°C inside. Because the sauce contains sugar, watch it closely to avoid burning."
+            ],
+            [
+              "Make crunchy salad",
+              "Toss ready-shredded slaw with sliced cucumber and grated carrot. Cook frozen edamame according to packet directions and cool briefly; add to the slaw. Dress with yoghurt, a little sesame oil and a splash of vinegar."
+            ],
+            [
+              "Glaze and serve",
+              "Warm the reserved clean sauce in a pan until bubbling and spoon over cooked chicken. Serve with sweet potato wedges and generous slaw; provide extra sauce separately."
+            ]
+          ],
+          "prep": {
+            "chicken": "bite-sized pieces",
+            "sweet-potato": "slim wedges",
+            "slaw-mix": "ready shredded",
+            "cucumber": "thinly sliced",
+            "edamame": "cooked, shelled",
+            "carrot": "grated",
+            "ginger": "grated"
+          },
+          "family": "Keep some chicken unsauced if the kids prefer it plainer.",
+          "kidJob": "Help wash vegetables and set the dinner table.",
+          "allergens": "Soy, sesame, milk in yoghurt; wheat/gluten if soy sauce contains it.",
+          "variation": "Adjust carbohydrate portions for appetite; add extra vegetables or lean meat as needed.",
+          "prepTip": "Use pre-shredded slaw and frozen shelled edamame; no skewering needed.",
+          "nutrition": {
+            "kcal": 710,
+            "protein": 56,
+            "fibre": 11,
+            "note": "Lean chicken breast and edamame provide protein; sweet potatoes support energy needs."
+          }
+        }
+      }
+    },
+    {
+      "id": "2026-11-16",
+      "title": "Six favourites, with a little of everything.",
+      "note": "Crispy schnitzels, Greek souvlaki, sticky Korean beef, Woolies chicken burgers, garlic-butter steak and soy-ginger salmon. Family-friendly, no pasta or gnocchi.",
+      "meals": [
+        {
+          "day": "Monday",
+          "recipe": "chicken-schnitzel-asparagus"
+        },
+        {
+          "day": "Tuesday",
+          "recipe": "greek-chicken-souvlaki-wraps"
+        },
+        {
+          "day": "Wednesday",
+          "recipe": "korean-sticky-beef-bowls"
+        },
+        {
+          "day": "Thursday",
+          "recipe": "woolies-crispy-chicken-burgers"
+        },
+        {
+          "day": "Friday",
+          "recipe": "garlic-butter-steak-bites"
+        },
+        {
+          "day": "Saturday",
+          "recipe": "sticky-soy-ginger-salmon"
         }
       ]
     }
