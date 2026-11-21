@@ -1,6 +1,6 @@
 # Week of 23 November 2026 — food photo credits
 
-These are photographs, not cartoons. They are downloaded at build time from Pexels' public image CDN, included in the deployed GitHub Pages artifact and served from the Dinner Club website itself. All images are representative of the corresponding family recipes, not photographs of meals cooked by the Patto family.
+These are photographs, not cartoons. The website currently loads them from Pexels' public image CDN, with a second independently selected Pexels photo as an image-load fallback. The photo files are not committed locally, so this is not yet an offline-proof solution. All images are representative of the corresponding family recipes, not photographs of meals cooked by the Patto family.
 
 Photos are used under the [Pexels Licence](https://www.pexels.com/license/).
 
