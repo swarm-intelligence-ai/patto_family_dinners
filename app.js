@@ -34,15 +34,23 @@ const photoSources = {
   "nov16-bulgogi": "https://s3.us-east-2.amazonaws.com/pfimg1/013/98/aa/98aa968db5d1969d48563129a74bff72_500x500.jpg",
   "nov16-burgers": "https://assets.unileversolutions.com/recipes-v3/253229-default.jpg",
   "nov16-steak": "https://fourthandheart.com/cdn/shop/articles/11---Garlic-Ghee-Steak-Bites---Charred-Broccolini_2_16x9_f4d0667c-f1e9-4dea-9235-1edc5f1f0d8a.jpg?v=1761162491",
-  "nov16-salmon": "./assets/meal-photos/nov23/nov23-salmon.jpg",
-  "nov23-burgers": "./assets/meal-photos/nov23/nov23-burgers.jpg",
-  "nov23-sesame-chicken": "./assets/meal-photos/nov23/nov23-sesame-chicken.jpg",
-  "nov23-steak": "./assets/meal-photos/nov23/nov23-steak.jpg",
-  "nov23-potatoes": "./assets/meal-photos/nov23/nov23-potatoes.jpg",
-  "nov23-viet-salad": "./assets/meal-photos/nov23/nov23-viet-salad.jpg",
+  "nov16-salmon": "https://images.pexels.com/photos/10156758/pexels-photo-10156758.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "nov23-burgers": "https://images.pexels.com/photos/19247585/pexels-photo-19247585.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "nov23-sesame-chicken": "https://images.pexels.com/photos/35081826/pexels-photo-35081826.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "nov23-steak": "https://images.pexels.com/photos/11089568/pexels-photo-11089568.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "nov23-potatoes": "https://images.pexels.com/photos/34495400/pexels-photo-34495400.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "nov23-viet-salad": "https://images.pexels.com/photos/2116096/pexels-photo-2116096.jpeg?auto=compress&cs=tinysrgb&w=1200",
 };
 const imageFor = r => photoSources[r.art] || `./assets/${r.art}.svg`;
-const fallbackFor = r => `./assets/${r.art}.svg`;
+const backupPhotoSources = {
+  "nov23-burgers": "https://images.pexels.com/photos/9842225/pexels-photo-9842225.jpeg?auto=compress&cs=tinysrgb&w=1000",
+  "nov23-sesame-chicken": "https://images.pexels.com/photos/17308537/pexels-photo-17308537.jpeg?auto=compress&cs=tinysrgb&w=1000",
+  "nov23-steak": "https://images.pexels.com/photos/10115297/pexels-photo-10115297.jpeg?auto=compress&cs=tinysrgb&w=1000",
+  "nov16-salmon": "https://images.pexels.com/photos/4409306/pexels-photo-4409306.jpeg?auto=compress&cs=tinysrgb&w=1000",
+  "nov23-potatoes": "https://images.pexels.com/photos/34495395/pexels-photo-34495395.jpeg?auto=compress&cs=tinysrgb&w=1000",
+  "nov23-viet-salad": "https://images.pexels.com/photos/2116090/pexels-photo-2116090.jpeg?auto=compress&cs=tinysrgb&w=1000"
+};
+const fallbackFor = r => backupPhotoSources[r.art] || `./assets/${r.art}.svg`;
 
 const main = document.querySelector('main');
 const recipeDialog = document.querySelector('#recipe-dialog');
@@ -280,7 +288,7 @@ function editItem(id) {
   row.querySelector('input').focus();
 }
 
-document.addEventListener('error',event=>{const img=event.target;if(img instanceof HTMLImageElement && img.dataset.fallback && img.src!==new URL(img.dataset.fallback,location.href).href){img.src=img.dataset.fallback;img.removeAttribute('data-fallback');}},true);
+document.addEventListener('error',event=>{const img=event.target;if(!(img instanceof HTMLImageElement))return;const fallback=img.dataset.fallback;if(fallback && img.src!==new URL(fallback,location.href).href){img.removeAttribute('data-fallback');img.src=fallback;}else{img.removeAttribute('data-fallback');img.alt='Photo temporarily unavailable: '+img.alt;}},true);
 document.addEventListener('click',event=>{
   const target=event.target.closest('button, a'); if(!target)return;
   // This week always means the published current week, even after browsing history.
