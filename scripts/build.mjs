@@ -8,8 +8,6 @@ validateData(book,plans);
 await rm(dist,{recursive:true,force:true});await mkdir(dist,{recursive:true});
 for(const file of ['index.html','styles.css','app.js','core.js','assets','data','workshop','.nojekyll']) await cp(new URL(file,root),new URL(file,dist),{recursive:true});
 console.log('Validated data. Static GitHub Pages site built in dist/.');
-// Package locally hosted real dish photos; fail the build instead of publishing broken hotlinks.
-await import('./package-week-photos.mjs');
 
 const files=await Promise.all(['app.js','core.js','styles.css','data/recipes.json','data/plans.json'].map(name=>readFile(new URL(name,root))));
 const version=process.env.GITHUB_SHA?.slice(0,12)||createHash('sha256').update(Buffer.concat(files)).digest('hex').slice(0,12);
