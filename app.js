@@ -35,6 +35,11 @@ const photoSources = {
   "nov16-burgers": "https://assets.unileversolutions.com/recipes-v3/253229-default.jpg",
   "nov16-steak": "https://fourthandheart.com/cdn/shop/articles/11---Garlic-Ghee-Steak-Bites---Charred-Broccolini_2_16x9_f4d0667c-f1e9-4dea-9235-1edc5f1f0d8a.jpg?v=1761162491",
   "nov16-salmon": "https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/food_pics_v2/teriyaki_salmon.jpg",
+  "nov23-burgers": "./assets/meal-photos/nov23/nov23-burgers.jpg",
+  "nov23-sesame-chicken": "./assets/meal-photos/nov23/nov23-sesame-chicken.jpg",
+  "nov23-steak": "./assets/meal-photos/nov23/nov23-steak.jpg",
+  "nov23-potatoes": "./assets/meal-photos/nov23/nov23-potatoes.jpg",
+  "nov23-viet-salad": "./assets/meal-photos/nov23/nov23-viet-salad.jpg",
 };
 const imageFor = r => photoSources[r.art] || `./assets/${r.art}.svg`;
 const fallbackFor = r => `./assets/${r.art}.svg`;
