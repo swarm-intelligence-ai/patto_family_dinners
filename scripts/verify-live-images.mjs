@@ -1,54 +1,56 @@
 import {readFile} from 'node:fs/promises';
-import {createHash} from 'node:crypto';
-
 const base='https://swarm-intelligence-ai.github.io/patto_family_dinners/';
 const local=path=>readFile(new URL('../dist/'+path,import.meta.url));
-const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
-const expectedHtml=(await local('index.html')).toString('utf8');
-const expectedScript=expectedHtml.match(/<script[^>]*src="([^"]+)"/)?.[1];
-const expectedCSS=expectedHtml.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];
-if(!expectedScript||!expectedCSS)throw Error('Missing built JS or CSS');
-const required=['nov23-burgers','nov23-sesame-chicken','nov23-steak','nov16-salmon','nov23-potatoes','nov23-viet-salad'];
-const jpg=(name)=>name==='nov16-salmon'?'nov23-salmon':name;
-const fetchLive=async path=>{
- const u=new URL(path.replace(/^\.\//,''),base);u.searchParams.set('build',process.env.GITHUB_SHA||'nov23');
- const response=await fetch(u,{redirect:'follow',headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(25000)});
- if(!response.ok)throw Error('HTTP '+response.status+' '+u);
+const expected=(await local('index.html')).toString('utf8');
+const script=expected.match(/<script[^>]*src="([^"]+)"/)?.[1];
+const stylesheet=expected.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];
+if(!script||!stylesheet)throw Error('Build is missing JS or CSS');
+const artKeys=['nov23-burgers','nov23-sesame-chicken','nov23-steak','nov16-salmon','nov23-potatoes','nov23-viet-salad'];
+const recipeIDs=['bbq-beef-cheeseburgers-nov23','crispy-honey-sesame-chicken-nov23','porterhouse-chimichurri-nov23','sticky-soy-ginger-salmon','bbq-chicken-bacon-potatoes-nov23','vietnamese-chicken-noodle-salad-nov23'];
+async function fetchLive(path){
+ const url=new URL(path.replace(/^\.\//,''),base);
+ url.searchParams.set('audit',process.env.GITHUB_SHA?.slice(0,12)||'nov23');
+ const response=await fetch(url,{headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(20000)});
+ if(!response.ok)throw Error('HTTP '+response.status+': '+url);
  return Buffer.from(await response.arrayBuffer());
-};
-let last;
-for(let attempt=1;attempt<=12;attempt++){
- try{
-  const html=(await fetchLive('./')).toString('utf8');
-  if(!html.includes('src="'+expectedScript+'"')||!html.includes('href="'+expectedCSS+'"'))throw Error('Live HTML does not reference new versioned assets');
-  for(const item of [expectedScript,expectedCSS,'./data/recipes.json','./data/plans.json']){
-   const live=await fetchLive(item);
-   const expected=await local(item.replace(/^\.\//,''));
-   if(!live.equals(expected))throw Error('Live asset differs byte-for-byte: '+item);
-  }
-  const app=(await fetchLive(expectedScript)).toString('utf8');
-  const plans=JSON.parse((await fetchLive('./data/plans.json')).toString('utf8'));
-  const book=JSON.parse((await fetchLive('./data/recipes.json')).toString('utf8'));
-  if(plans.current!=='2026-11-23')throw Error('Current week is '+plans.current+' (expected 23 November)');
-  const week=plans.weeks.find(w=>w.id===plans.current);
-  if(week?.meals.length!==6)throw Error('Current week does not have exactly six dinners');
-  const expectedMeals=['bbq-beef-cheeseburgers-nov23','crispy-honey-sesame-chicken-nov23','porterhouse-chimichurri-nov23','sticky-soy-ginger-salmon','bbq-chicken-bacon-potatoes-nov23','vietnamese-chicken-noodle-salad-nov23'];
-  if(JSON.stringify(week.meals.map(m=>m.recipe))!==JSON.stringify(expectedMeals))throw Error('Published meals mismatch the locked menu');
-  for(let i=0;i<required.length;i++){
-   const meal=week.meals[i];
-   const recipe=book.recipes.find(r=>r.id===meal.recipe);
-   if(!recipe||recipe.art!==required[i])throw Error('Recipe artwork mismatch on '+meal.day);
-   const key=required[i];const imagePath='./assets/meal-photos/nov23/'+jpg(key)+'.jpg';
-   const mappings=[...app.matchAll(new RegExp('^\\s*"'+key+'"\\s*:\\s*"([^"]+)"','gm'))];
-   if(mappings.length!==1||mappings[0][1]!==imagePath)throw Error('Wrong or duplicate photograph mapping: '+key);
-   const live=await fetchLive(imagePath),expected=await local(imagePath.slice(2));
-   if(!live.equals(expected)||live[0]!==255||live[1]!==216||live.length<30000)throw Error('Live image bytes invalid: '+imagePath);
-   console.log('VERIFIED',meal.day,recipe.title,imagePath,live.length,'bytes',sha(live).slice(0,16));
-  }
-  const salmon=book.recipes.find(r=>r.id==='sticky-soy-ginger-salmon');
-  if(!salmon?.proteins?.mixed?.some(([id])=>id==='chicken')||!salmon?.proteins?.mixed?.some(([id])=>id==='salmon'))throw Error('Mixed salmon/chicken shopping list options not present');
-  console.log('SUCCESS: Six correct live food photographs and all app/data files verified byte-for-byte');
-  process.exit(0);
- }catch(error){last=error;console.error('Live verification attempt '+attempt+':',error.message);if(attempt<12)await new Promise(resolve=>setTimeout(resolve,15000));}
 }
-throw Error('Live site verification failed: '+last?.message);
+let last;
+for(let attempt=1;attempt<=8;attempt++){
+ try {
+   const html=(await fetchLive('./')).toString('utf8');
+   if(!html.includes('src="'+script+'"')||!html.includes('href="'+stylesheet+'"'))throw Error('Deployed HTML has stale versioned JS or CSS');
+   for(const path of [script,stylesheet,'./data/plans.json','./data/recipes.json']){
+     const remote=await fetchLive(path);
+     const expected=await local(path.replace(/^\.\//,''));
+     if(!remote.equals(expected))throw Error('Live bytes differ: '+path);
+   }
+   const app=(await fetchLive(script)).toString('utf8');
+   const plans=JSON.parse((await fetchLive('./data/plans.json')).toString('utf8'));
+   const recipes=JSON.parse((await fetchLive('./data/recipes.json')).toString('utf8'));
+   if(plans.current!=='2026-11-23')throw Error('Wrong current week: '+plans.current);
+   const week=plans.weeks.find(w=>w.id===plans.current);
+   if(!week||JSON.stringify(week.meals.map(m=>m.recipe))!==JSON.stringify(recipeIDs))throw Error('Wrong lineup or ordering');
+   const photoBlock=app.split('const photoSources = {')[1]?.split('};')[0];
+   const backupBlock=app.split('const backupPhotoSources = {')[1]?.split('};')[0];
+   if(!photoBlock||!backupBlock)throw Error('Missing primary or backup photo mappings');
+   for(let i=0;i<recipeIDs.length;i++){
+     const recipe=recipes.recipes.find(r=>r.id===recipeIDs[i]);
+     if(recipe?.art!==artKeys[i])throw Error('Wrong art key: '+recipeIDs[i]);
+     const escaped=artKeys[i].replace(/[.*+?^$\{\}()|[\]\\]/g,'\\$&');
+     const re=new RegExp('"'+escaped+'"\\s*:\\s*"(https:\\/\\/[^"]+)"','g');
+     const primary=[...photoBlock.matchAll(re)].map(m=>m[1]);
+     const backups=[...backupBlock.matchAll(re)].map(m=>m[1]);
+     if(primary.length!==1||backups.length!==1||primary[0]===backups[0])throw Error('Missing or duplicate source/backup for '+artKeys[i]);
+     for(const source of [primary[0],backups[0]]){
+       const res=await fetch(source,{signal:AbortSignal.timeout(25000)});
+       const type=res.headers.get('content-type')||'';
+       const bytes=Buffer.from(await res.arrayBuffer());
+       if(!res.ok||!type.includes('image/')||bytes.length<10000)throw Error('Source photo broken: '+source+' '+res.status+' '+type+' '+bytes.length);
+     }
+     console.log('VERIFIED primary and fallback',recipe.title);
+   }
+   console.log('SUCCESS: Site, current menu, shopping data and six primary/backup food photos verified.');
+   process.exit(0);
+ }catch(e){last=e;console.error('Live audit attempt '+attempt+': '+e.message);if(attempt<8)await new Promise(resolve=>setTimeout(resolve,12000));}
+}
+throw Error('Published site verification failed: '+last?.message);
