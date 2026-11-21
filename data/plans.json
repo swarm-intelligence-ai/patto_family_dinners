@@ -1,5 +1,5 @@
 {
-  "current": "2026-11-16",
+  "current": "2026-11-23",
   "weeks": [
     {
       "id": "2026-10-05",
@@ -3339,6 +3339,645 @@
         {
           "day": "Saturday",
           "recipe": "sticky-soy-ginger-salmon"
+        }
+      ],
+      "recipeSnapshots": {
+        "chicken-schnitzel-asparagus": {
+          "serves": 5,
+          "variation": "Adjust meat, starch and vegetables for individual appetites.",
+          "kidJob": "Wash salad vegetables, lay out plates and help mix cold sauces with supervision.",
+          "prepTip": "Prepare vegetables and sauces in advance; refrigerate promptly.",
+          "id": "chicken-schnitzel-asparagus",
+          "title": "Crispy Chicken Schnitzels with Roast Potatoes & Asparagus",
+          "shortTitle": "Crispy Chicken Schnitzels with Roast Potatoes & Asparagus",
+          "subtitle": "Golden chicken breast schnitzels with crispy baby potatoes, roasted asparagus and a creamy mushroom sauce on the side.",
+          "cuisine": "Family favourites",
+          "art": "nov16-schnitzel",
+          "colour": "#e9dfc9",
+          "time": 40,
+          "ingredients": [
+            [
+              "chicken-schnitzel",
+              1100
+            ],
+            [
+              "baby-potato",
+              1200
+            ],
+            [
+              "asparagus",
+              500
+            ],
+            [
+              "mushroom",
+              250
+            ],
+            [
+              "cooking-cream",
+              200
+            ],
+            [
+              "stock-chicken",
+              100
+            ],
+            [
+              "butter",
+              25
+            ],
+            [
+              "oil",
+              35
+            ],
+            [
+              "garlic",
+              3
+            ],
+            [
+              "pepper",
+              0.25
+            ]
+          ],
+          "steps": [
+            [
+              "Roast potatoes",
+              "Heat oven to 210°C (190°C fan). Halve baby potatoes, toss with 20 ml oil and pepper, then roast on a lined tray for 30–35 minutes, turning once."
+            ],
+            [
+              "Cook schnitzels",
+              "Cook the crumbed chicken schnitzels in a separate pan with remaining oil or in the oven according to the pack or recipe directions. Ensure the centre reaches 75°C before serving."
+            ],
+            [
+              "Make optional mushroom sauce",
+              "Cook sliced mushrooms and crushed garlic in butter until softened. Add chicken stock and simmer 2 minutes. Stir in cream and reduce gently until spoonable; keep warm."
+            ],
+            [
+              "Roast asparagus",
+              "Trim woody asparagus ends. Toss lightly with a little oil and roast for the final 8–10 minutes until tender-crisp."
+            ],
+            [
+              "Plate up",
+              "Serve schnitzels with roast potatoes and asparagus. Offer mushroom sauce separately so the crumb stays crisp."
+            ]
+          ],
+          "family": "Keep the sauce or toppings separate for anyone who prefers a plainer plate.",
+          "allergens": "Wheat/gluten and potentially egg in crumb; milk in sauce; check schnitzel and stock labels.",
+          "nutrition": {
+            "kcal": 780,
+            "protein": 53,
+            "fibre": 7,
+            "note": "Estimated for one chicken schnitzel, potatoes and optional sauce."
+          },
+          "prep": {
+            "chicken-schnitzel": "ready to cook",
+            "baby-potato": "halved",
+            "asparagus": "trimmed",
+            "mushroom": "sliced",
+            "garlic": "crushed"
+          }
+        },
+        "greek-chicken-souvlaki-wraps": {
+          "serves": 5,
+          "variation": "Adjust meat, starch and vegetables for individual appetites.",
+          "kidJob": "Wash salad vegetables, lay out plates and help mix cold sauces with supervision.",
+          "prepTip": "Prepare vegetables and sauces in advance; refrigerate promptly.",
+          "id": "greek-chicken-souvlaki-wraps",
+          "title": "Greek Chicken Souvlaki Wraps",
+          "shortTitle": "Greek Chicken Souvlaki Wraps",
+          "subtitle": "Garlic-oregano chicken breast with soft pita, tzatziki, cucumber, tomato and crisp lettuce.",
+          "cuisine": "Greek-inspired",
+          "art": "nov16-souvlaki",
+          "colour": "#dceadf",
+          "time": 30,
+          "ingredients": [
+            [
+              "chicken",
+              1100
+            ],
+            [
+              "pita-bread",
+              10
+            ],
+            [
+              "tzatziki",
+              350
+            ],
+            [
+              "cucumber",
+              2
+            ],
+            [
+              "tomato",
+              4
+            ],
+            [
+              "lettuce",
+              1
+            ],
+            [
+              "garlic",
+              4
+            ],
+            [
+              "oregano",
+              2
+            ],
+            [
+              "yoghurt",
+              120
+            ],
+            [
+              "oil",
+              25
+            ],
+            [
+              "paprika",
+              1
+            ],
+            [
+              "salt",
+              0.5
+            ]
+          ],
+          "steps": [
+            [
+              "Season chicken",
+              "Slice chicken breast into even strips. Toss with oil, crushed garlic, oregano, paprika and a spoonful of yoghurt; refrigerate while preparing vegetables."
+            ],
+            [
+              "Prepare fillings",
+              "Dice tomato, slice cucumber, shred lettuce and place tzatziki in a serving bowl."
+            ],
+            [
+              "Cook chicken",
+              "Heat a wide frying pan and sauté chicken in batches until browned and cooked to 75°C through the thickest piece, around 8–10 minutes."
+            ],
+            [
+              "Warm pita",
+              "Warm pita breads briefly in a dry frying pan or wrapped in foil in the oven."
+            ],
+            [
+              "Build wraps",
+              "Let everyone fill pitas with chicken, lettuce, cucumber, tomato and tzatziki. Serve any extra yoghurt sauce on the side."
+            ]
+          ],
+          "family": "Keep the sauce or toppings separate for anyone who prefers a plainer plate.",
+          "allergens": "Wheat/gluten (pita), milk (yoghurt and tzatziki); check tzatziki ingredients.",
+          "nutrition": {
+            "kcal": 710,
+            "protein": 54,
+            "fibre": 6,
+            "note": "Estimate assumes two small pitas and 220 g raw chicken per person."
+          },
+          "prep": {
+            "chicken": "strips",
+            "cucumber": "sliced",
+            "tomato": "diced",
+            "lettuce": "shredded",
+            "garlic": "crushed"
+          }
+        },
+        "korean-sticky-beef-bowls": {
+          "serves": 5,
+          "variation": "Adjust meat, starch and vegetables for individual appetites.",
+          "kidJob": "Wash salad vegetables, lay out plates and help mix cold sauces with supervision.",
+          "prepTip": "Prepare vegetables and sauces in advance; refrigerate promptly.",
+          "id": "korean-sticky-beef-bowls",
+          "title": "Korean Sticky Beef Bulgogi Bowls",
+          "shortTitle": "Korean Sticky Beef Bulgogi Bowls",
+          "subtitle": "Tender caramelised beef strips in a sweet garlic-soy glaze with rice, carrot and cucumber.",
+          "cuisine": "Korean-inspired",
+          "art": "nov16-bulgogi",
+          "colour": "#dfe8cf",
+          "time": 25,
+          "ingredients": [
+            [
+              "beef-strips",
+              1100
+            ],
+            [
+              "rice",
+              420
+            ],
+            [
+              "cucumber",
+              2
+            ],
+            [
+              "carrot",
+              3
+            ],
+            [
+              "soy",
+              85
+            ],
+            [
+              "honey",
+              55
+            ],
+            [
+              "garlic",
+              5
+            ],
+            [
+              "ginger",
+              25
+            ],
+            [
+              "sesame-oil",
+              15
+            ],
+            [
+              "vinegar",
+              20
+            ],
+            [
+              "sesame-seeds",
+              20
+            ],
+            [
+              "oil",
+              20
+            ]
+          ],
+          "steps": [
+            [
+              "Cook rice",
+              "Rinse and cook rice according to the packet directions while preparing the beef and vegetables."
+            ],
+            [
+              "Mix sticky glaze",
+              "Combine soy, honey, crushed garlic, grated ginger, vinegar and sesame oil. Reserve half in a clean bowl before adding any sauce to meat."
+            ],
+            [
+              "Prepare fresh toppings",
+              "Thinly slice cucumber and grate or julienne carrots. Set out with sesame seeds."
+            ],
+            [
+              "Sear beef in batches",
+              "Heat a large wok or pan with oil. Quickly sear thin beef strips in batches so they brown rather than steam. Add the glaze and toss for 1–2 minutes until sticky and the beef is cooked to preference."
+            ],
+            [
+              "Serve",
+              "Spoon rice into bowls, add glazed beef and fresh vegetables, then scatter over sesame seeds and drizzle with reserved clean glaze (bring it to a brief simmer first if desired)."
+            ]
+          ],
+          "family": "Keep the sauce or toppings separate for anyone who prefers a plainer plate.",
+          "allergens": "Soy, sesame, and possible wheat/gluten in soy sauce.",
+          "nutrition": {
+            "kcal": 790,
+            "protein": 53,
+            "fibre": 5,
+            "note": "Estimate based on 220 g raw beef and approximately 84 g dry rice per person."
+          },
+          "prep": {
+            "beef-strips": "thinly sliced across the grain",
+            "cucumber": "thinly sliced",
+            "carrot": "julienned",
+            "ginger": "grated",
+            "garlic": "crushed"
+          }
+        },
+        "woolies-crispy-chicken-burgers": {
+          "serves": 5,
+          "variation": "Adjust meat, starch and vegetables for individual appetites.",
+          "kidJob": "Wash salad vegetables, lay out plates and help mix cold sauces with supervision.",
+          "prepTip": "Prepare vegetables and sauces in advance; refrigerate promptly.",
+          "id": "woolies-crispy-chicken-burgers",
+          "title": "Woolies Crispy Chicken Burgers with Lettuce, Slaw & Burger Sauce",
+          "shortTitle": "Woolies Crispy Chicken Burgers with Lettuce, Slaw & Burger Sauce",
+          "subtitle": "Easy Woolworths crispy chicken fillet burgers with crunchy slaw, lettuce and tangy burger sauce.",
+          "cuisine": "Burger night",
+          "art": "nov16-burgers",
+          "colour": "#f0dfc8",
+          "time": 25,
+          "ingredients": [
+            [
+              "woolies-crispy-chicken",
+              5
+            ],
+            [
+              "burger-buns",
+              5
+            ],
+            [
+              "lettuce",
+              1
+            ],
+            [
+              "slaw-mix",
+              400
+            ],
+            [
+              "burger-sauce",
+              180
+            ],
+            [
+              "tomato",
+              3
+            ],
+            [
+              "cheese-slices",
+              5
+            ],
+            [
+              "pickles",
+              1
+            ]
+          ],
+          "steps": [
+            [
+              "Cook chicken",
+              "Prepare five Woolworths crispy chicken burger fillets following the exact product pack instructions. Cook through to at least 75°C in the centre, or as directed if a fully cooked product."
+            ],
+            [
+              "Prepare buns and toppings",
+              "Split buns and toast briefly. Wash and dry lettuce, slice tomatoes and prepare a bowl of slaw. Drain pickle slices."
+            ],
+            [
+              "Prepare burger sauce",
+              "Put burger sauce on the table; keep some aside for anyone who prefers theirs plain."
+            ],
+            [
+              "Assemble burgers",
+              "Add lettuce, crispy chicken, cheese if wanted, tomato, slaw and burger sauce to each bun. Add pickles to taste."
+            ],
+            [
+              "Serve fresh",
+              "Eat immediately while the chicken and buns are crisp. Add extra raw vegetables or leftover slaw on the side."
+            ]
+          ],
+          "family": "Put slaw, sauce, pickles and cheese on the table separately so everyone builds their own burger.",
+          "allergens": "Check the exact Woolworths chicken product (often wheat/gluten, milk and/or egg), buns, cheese and burger sauce. Mayonnaise-based sauces contain egg.",
+          "nutrition": {
+            "kcal": 730,
+            "protein": 40,
+            "fibre": 5,
+            "note": "Highly dependent on the Woolworths fillet, bun and sauces chosen; inspect package nutrition."
+          },
+          "prep": {
+            "woolies-crispy-chicken": "five individual burger-sized fillets",
+            "lettuce": "washed leaves",
+            "tomato": "sliced",
+            "slaw-mix": "ready shredded"
+          }
+        },
+        "garlic-butter-steak-bites": {
+          "serves": 5,
+          "variation": "Adjust meat, starch and vegetables for individual appetites.",
+          "kidJob": "Wash salad vegetables, lay out plates and help mix cold sauces with supervision.",
+          "prepTip": "Prepare vegetables and sauces in advance; refrigerate promptly.",
+          "id": "garlic-butter-steak-bites",
+          "title": "Garlic Butter Steak Bites with Crispy Potatoes & Broccolini",
+          "shortTitle": "Garlic Butter Steak Bites with Crispy Potatoes & Broccolini",
+          "subtitle": "Juicy steak bites tossed in garlic butter alongside golden potatoes and tender charred broccolini.",
+          "cuisine": "Steak night",
+          "art": "nov16-steak",
+          "colour": "#e5dacb",
+          "time": 35,
+          "ingredients": [
+            [
+              "beef-steak",
+              1150
+            ],
+            [
+              "baby-potato",
+              1200
+            ],
+            [
+              "broccolini",
+              600
+            ],
+            [
+              "butter",
+              75
+            ],
+            [
+              "garlic",
+              6
+            ],
+            [
+              "oil",
+              35
+            ],
+            [
+              "parsley",
+              20
+            ],
+            [
+              "pepper",
+              0.5
+            ],
+            [
+              "salt",
+              0.5
+            ]
+          ],
+          "steps": [
+            [
+              "Roast the potatoes",
+              "Heat oven to 220°C (200°C fan). Cut baby potatoes into bite-sized pieces, coat with 20 ml oil and roast for 25–30 minutes until crisp and tender."
+            ],
+            [
+              "Prep steak",
+              "Pat steak dry, cut into 2–3 cm cubes and season with salt and pepper. Mince garlic and chop parsley."
+            ],
+            [
+              "Cook broccolini",
+              "Trim thick ends, toss with a little oil and roast on a second tray for the last 8–10 minutes, or sauté until lightly charred and tender."
+            ],
+            [
+              "Sear steak bites",
+              "Heat a heavy pan until hot. Sear steak pieces in batches for 2–4 minutes, turning, until browned and cooked to preference. Avoid crowding."
+            ],
+            [
+              "Toss in garlic butter",
+              "Lower heat, add butter and garlic to the pan, cook gently for 30–45 seconds and toss steak in the fragrant butter. Finish with chopped parsley and serve straight away."
+            ]
+          ],
+          "family": "Keep the sauce or toppings separate for anyone who prefers a plainer plate.",
+          "allergens": "Milk (butter).",
+          "nutrition": {
+            "kcal": 820,
+            "protein": 57,
+            "fibre": 8,
+            "note": "Depends on the steak cut and how much garlic butter is eaten."
+          },
+          "prep": {
+            "beef-steak": "2–3 cm cubes",
+            "baby-potato": "bite-sized pieces",
+            "broccolini": "trimmed",
+            "garlic": "minced",
+            "parsley": "chopped"
+          }
+        },
+        "sticky-soy-ginger-salmon": {
+          "serves": 5,
+          "variation": "Adjust meat, starch and vegetables for individual appetites.",
+          "kidJob": "Wash salad vegetables, lay out plates and help mix cold sauces with supervision.",
+          "prepTip": "Prepare vegetables and sauces in advance; refrigerate promptly.",
+          "id": "sticky-soy-ginger-salmon",
+          "title": "Sticky Soy-Ginger Salmon with Rice & Broccoli",
+          "shortTitle": "Sticky Soy-Ginger Salmon with Rice & Broccoli",
+          "subtitle": "Glazed salmon fillets with a glossy honey-soy-ginger sauce, fluffy rice and steamed broccoli.",
+          "cuisine": "Asian-inspired",
+          "art": "nov16-salmon",
+          "colour": "#dcead7",
+          "time": 30,
+          "ingredients": [
+            [
+              "rice",
+              400
+            ],
+            [
+              "broccoli",
+              700
+            ],
+            [
+              "soy",
+              80
+            ],
+            [
+              "honey",
+              65
+            ],
+            [
+              "ginger",
+              30
+            ],
+            [
+              "garlic",
+              4
+            ],
+            [
+              "vinegar",
+              25
+            ],
+            [
+              "sesame-oil",
+              12
+            ],
+            [
+              "sesame-seeds",
+              15
+            ],
+            [
+              "oil",
+              15
+            ]
+          ],
+          "steps": [
+            [
+              "Cook rice",
+              "Start rice according to packet directions. Cut broccoli into small florets for steaming."
+            ],
+            [
+              "Make the glaze",
+              "Mix soy, honey, grated ginger, crushed garlic, vinegar and sesame oil. Keep the sauce in a clean bowl, separate from raw fish."
+            ],
+            [
+              "Cook salmon and chicken separately",
+              "Pat salmon dry. Cook salmon in one pan to your preference. In a separate pan, cook the chicken breast portions until 75°C in the thickest part. Use separate utensils and keep both proteins away from one another."
+            ],
+            [
+              "Glaze",
+              "Pour glaze into a clean small pan and simmer for 2–3 minutes until glossy, then spoon over the cooked salmon. Watch closely because honey caramelises quickly."
+            ],
+            [
+              "Finish",
+              "Steam broccoli for 4–5 minutes until crisp-tender. Serve salmon over rice with broccoli and a scattering of sesame seeds."
+            ]
+          ],
+          "family": "Cook three salmon portions and two chicken breast portions in separate pans for Phoebe and Tobias. Use the same clean glaze and sides; avoid raw fish contact with chicken.",
+          "allergens": "Fish, soy, sesame; possible wheat in soy sauce. Use separate utensils for salmon and chicken to prevent fish cross-contact.",
+          "nutrition": {
+            "kcal": 750,
+            "protein": 49,
+            "fibre": 7,
+            "note": "Salmon-only estimate; chicken swap changes calories and fat."
+          },
+          "prep": {
+            "salmon": "boneless portions",
+            "broccoli": "florets",
+            "ginger": "grated",
+            "garlic": "crushed"
+          },
+          "proteins": {
+            "salmon": [
+              [
+                "salmon",
+                1000
+              ]
+            ],
+            "chicken": [
+              [
+                "chicken",
+                1000
+              ]
+            ],
+            "mixed": [
+              [
+                "salmon",
+                600
+              ],
+              [
+                "chicken",
+                400
+              ]
+            ]
+          },
+          "proteinOptions": {
+            "salmon": "All salmon",
+            "chicken": "All chicken breast",
+            "mixed": "3 salmon + 2 chicken"
+          },
+          "proteinNutrition": {
+            "salmon": {
+              "kcal": 750,
+              "protein": 49,
+              "fibre": 7
+            },
+            "chicken": {
+              "kcal": 640,
+              "protein": 54,
+              "fibre": 7
+            },
+            "mixed": {
+              "kcal": 705,
+              "protein": 51,
+              "fibre": 7
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "2026-11-23",
+      "title": "Fresh, colourful dinners — BBQ, air fryer and TM5",
+      "note": "Six family-approved dinners: BBQ beef cheeseburgers, honey-sesame chicken, whole porterhouse with chimichurri, carried-over soy-ginger salmon (chicken for Phoebe and Tobias), BBQ chicken loaded potatoes and coriander-free Vietnamese chicken salad. Plenty of fresh vegetables and a lighter option for the mini-cut.",
+      "meals": [
+        {
+          "day": "Monday",
+          "recipe": "bbq-beef-cheeseburgers-nov23"
+        },
+        {
+          "day": "Tuesday",
+          "recipe": "crispy-honey-sesame-chicken-nov23"
+        },
+        {
+          "day": "Wednesday",
+          "recipe": "porterhouse-chimichurri-nov23"
+        },
+        {
+          "day": "Thursday",
+          "recipe": "sticky-soy-ginger-salmon"
+        },
+        {
+          "day": "Friday",
+          "recipe": "bbq-chicken-bacon-potatoes-nov23"
+        },
+        {
+          "day": "Saturday",
+          "recipe": "vietnamese-chicken-noodle-salad-nov23"
         }
       ]
     }
