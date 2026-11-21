@@ -627,6 +627,56 @@
       "name": "Mayonnaise",
       "unit": "ml",
       "aisle": "Sauces & seasonings"
+    },
+    "bacon": {
+      "name": "Shortcut bacon rashers",
+      "unit": "",
+      "aisle": "Meat & seafood"
+    },
+    "rice-vermicelli": {
+      "name": "Rice vermicelli noodles (dry)",
+      "unit": "g",
+      "aisle": "Rice, pasta & tins"
+    },
+    "peanuts": {
+      "name": "Roasted peanuts",
+      "unit": "g",
+      "aisle": "Pantry check"
+    },
+    "fish-sauce": {
+      "name": "Fish sauce",
+      "unit": "ml",
+      "aisle": "Sauces & seasonings"
+    },
+    "brown-sugar": {
+      "name": "Brown sugar",
+      "unit": "g",
+      "aisle": "Pantry check"
+    },
+    "salad-mix": {
+      "name": "Mixed salad leaves",
+      "unit": "g",
+      "aisle": "Fruit & veg"
+    },
+    "red-onion": {
+      "name": "Red onion",
+      "unit": "",
+      "aisle": "Fruit & veg"
+    },
+    "red-wine-vinegar": {
+      "name": "Red wine vinegar",
+      "unit": "ml",
+      "aisle": "Pantry check"
+    },
+    "chilli-flakes": {
+      "name": "Chilli flakes",
+      "unit": "tsp",
+      "aisle": "Pantry check"
+    },
+    "paprika-smoked": {
+      "name": "Smoked paprika",
+      "unit": "tsp",
+      "aisle": "Pantry check"
     }
   },
   "recipes": [
@@ -4266,10 +4316,6 @@
       "time": 30,
       "ingredients": [
         [
-          "salmon",
-          1000
-        ],
-        [
           "rice",
           400
         ],
@@ -4320,8 +4366,8 @@
           "Mix soy, honey, grated ginger, crushed garlic, vinegar and sesame oil. Keep the sauce in a clean bowl, separate from raw fish."
         ],
         [
-          "Cook salmon",
-          "Pat salmon dry and lightly oil. Pan-sear skin-side down first if skin-on, then turn carefully. Cook until the fish is opaque and flakes easily, or to your preferred safe doneness."
+          "Cook salmon and chicken separately",
+          "Pat salmon dry. Cook salmon in one pan to your preference. In a separate pan, cook the chicken breast portions until 75°C in the thickest part. Use separate utensils and keep both proteins away from one another."
         ],
         [
           "Glaze",
@@ -4332,8 +4378,8 @@
           "Steam broccoli for 4–5 minutes until crisp-tender. Serve salmon over rice with broccoli and a scattering of sesame seeds."
         ]
       ],
-      "family": "Keep sauce on the side if preferred. Offer plain cooked chicken breast instead of salmon for family members who do not eat fish, with the same glaze and sides.",
-      "allergens": "Fish, soy, sesame; possibly wheat/gluten in soy sauce.",
+      "family": "Cook three salmon portions and two chicken breast portions in separate pans for Phoebe and Tobias. Use the same clean glaze and sides; avoid raw fish contact with chicken.",
+      "allergens": "Fish, soy, sesame; possible wheat in soy sauce. Use separate utensils for salmon and chicken to prevent fish cross-contact.",
       "nutrition": {
         "kcal": 750,
         "protein": 49,
@@ -4345,7 +4391,558 @@
         "broccoli": "florets",
         "ginger": "grated",
         "garlic": "crushed"
+      },
+      "proteins": {
+        "salmon": [
+          [
+            "salmon",
+            1000
+          ]
+        ],
+        "chicken": [
+          [
+            "chicken",
+            1000
+          ]
+        ],
+        "mixed": [
+          [
+            "salmon",
+            600
+          ],
+          [
+            "chicken",
+            400
+          ]
+        ]
+      },
+      "proteinOptions": {
+        "salmon": "All salmon",
+        "chicken": "All chicken breast",
+        "mixed": "3 salmon + 2 chicken"
+      },
+      "proteinNutrition": {
+        "salmon": {
+          "kcal": 750,
+          "protein": 49,
+          "fibre": 7
+        },
+        "chicken": {
+          "kcal": 640,
+          "protein": 54,
+          "fibre": 7
+        },
+        "mixed": {
+          "kcal": 705,
+          "protein": 51,
+          "fibre": 7
+        }
       }
+    },
+    {
+      "serves": 5,
+      "variation": "For the mini-cut, favour a lean protein portion, plenty of vegetables and a measured starch/sauce serving. Family members can add extra starch or sauce.",
+      "kidJob": "Help wash vegetables and set out ingredients, with adult supervision.",
+      "prepTip": "Prepare vegetables in advance and refrigerate until needed.",
+      "family": "Serve sauces and toppings separately for anyone who prefers plainer flavours.",
+      "nutrition": {
+        "kcal": 710,
+        "protein": 51,
+        "fibre": 6,
+        "note": "One burger with 200 g raw lean mince and side salad; bun and sauce brands vary."
+      },
+      "id": "bbq-beef-cheeseburgers-nov23",
+      "title": "BBQ Beef Cheeseburgers with Salad",
+      "shortTitle": "BBQ Beef Cheeseburgers with Salad",
+      "subtitle": "Homemade beef patties grilled on the BBQ, melted cheese, lettuce, tomato and pickles in toasted buns, with extra garden salad.",
+      "cuisine": "BBQ favourites",
+      "art": "nov23-burgers",
+      "colour": "#ead4bb",
+      "time": 30,
+      "ingredients": [
+        [
+          "beef",
+          1000
+        ],
+        [
+          "burger-buns",
+          5
+        ],
+        [
+          "cheese-slices",
+          5
+        ],
+        [
+          "lettuce",
+          1
+        ],
+        [
+          "tomato",
+          400
+        ],
+        [
+          "cucumber",
+          2
+        ],
+        [
+          "pickles",
+          1
+        ],
+        [
+          "burger-sauce",
+          110
+        ],
+        [
+          "salad-mix",
+          180
+        ],
+        [
+          "worcestershire",
+          15
+        ],
+        [
+          "onion",
+          1
+        ],
+        [
+          "oil",
+          10
+        ]
+      ],
+      "steps": [
+        [
+          "Shape patties",
+          "Combine lean beef mince with finely grated onion, Worcestershire and pepper; form five even patties about 2 cm thick. Refrigerate until ready."
+        ],
+        [
+          "Prep garden salad",
+          "Wash and dry mixed leaves and lettuce. Slice tomatoes and cucumbers; put pickles and burger sauce into separate bowls."
+        ],
+        [
+          "BBQ the patties",
+          "Preheat the BBQ to medium-high. Lightly oil the grill or plate. Cook patties until browned and cooked through to 75°C in the centre, turning once or as needed. Add cheese just before removing."
+        ],
+        [
+          "Toast buns",
+          "Toast bun cut sides briefly on the BBQ, watching they do not burn."
+        ],
+        [
+          "Build and serve",
+          "Add lettuce, beef, cheese, tomato, pickles and a little sauce. Serve remaining salad leaves, cucumber and tomato on the side."
+        ]
+      ],
+      "allergens": "Wheat/gluten in buns; milk in cheese; egg and mustard possible in burger sauce; check Worcestershire for fish.",
+      "prep": {
+        "beef": "lean mince",
+        "onion": "finely grated",
+        "lettuce": "washed",
+        "tomato": "sliced",
+        "cucumber": "sliced"
+      }
+    },
+    {
+      "serves": 5,
+      "variation": "For the mini-cut, favour a lean protein portion, plenty of vegetables and a measured starch/sauce serving. Family members can add extra starch or sauce.",
+      "kidJob": "Help wash vegetables and set out ingredients, with adult supervision.",
+      "prepTip": "Prepare vegetables in advance and refrigerate until needed.",
+      "family": "Serve sauces and toppings separately for anyone who prefers plainer flavours.",
+      "nutrition": {
+        "kcal": 720,
+        "protein": 56,
+        "fibre": 8,
+        "note": "Air-frying uses less oil than deep frying; exact calories depend on glaze and rice portions."
+      },
+      "id": "crispy-honey-sesame-chicken-nov23",
+      "title": "Crispy Honey-Sesame Chicken with Rice & Vegetables",
+      "shortTitle": "Crispy Honey-Sesame Chicken with Rice & Vegetables",
+      "subtitle": "Air-fried crispy chicken breast tossed through a sweet sesame glaze with rice, broccoli, carrot and capsicum.",
+      "cuisine": "Asian-inspired",
+      "art": "nov23-sesame-chicken",
+      "colour": "#e8dfb9",
+      "time": 35,
+      "ingredients": [
+        [
+          "chicken",
+          1100
+        ],
+        [
+          "rice",
+          400
+        ],
+        [
+          "broccoli",
+          450
+        ],
+        [
+          "carrot",
+          3
+        ],
+        [
+          "capsicum",
+          2
+        ],
+        [
+          "cornflour",
+          75
+        ],
+        [
+          "egg",
+          2
+        ],
+        [
+          "soy",
+          65
+        ],
+        [
+          "honey",
+          55
+        ],
+        [
+          "sesame-oil",
+          12
+        ],
+        [
+          "sesame-seeds",
+          22
+        ],
+        [
+          "vinegar",
+          25
+        ],
+        [
+          "oil",
+          18
+        ],
+        [
+          "ginger",
+          12
+        ]
+      ],
+      "steps": [
+        [
+          "Rice and vegetables",
+          "Cook rice as directed. Slice capsicum and carrot, and cut broccoli into small florets."
+        ],
+        [
+          "Coat chicken",
+          "Dice chicken breast into even 3 cm pieces. Toss with beaten egg, then shake in cornflour in batches. Mist lightly with oil."
+        ],
+        [
+          "Air fry in batches",
+          "Air fry chicken at 195°C for approximately 12–16 minutes, turning or shaking halfway, until crisp and 75°C in the centre. Do not crowd the basket."
+        ],
+        [
+          "Make glaze",
+          "Simmer soy, honey, vinegar, ginger, sesame oil and a splash of water in a small pan for 2–3 minutes. Toss through cooked chicken just before serving and sprinkle with sesame seeds."
+        ],
+        [
+          "Steam and plate",
+          "Steam broccoli, carrot and capsicum until tender-crisp. Serve glazed chicken over rice with a generous helping of vegetables."
+        ]
+      ],
+      "allergens": "Egg, soy, sesame; potentially wheat/gluten in soy sauce."
+    },
+    {
+      "serves": 5,
+      "variation": "For the mini-cut, favour a lean protein portion, plenty of vegetables and a measured starch/sauce serving. Family members can add extra starch or sauce.",
+      "kidJob": "Help wash vegetables and set out ingredients, with adult supervision.",
+      "prepTip": "Prepare vegetables in advance and refrigerate until needed.",
+      "family": "Serve sauces and toppings separately for anyone who prefers plainer flavours.",
+      "nutrition": {
+        "kcal": 670,
+        "protein": 52,
+        "fibre": 8,
+        "note": "Estimate based on a moderate lean steak portion; fat varies by cut and chimichurri oil."
+      },
+      "id": "porterhouse-chimichurri-nov23",
+      "title": "BBQ Porterhouse Steak with Chimichurri, Potatoes & Garden Salad",
+      "shortTitle": "BBQ Porterhouse Steak with Chimichurri, Potatoes & Garden Salad",
+      "subtitle": "Whole BBQ porterhouse steaks, golden air-fried baby potatoes and a generous cucumber, tomato and leafy garden salad.",
+      "cuisine": "BBQ & fresh",
+      "art": "nov23-steak",
+      "colour": "#dcd8c5",
+      "time": 35,
+      "ingredients": [
+        [
+          "beef-steak",
+          1100
+        ],
+        [
+          "baby-potato",
+          1000
+        ],
+        [
+          "salad-mix",
+          250
+        ],
+        [
+          "cucumber",
+          2
+        ],
+        [
+          "tomato",
+          400
+        ],
+        [
+          "capsicum",
+          1
+        ],
+        [
+          "red-onion",
+          1
+        ],
+        [
+          "parsley",
+          1
+        ],
+        [
+          "red-wine-vinegar",
+          40
+        ],
+        [
+          "oil",
+          55
+        ],
+        [
+          "oregano",
+          1
+        ],
+        [
+          "chilli-flakes",
+          0.25
+        ],
+        [
+          "salt",
+          0.5
+        ],
+        [
+          "pepper",
+          0.5
+        ]
+      ],
+      "steps": [
+        [
+          "Air-fry potatoes",
+          "Halve baby potatoes and toss with 20 ml olive oil and pepper. Air fry at 200°C for 20–25 minutes, shaking halfway."
+        ],
+        [
+          "Make light chimichurri",
+          "Finely chop parsley and combine with red wine vinegar, 25 ml olive oil, oregano, a little chilli and water to loosen. Keep garlic out and offer it separately if wanted."
+        ],
+        [
+          "Prepare salad",
+          "Wash mixed leaves, slice cucumber, capsicum, red onion and tomato. Toss lightly with remaining vinegar; serve dressing on the side."
+        ],
+        [
+          "BBQ whole steaks",
+          "Pat porterhouse dry, season and grill whole steaks on a hot BBQ. Turn to develop colour and cook to desired doneness; rest for 5 minutes before serving."
+        ],
+        [
+          "Serve",
+          "Plate whole or sliced steak with chimichurri on the side, crisp potatoes and a generous salad. For a lighter plate, use a smaller steak and potato portion."
+        ]
+      ],
+      "allergens": "No major allergens in basic ingredients; confirm packaged dressings if substituted."
+    },
+    {
+      "serves": 5,
+      "variation": "For the mini-cut, favour a lean protein portion, plenty of vegetables and a measured starch/sauce serving. Family members can add extra starch or sauce.",
+      "kidJob": "Help wash vegetables and set out ingredients, with adult supervision.",
+      "prepTip": "Prepare vegetables in advance and refrigerate until needed.",
+      "family": "Serve sauces and toppings separately for anyone who prefers plainer flavours.",
+      "nutrition": {
+        "kcal": 760,
+        "protein": 58,
+        "fibre": 10,
+        "note": "Family serving includes 300 g potato. For the mini-cut use a smaller potato and light dairy toppings."
+      },
+      "id": "bbq-chicken-bacon-potatoes-nov23",
+      "title": "BBQ Chicken & Bacon Loaded Potatoes with Side Salad",
+      "shortTitle": "BBQ Chicken & Bacon Loaded Potatoes with Side Salad",
+      "subtitle": "Air-fried jacket potatoes loaded with juicy BBQ chicken breast, crispy bacon, cheese, yoghurt-sour cream and spring onion.",
+      "cuisine": "Family favourites",
+      "art": "nov23-potatoes",
+      "colour": "#e7dbc6",
+      "time": 45,
+      "ingredients": [
+        [
+          "potato",
+          1500
+        ],
+        [
+          "chicken",
+          950
+        ],
+        [
+          "bacon",
+          5
+        ],
+        [
+          "cheddar",
+          130
+        ],
+        [
+          "sour-cream",
+          150
+        ],
+        [
+          "yoghurt",
+          150
+        ],
+        [
+          "bbq",
+          85
+        ],
+        [
+          "spring-onion",
+          3
+        ],
+        [
+          "salad-mix",
+          250
+        ],
+        [
+          "cucumber",
+          2
+        ],
+        [
+          "tomato",
+          350
+        ],
+        [
+          "oil",
+          18
+        ],
+        [
+          "paprika-smoked",
+          1
+        ]
+      ],
+      "steps": [
+        [
+          "Start jacket potatoes",
+          "Prick potatoes, rub with a little oil and air fry at 195–200°C for 35–45 minutes depending on size, turning halfway, until a knife slides through easily. Cook in batches as needed."
+        ],
+        [
+          "Cook the chicken",
+          "Cut chicken breast into strips. Toss with a little smoked paprika and pan-cook or grill until 75°C inside; fold through barbecue sauce after cooking."
+        ],
+        [
+          "Crisp bacon",
+          "Cook bacon in a frying pan until browned and crisp. Drain excess fat and chop."
+        ],
+        [
+          "Prepare salad and topping",
+          "Mix Greek yoghurt and sour cream. Slice spring onion, cucumber and tomato. Toss the vegetables with mixed leaves just before serving."
+        ],
+        [
+          "Load and serve",
+          "Split cooked potatoes, fluff the flesh with a fork, pile on BBQ chicken, cheddar and bacon, and briefly melt cheese in the air fryer if required. Add yoghurt-sour cream and spring onion; serve salad alongside."
+        ]
+      ],
+      "allergens": "Milk (cheese, yoghurt, sour cream), and possible allergens in BBQ sauce; check bacon and sauce labels."
+    },
+    {
+      "serves": 5,
+      "variation": "For the mini-cut, favour a lean protein portion, plenty of vegetables and a measured starch/sauce serving. Family members can add extra starch or sauce.",
+      "kidJob": "Help wash vegetables and set out ingredients, with adult supervision.",
+      "prepTip": "Prepare vegetables in advance and refrigerate until needed.",
+      "family": "No coriander at all. Serve peanuts and dressing separately; kids can have plain chicken and noodles.",
+      "nutrition": {
+        "kcal": 550,
+        "protein": 48,
+        "fibre": 6,
+        "note": "Lean chicken and vegetable-heavy bowl; calorie estimate varies by noodle and peanut portions."
+      },
+      "id": "vietnamese-chicken-noodle-salad-nov23",
+      "title": "Vietnamese Chicken Noodle Salad — No Coriander",
+      "shortTitle": "Vietnamese Chicken Noodle Salad — No Coriander",
+      "subtitle": "Fresh grilled chicken breast, rice vermicelli, cucumber, carrot and lettuce with peanuts and a light Vietnamese-style dressing. No coriander.",
+      "cuisine": "Vietnamese-inspired",
+      "art": "nov23-viet-salad",
+      "colour": "#d9ead3",
+      "time": 30,
+      "ingredients": [
+        [
+          "chicken",
+          1050
+        ],
+        [
+          "rice-vermicelli",
+          320
+        ],
+        [
+          "lettuce",
+          1
+        ],
+        [
+          "cucumber",
+          3
+        ],
+        [
+          "carrot",
+          4
+        ],
+        [
+          "salad-mix",
+          150
+        ],
+        [
+          "peanuts",
+          70
+        ],
+        [
+          "fish-sauce",
+          45
+        ],
+        [
+          "lime",
+          3
+        ],
+        [
+          "vinegar",
+          40
+        ],
+        [
+          "brown-sugar",
+          35
+        ],
+        [
+          "soy",
+          25
+        ],
+        [
+          "oil",
+          20
+        ],
+        [
+          "ginger",
+          10
+        ]
+      ],
+      "steps": [
+        [
+          "Prepare dressing",
+          "Stir fish sauce, lime juice, rice vinegar, brown sugar, soy and 80 ml cold water until dissolved. Add a little ginger if desired; no coriander or mint."
+        ],
+        [
+          "Cook noodles",
+          "Soak or cook rice vermicelli following the packet instructions. Rinse briefly with cool water, drain well and refrigerate if not serving straight away."
+        ],
+        [
+          "Prepare fresh vegetables",
+          "Shred lettuce, julienne carrots and cucumbers, wash mixed leaves and portion peanuts in a separate bowl."
+        ],
+        [
+          "Grill chicken",
+          "Thinly slice chicken breast into even fillets. Brush with oil and grill on the BBQ or fry in a hot pan until browned and 75°C in the centre. Rest, then slice into strips."
+        ],
+        [
+          "Assemble bowls",
+          "Layer plenty of lettuce and fresh vegetables with a portion of vermicelli and sliced chicken. Scatter peanuts (unless allergic), and let everyone add dressing to taste."
+        ]
+      ],
+      "allergens": "Fish (fish sauce), soy, peanuts; possible wheat/gluten in soy sauce. Use a suitable alternative dressing where needed."
     }
   ]
 }
